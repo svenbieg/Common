@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Data">
+      <UniqueIdentifier>{98c85af4-6e97-43ff-87af-efa2ee71c586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{35df9fb8-322a-4932-a58e-91c7432c1835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Http">
+      <UniqueIdentifier>{1acf1a86-20a2-4468-bded-dede0707d3df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Web">
+      <UniqueIdentifier>{2c29bec8-b2fc-4ca2-95f4-cc27668741f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Web\Controls">
+      <UniqueIdentifier>{e2e62488-4a67-42b3-8b93-c70af05a5fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Web\Controls\Tables">
+      <UniqueIdentifier>{c94ffb36-64b8-4fd3-a818-ff07f82dd8f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Udp">
+      <UniqueIdentifier>{7cc6e766-1502-4bb8-97a5-a81b7849cc44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{5502bb40-c358-4bf7-bb41-ed12e09fded1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{5654f288-b14c-4236-b8f9-e740e8a4fa40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{f197aa76-a57f-4b38-94d6-69f1edd7e58d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Culture">
+      <UniqueIdentifier>{020d3854-3e9a-40ce-b361-d43784d3fe3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage">
+      <UniqueIdentifier>{ec46805c-3e8a-4815-8aa0-f4d76e7e45a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Xml">
+      <UniqueIdentifier>{ed94509d-cb41-4817-ae6a-248eb163f499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{4917b689-5b6b-4c7c-8a1e-d58c1ddd9bb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Emulation">
+      <UniqueIdentifier>{2191479b-ea1e-4e8a-91e4-42fec4303234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Emulation\Fonts">
+      <UniqueIdentifier>{ab82eda9-03aa-4b6a-a468-7c783a05418c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Displays">
+      <UniqueIdentifier>{d1b695d2-874e-4a8f-bdeb-f85a40b00708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Input">
+      <UniqueIdentifier>{1ea9fdce-b3db-4855-83d7-1062e9fd66d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{f3124327-08f8-444c-a79e-be7a6dd7f4fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Controls">
+      <UniqueIdentifier>{26e65592-19ed-4cc5-aee7-84b2cdb3afaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Smtp">
+      <UniqueIdentifier>{1de9d49c-cd2f-4cd4-89fe-20ed922807f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Streams">
+      <UniqueIdentifier>{0b51d0aa-10c0-469a-bfa4-d743e2bce039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices\Storage">
+      <UniqueIdentifier>{b6580fd2-780d-4163-85b2-58f70b98dc9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Database">
+      <UniqueIdentifier>{1a52c107-3f8f-4504-b011-a7876fdc7461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Virtual">
+      <UniqueIdentifier>{9f32ef27-c2a7-476c-a351-c68d56aa999f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Collections">
+      <UniqueIdentifier>{da502a80-1977-44d8-bbd2-940072147bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Database\Entries">
+      <UniqueIdentifier>{1d0f1565-06f5-4e1f-85b7-c189de86ac5c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Data\Axis.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Button.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Caption.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Container.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Control.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\EditBox.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Form.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Graph.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Cell.cpp">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Column.cpp">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Table.cpp">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Row.cpp">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\HyperLink.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Interactive.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Label.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\LogBox.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Paragraph.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\TextBlock.cpp">
+      <Filter>Web\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\WebPage.cpp">
+      <Filter>Web</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\HostAddress.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\IpAddress.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpHelper.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpRequest.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpResponse.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Udp\UdpMessage.cpp">
+      <Filter>Network\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Connection.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpClient.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpConnection.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Update.cpp">
+      <Filter>Web</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpServer.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Color.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Data\Row.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimePoint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Energy.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Flow.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Power.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Temperature.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp">
+      <Filter>Culture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.cpp">
+      <Filter>Storage\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Clock.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Bitmap.cpp">
+      <Filter>Graphics\Emulation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Font.cpp">
+      <Filter>Graphics\Emulation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\SmallFont.cpp">
+      <Filter>Graphics\Emulation\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\TinyFont.cpp">
+      <Filter>Graphics\Emulation\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\PacketBuffer.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\ColorVariable.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Window.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Container.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Control.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Grid.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Interactive.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Label.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\TextBlock.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DeviceContext.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Canvas.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Bitmap.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Button.cpp">
+      <Filter>Core\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Directory.cpp">
+      <Filter>Web</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Pressure.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Humidity.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Directory.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\AppData.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\DirectoryIterator.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Convertible.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\File.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpMessage.cpp">
+      <Filter>Network\Http</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PathHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Buffer.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Streams\MemoryStream.cpp">
+      <Filter>Storage\Streams</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Storage\BlockDevice.cpp">
+      <Filter>Devices\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Database.cpp">
+      <Filter>Storage\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Directory.cpp">
+      <Filter>Storage\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\File.cpp">
+      <Filter>Storage\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp">
+      <Filter>Storage\Virtual</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\DirectoryIterator.cpp">
+      <Filter>Storage\Virtual</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Collections\Log.cpp">
+      <Filter>Storage\Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Collections\LogEntry.cpp">
+      <Filter>Storage\Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Collections\Settings.cpp">
+      <Filter>Storage\Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\Entry.cpp">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\FileEntry.cpp">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\DirectoryEntry.cpp">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Storage\DeviceBuffer.cpp">
+      <Filter>Devices\Storage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Data\Axis.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Button.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Caption.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Container.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Control.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\EditBox.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Form.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Graph.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Cell.h">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Column.h">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Table.h">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Row.h">
+      <Filter>Web\Controls\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\HyperLink.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Interactive.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Label.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\LogBox.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Paragraph.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\TextBlock.h">
+      <Filter>Web\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\WebPage.h">
+      <Filter>Web</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\HostAddress.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\IpAddress.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpHelper.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpRequest.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpResponse.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Udp\UdpMessage.h">
+      <Filter>Network\Udp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Connection.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpClient.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpConnection.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Update.h">
+      <Filter>Web</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpServer.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Color.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Point.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Rect.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Size.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Data\Row.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimePoint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Energy.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Flow.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Power.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Temperature.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h">
+      <Filter>Culture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.h">
+      <Filter>Storage\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Clock.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Bitmap.h">
+      <Filter>Graphics\Emulation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Font.h">
+      <Filter>Graphics\Emulation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\SmallFont.h">
+      <Filter>Graphics\Emulation\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\TinyFont.h">
+      <Filter>Graphics\Emulation\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\PacketBuffer.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\ColorVariable.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Input\VirtualKey.h">
+      <Filter>Devices\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Window.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Container.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Control.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Grid.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Interactive.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Label.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\TextBlock.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Font.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DeviceContext.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Bitmap.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Canvas.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Button.h">
+      <Filter>Core\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Smtp\Email.h">
+      <Filter>Network\Smtp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Directory.h">
+      <Filter>Web</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Pressure.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Humidity.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Directory.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\File.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\AppData.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Workspace.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\DirectoryIterator.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Convertible.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpMessage.h">
+      <Filter>Network\Http</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PathHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Variable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VariableHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Platform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoolClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CharClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FloatClasses.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Guid.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IntegerClasses.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Buffer.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Streams\MemoryStream.h">
+      <Filter>Storage\Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls.h">
+      <Filter>Web</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Storage\BlockDevice.h">
+      <Filter>Devices\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Database.h">
+      <Filter>Storage\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Directory.h">
+      <Filter>Storage\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\File.h">
+      <Filter>Storage\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.h">
+      <Filter>Storage\Virtual</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\DirectoryIterator.h">
+      <Filter>Storage\Virtual</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\Log.h">
+      <Filter>Storage\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\LogEntry.h">
+      <Filter>Storage\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\Settings.h">
+      <Filter>Storage\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\Vector.h">
+      <Filter>Storage\Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\Entry.h">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\FileEntry.h">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\DirectoryEntry.h">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Storage\DeviceBuffer.h">
+      <Filter>Devices\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\FileHelper.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\EntryType.h">
+      <Filter>Storage\Database\Entries</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Configuration\Default.targets">
+      <Filter>Configuration</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Configuration\Default.props">
+      <Filter>Configuration</Filter>
+    </None>
+  </ItemGroup>
+</Project>

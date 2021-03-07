@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{D271C7DA-290C-4BB4-AC24-C6839882861A}</ItemsProjectGuid>
+    <ItemsSccProjectName>$/Shared/Common</ItemsSccProjectName>
+    <ItemsSccAuxPath>https://svenbieg.visualstudio.com</ItemsSccAuxPath>
+    <ItemsSccLocalPath>.</ItemsSccLocalPath>
+    <ItemsSccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</ItemsSccProvider>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Convertible.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Button.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Canvas.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Container.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Control.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Grid.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Interactive.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\Label.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Controls\TextBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Window.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Data\Axis.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Data\Row.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Clock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Storage\BlockDevice.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Storage\DeviceBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Bitmap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Color.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\ColorVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DeviceContext.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Bitmap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Font.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\SmallFont.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\TinyFont.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Connection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\HostAddress.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpClient.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpConnection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpMessage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpRequest.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpResponse.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Http\HttpServer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\IpAddress.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Udp\UdpMessage.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PathHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Energy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Flow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Humidity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Power.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Pressure.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\Temperature.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimePoint.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\AppData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Buffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Collections\Log.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Collections\LogEntry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Collections\Settings.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Database.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Directory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\DirectoryEntry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\Entry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\FileEntry.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Database\File.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Directory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\DirectoryIterator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\File.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\PacketBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Streams\MemoryStream.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\DirectoryIterator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Button.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Caption.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Container.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Control.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\EditBox.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Form.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Graph.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\HyperLink.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Interactive.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Label.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\LogBox.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Paragraph.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Cell.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Column.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Row.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Table.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Controls\TextBlock.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Directory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\Update.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Web\WebPage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoolClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CharClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Convertible.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Button.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Canvas.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Container.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Control.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Grid.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Interactive.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\Label.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Controls\TextBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Window.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Data\Axis.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Data\Row.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Clock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Input\VirtualKey.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Storage\BlockDevice.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Storage\DeviceBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FloatClasses.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Bitmap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Color.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\ColorVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DeviceContext.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Bitmap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Font.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\SmallFont.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Emulation\Fonts\TinyFont.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Font.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Point.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Rect.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Size.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Guid.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IntegerClasses.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Connection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\HostAddress.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpConnection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpMessage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpRequest.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpResponse.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Http\HttpServer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\IpAddress.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Smtp\Email.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Udp\UdpMessage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PathHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Energy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Flow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Humidity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Power.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Pressure.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\Temperature.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimePoint.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Platform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\AppData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Buffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\Log.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\LogEntry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\Settings.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Collections\Vector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Database.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Directory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\DirectoryEntry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\Entry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\EntryType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\Entries\FileEntry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Database\File.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Directory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\DirectoryIterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\File.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\FileHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\PacketBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Streams\MemoryStream.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\DirectoryIterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Workspace.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Variable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VariableHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Button.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Caption.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Container.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Control.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\EditBox.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Form.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Graph.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\HyperLink.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Interactive.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Label.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\LogBox.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Paragraph.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Cell.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Column.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Row.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\Tables\Table.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Controls\TextBlock.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Directory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\WebPage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Web\Update.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Configuration\Default.props" />
+    <None Include="$(MSBuildThisFileDirectory)Configuration\Default.targets" />
+  </ItemGroup>
+</Project>

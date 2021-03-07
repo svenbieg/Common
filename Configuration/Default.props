@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)Default\Configuration\Default.props" />
+  <PropertyGroup>
+    <!-- Directories -->
+    <GitPath>C:\Program Files\Git\cmd\</GitPath>
+    <NinjaPath>$(VSAPPIDDIR)CommonExtensions\Microsoft\CMake\Ninja\</NinjaPath>
+    <PythonPath>$(HomePath)AppData\Local\Programs\Python\Python38\</PythonPath>
+    <!-- Tools -->
+    <GitExe>$(GitPath)git.exe</GitExe>
+    <NinjaExe>$(NinjaPath)ninja.exe</NinjaExe>
+    <NodeJsExe>$(MSBuildToolsRoot)\Microsoft\VisualStudio\NodeJS\node.exe</NodeJsExe>
+    <PythonExe>$(PythonPath)python.exe</PythonExe>
+  </PropertyGroup>
+</Project>

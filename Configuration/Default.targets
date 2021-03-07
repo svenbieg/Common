@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="GitInstall" Condition="!Exists($(GitExe))">
+    <Message Text="Installing Git..." Importance="High" />
+    <DownloadFile SourceUrl="https://github.com/git-for-windows/git/releases/download/v2.23.0.windows.1/Git-2.23.0-64-bit.exe" DestinationFolder="$(TEMP)" Condition="!Exists('$(TEMP)\\Git-2.23.0-64-bit.exe')" />
+    <Exec Command="Git-2.23.0-64-bit.exe" WorkingDirectory="$(TEMP)" />
+  </Target>
+  <Target Name="PythonInstall" Condition="!Exists('$(PythonExe)')">
+    <Message Text="Installing Python..." Importance="High" />
+    <DownloadFile SourceUrl="https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64-webinstall.exe" DestinationFolder="$(TEMP)" Condition="!Exists('$(TEMP)\\python-3.8.0-amd64-webinstall.exe')" />
+    <Exec Command="python-3.8.0-amd64-webinstall.exe" WorkingDirectory="$(TEMP)" />
+  </Target>
+  <UsingTask TaskName="ProjectCommonBuildTask" AssemblyFile="$(VCTargetsPath)Microsoft.Build.CppTasks.Common.dll" />
+  <Target Name="CompileCustomFiles" Condition="'@(CustomBuild)'!=''">
+    <Message Text="Compiling Custom Files..." Importance="High" />
+    <ItemGroup>
+      <TypeScriptList Include="C:\Program Files (x86)\Microsoft SDKs\TypeScript\**\tsc.js" />
+    </ItemGroup>
+    <PropertyGroup>
+      <TypeScriptJs>@(TypeScriptList)</TypeScriptJs>
+    </PropertyGroup>
+    <ItemGroup>
+      <CustomBuild>
+        <Message>%(FileName)%(Extension)</Message>
+        <Command Condition="'%(Extension)'=='.css'">$(TextStrExe) %(FullPath) %(FullPath).h %(FileName)Style</Command>
+        <Outputs Condition="'%(Extension)'=='.css'">%(FullPath).h</Outputs>
+        <Command Condition="'%(Extension)'=='.ts'">
+          %22$(NodeJsExe)%22 %22$(TypeScriptJs)%22 %(FullPath)
+          $(TextStrExe) %(RelativeDir)%(FileName).js %(RelativeDir)%(FileName).js.h %(FileName)Script
+        </Command>
+        <Outputs Condition="'%(Extension)'=='.ts'">%(RelativeDir)%(FileName).js.h</Outputs>
+      </CustomBuild>
+    </ItemGroup>
+    <CustomBuild Sources="@(CustomBuild)" />
+  </Target>
+</Project>
