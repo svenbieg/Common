@@ -34,11 +34,13 @@ public:
 	FileEntry(Handle<Database> Database, UINT64 Offset);
 
 	// Common
-	BOOL Create(FileCreateMode Create, FileAccessMode Access, FileShareMode Share);
-	VOID Destroy(FileShareMode Share);
+	UINT64 Available(UINT64 Offset);
+	VOID Close(FileShareMode Share);
 	VOID Flush();
 	UINT64 GetSize();
+	BOOL Open(FileAccessMode Access, FileShareMode Share);
 	SIZE_T Read(UINT64 Offset, VOID* Buffer, SIZE_T Size);
+	BOOL Seek(UINT64 Offset);
 	BOOL SetSize(UINT64 Size);
 	SIZE_T Write(UINT64 Offset, VOID const* Buffer, SIZE_T Size);
 

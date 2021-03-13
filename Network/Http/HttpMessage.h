@@ -35,7 +35,7 @@ protected:
 	using Intermediate=Storage::Intermediate;
 	using FileSize=Storage::FileSize;
 	using OutputStream=Storage::Streams::OutputStream;
-	using PropertyMap=Collections::Map<Handle<String>, Handle<String>, 8>;
+	using PropertyMap=::Collections::Map<Handle<String>, Handle<String>, 8>;
 
 public:
 	// Common

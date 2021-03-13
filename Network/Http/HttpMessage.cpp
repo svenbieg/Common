@@ -29,9 +29,13 @@ namespace Network {
 
 VOID HttpMessage::Clear()
 {
+Content=nullptr;
+ContentType=nullptr;
 KeepAlive=false;
 Properties->Clear();
 Status=HttpStatus::Ok;
+hHeader=nullptr;
+uPosition=0;
 }
 
 
@@ -42,34 +46,42 @@ Status=HttpStatus::Ok;
 SIZE_T HttpMessage::Available()
 {
 UpdateHeader();
-UINT64 usize=hHeader->GetSize();
+UINT64 size=hHeader->GetSize();
 if(Content)
-	usize+=Content->GetSize();
-return (SIZE_T)MIN(usize-uPosition, 0xFFFFFFFF);
+	size+=Content->GetSize();
+UINT64 available=size-uPosition;
+if(available>MAX_SIZE_T)
+	return MAX_SIZE_T;
+return (SIZE_T)available;
 }
 
-SIZE_T HttpMessage::Read(VOID* pbufv, SIZE_T usize)
+SIZE_T HttpMessage::Read(VOID* pbufv, SIZE_T size)
 {
 UpdateHeader();
-UINT64 uheader=hHeader->GetSize();
-SIZE_T upos=0;
-if(uPosition<uheader)
+UINT64 header=hHeader->GetSize();
+SIZE_T pos=0;
+if(uPosition<header)
 	{
 	hHeader->Seek(uPosition);
-	upos=hHeader->Read(pbufv, usize);
-	uPosition+=upos;
+	pos=hHeader->Read(pbufv, size);
+	uPosition+=pos;
 	}
-if(upos==usize)
-	return upos;
+if(pos==size)
+	return pos;
 if(!Content)
-	return upos;
+	return pos;
 BYTE* pbuf=(BYTE*)pbufv;
-UINT64 ucontent=uPosition-uheader;
-Content->Seek(ucontent);
-SIZE_T uread=Content->Read(&pbuf[upos], usize-upos);
-upos+=uread;
-uPosition+=uread;
-return upos;
+UINT64 content_size=Content->GetSize();
+UINT64 content_pos=uPosition-header;
+UINT64 available=content_size-content_pos;
+SIZE_T copy=(SIZE_T)MIN(available, size-pos);
+if(!copy)
+	return pos;
+Content->Seek(content_pos);
+SIZE_T read=Content->Read(&pbuf[pos], copy);
+pos+=read;
+uPosition+=read;
+return pos;
 }
 
 
@@ -93,18 +105,18 @@ return 0;
 FileSize HttpMessage::GetSize()
 {
 UpdateHeader();
-UINT64 usize=hHeader->GetSize();
+UINT64 size=hHeader->GetSize();
 if(Content)
-	usize+=Content->GetSize();
-return usize;
+	size+=Content->GetSize();
+return size;
 }
 
-BOOL HttpMessage::Seek(UINT64 upos)
+BOOL HttpMessage::Seek(UINT64 pos)
 {
-UINT64 usize=GetSize();
-if(upos>=usize)
+UINT64 size=GetSize();
+if(pos>=size)
 	return false;
-uPosition=upos;
+uPosition=pos;
 return true;
 }
 

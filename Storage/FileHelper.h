@@ -31,6 +31,7 @@ CreateNew
 
 enum class FileAccessMode
 {
+None,
 ReadOnly,
 ReadWrite
 };

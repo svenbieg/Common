@@ -39,19 +39,19 @@ uAccessCount(0)
 // Common Private
 //================
 
-VOID Entry::Create()
-{
-if(uAccessCount==0)
-	hDatabase->hEntryMap->Add(uOffset, this);
-uAccessCount++;
-}
-
-VOID Entry::Destroy()
+VOID Entry::Close()
 {
 if(uAccessCount>0)
 	uAccessCount--;
 if(uAccessCount==0)
 	hDatabase->hEntryMap->Remove(uOffset);
+}
+
+VOID Entry::Open()
+{
+if(uAccessCount==0)
+	hDatabase->hEntryMap->Add(uOffset, this);
+uAccessCount++;
 }
 
 }}}

@@ -39,14 +39,18 @@ hFile=happ->AppData->CreateFile(hpath, FileCreateMode::OpenAlways, FileAccessMod
 if(!hFile)
 	return;
 StreamReader reader(hFile);
+SIZE_T pos=0;
 while(1)
 	{
-	hLastEntry=new LogEntry();
-	SIZE_T entry_size=hLastEntry->ReadFromStream(hFile);
+	Handle<LogEntry> hentry=new LogEntry();
+	SIZE_T entry_size=hentry->ReadFromStream(hFile);
 	if(!entry_size)
 		break;
-	Append(hLastEntry);
+	pos+=entry_size;
+	Append(hentry);
+	hLastEntry=hentry;
 	}
+hFile->SetSize(pos);
 Changed.Add(this, &Log::OnChanged);
 }
 
@@ -91,25 +95,38 @@ Application::Current->Loop.AddProc(this, &Log::OnLoop);
 VOID Log::OnLoop()
 {
 bChanged=false;
-Handle<LogEntry> hentry=GetFirst();
 if(hLastEntry)
-	hentry=hLastEntry->GetNext();
-UINT64 size=hFile->GetSize();
-SIZE_T entry_size=WriteEntries(nullptr, hentry);
-if(size+entry_size>2048)
 	{
-	hFile->SetSize(0);
-	hentry=GetFirst();
-	while(size+entry_size>2048)
+	Handle<LogEntry> hentry=hLastEntry->GetNext();
+	if(!hentry)
+		return;
+	UINT64 size=hFile->GetSize();
+	SIZE_T entry_size=WriteEntries(nullptr, hentry);
+	if(size+entry_size<2048)
 		{
-		for(UINT u=0; u<5; u++)
-			{
-			Remove(hentry);
-			hentry=GetFirst();
-			}
-		entry_size=WriteEntries(nullptr, hentry);
+		WriteEntries(hFile, hentry);
+		hFile->Flush();
+		hLastEntry=GetLast();
+		return;
 		}
+	hLastEntry=nullptr;
 	}
+Handle<LogEntry> hentry=GetFirst();
+while(WriteEntries(nullptr, hentry)>2048)
+	{
+	for(UINT u=0; u<5; u++)
+		{
+		if(!hentry)
+			break;
+		Remove(hentry);
+		hentry=GetFirst();
+		}
+	if(!hentry)
+		break;
+	}
+hFile->SetSize(0);
+if(!hentry)
+	return;
 WriteEntries(hFile, hentry);
 hFile->Flush();
 hLastEntry=GetLast();
@@ -117,7 +134,6 @@ hLastEntry=GetLast();
 
 VOID Log::OnTimePointChanged(Handle<Variable> hvar)
 {
-hvar->Changed.Remove(this);
 Changed(this);
 }
 
@@ -128,16 +144,7 @@ while(hentry)
 	{
 	if(!hentry||!hentry->Time->IsAbsolute())
 		break;
-	UINT entry_size=(UINT)hentry->WriteToStream(nullptr);
-	if(hstream)
-		{
-		size+=hstream->Write(&entry_size, sizeof(UINT));
-		size+=hentry->WriteToStream(hstream);
-		}
-	else
-		{
-		size+=sizeof(UINT)+entry_size;
-		}
+	size+=hentry->WriteToStream(hstream);
 	hentry=hentry->GetNext();
 	}
 return size;

@@ -46,7 +46,82 @@ uTotalSize(0)
 // Common
 //========
 
-BOOL FileEntry::Create(FileCreateMode create, FileAccessMode access, FileShareMode share)
+UINT64 FileEntry::Available(UINT64 offset)
+{
+ScopedLock lock(cCriticalSection);
+if(uTotalSize==0)
+	return 0;
+if(!hFragmentMap)
+	{
+	auto device=hDatabase->GetDevice();
+	UINT64 dev_size=device->GetSize();
+	UINT block_size=device->GetBlockSize();
+	UINT addr_size=dev_size>MAX_UINT? 8: 4;
+	UINT header_size=sizeof(EntryType)+addr_size;
+	UINT block_free=block_size-header_size;
+	if(offset>=block_free)
+		return 0;
+	return (UINT64)block_free-offset;
+	}
+if(offset>=uSize)
+	return 0;
+return uSize-offset;
+}
+
+VOID FileEntry::Close(FileShareMode share)
+{
+ScopedLock lock(cCriticalSection);
+if(!uTotalSize)
+	return;
+switch(share)
+	{
+	case FileShareMode::Exclusive:
+		{
+		iShareRead++;
+		iShareWrite++;
+		break;
+		}
+	case FileShareMode::ShareRead:
+		{
+		iShareWrite++;
+		break;
+		}
+	default:
+		{
+		break;
+		}
+	}
+Entry::Close();
+}
+
+VOID FileEntry::Flush()
+{
+ScopedLock lock(cCriticalSection);
+if(!uTotalSize)
+	return;
+hDatabase->Flush();
+}
+
+UINT64 FileEntry::GetSize()
+{
+ScopedLock lock(cCriticalSection);
+if(uSize==0)
+	{
+	if(uCurrent==0)
+		{
+		auto device=hDatabase->GetDevice();
+		UINT64 dev_size=device->GetSize();
+		UINT addr_size=dev_size>MAX_UINT? 8: 4;
+		UINT header_size=sizeof(EntryType)+addr_size;
+		if(uBlockPos<=header_size)
+			return 0;
+		return uBlockPos-header_size;
+		}
+	}
+return uSize;
+}
+
+BOOL FileEntry::Open(FileAccessMode access, FileShareMode share)
 {
 ScopedLock lock(cCriticalSection);
 if(iShareRead<0)
@@ -79,48 +154,8 @@ switch(share)
 		break;
 		}
 	}
-Entry::Create();
+Entry::Open();
 return true;
-}
-
-VOID FileEntry::Destroy(FileShareMode share)
-{
-ScopedLock lock(cCriticalSection);
-if(!uTotalSize)
-	return;
-switch(share)
-	{
-	case FileShareMode::Exclusive:
-		{
-		iShareRead++;
-		iShareWrite++;
-		break;
-		}
-	case FileShareMode::ShareRead:
-		{
-		iShareWrite++;
-		break;
-		}
-	default:
-		{
-		break;
-		}
-	}
-Entry::Destroy();
-}
-
-VOID FileEntry::Flush()
-{
-ScopedLock lock(cCriticalSection);
-if(!uTotalSize)
-	return;
-hDatabase->Flush();
-}
-
-UINT64 FileEntry::GetSize()
-{
-ScopedLock lock(cCriticalSection);
-return uSize;
 }
 
 SIZE_T FileEntry::Read(UINT64 offset, VOID* pbuf, SIZE_T size)
@@ -130,18 +165,21 @@ if(!pbuf||!size)
 ScopedLock lock(cCriticalSection);
 if(!uTotalSize)
 	return 0;
+auto device=hDatabase->GetDevice();
 if(!hFragmentMap)
 	{
-	auto device=hDatabase->GetDevice();
 	UINT64 dev_size=device->GetSize();
 	UINT block_size=device->GetBlockSize();
 	UINT addr_size=dev_size>MAX_UINT? 8: 4;
 	UINT header_size=sizeof(EntryType)+addr_size;
+	UINT block_pos=header_size+(UINT)offset;
 	UINT block_free=block_size-header_size;
 	UINT available=block_free-offset;
 	if(size>available)
 		size=available;
-	return hDatabase->Read(uOffset+header_size+offset, pbuf, size);
+	SIZE_T read=device->Read(uOffset+block_pos, pbuf, size);
+	uBlockPos=MAX(uBlockPos, block_pos);
+	return read;
 	}
 SIZE_T read=0;
 while(read<size)
@@ -153,13 +191,33 @@ while(read<size)
 		copy=(SIZE_T)frag_free;
 	if(!copy)
 		break;
-	SIZE_T copied=hDatabase->Read(frag_pos, pbuf, copy);
+	SIZE_T copied=device->Read(frag_pos, pbuf, copy);
 	if(!copied)
 		break;
 	read+=copied;
 	offset+=copied;
 	}
 return read;
+}
+
+BOOL FileEntry::Seek(UINT64 offset)
+{
+ScopedLock lock(cCriticalSection);
+if(!hFragmentMap)
+	{
+	auto device=hDatabase->GetDevice();
+	UINT64 dev_size=device->GetSize();
+	UINT block_size=device->GetBlockSize();
+	UINT addr_size=dev_size>MAX_UINT? 8: 4;
+	UINT header_size=sizeof(EntryType)+addr_size;
+	UINT block_free=block_size-header_size;
+	if(offset>block_free)
+		return false;
+	UINT block_pos=(UINT)(offset+header_size);
+	uBlockPos=MAX(uBlockPos, block_pos);
+	return true;
+	}
+return offset<=uSize;
 }
 
 BOOL FileEntry::SetSize(UINT64 size)
@@ -179,40 +237,21 @@ if(!pbufv||!size)
 ScopedLock lock(cCriticalSection);
 if(!uTotalSize)
 	return 0;
-auto hdevice=hDatabase->GetDevice();
-UINT block_size=hdevice->GetBlockSize();
+auto device=hDatabase->GetDevice();
+UINT block_size=device->GetBlockSize();
 if(!hFragmentMap)
 	{
-	UINT64 dev_size=hdevice->GetSize();
+	UINT64 dev_size=device->GetSize();
 	UINT addr_size=dev_size>MAX_UINT? 8: 4;
 	UINT header_size=sizeof(EntryType)+addr_size;
 	UINT block_free=block_size-header_size;
 	UINT block_pos=(UINT)offset+header_size;
 	if(block_pos+size<=block_free)
 		{
-		UINT write_end=(UINT)(offset+size);
-		UINT64 new_size=MAX(uSize, write_end);
-		if(block_pos<uBlockPos)
-			{
-			Handle<Buffer> buf=new Buffer(header_size);
-			EntryType id=EntryType::File;
-			buf->Write(&id, sizeof(EntryType));
-			buf->Write(&new_size, addr_size);
-			hDatabase->Write(uOffset, buf);
-			uSize=new_size;
-			}
-		if(uSize!=new_size)
-			{
-			Handle<Buffer> buf=new Buffer(addr_size);
-			buf->Write(&new_size, addr_size);
-			hDatabase->Write(uOffset+sizeof(EntryType), buf);
-			uSize=new_size;
-			}
-		Handle<Buffer> buf=new Buffer(size);
-		buf->Write(pbufv, size);
-		hDatabase->Write(uOffset+block_pos, buf);
-		uBlockPos=block_pos+(UINT)size;
-		return size;
+		SIZE_T written=device->Write(uOffset+block_pos, pbufv, size);
+		block_pos+=(UINT)written;
+		uBlockPos=MAX(uBlockPos, written);
+		return written;
 		}
 	}
 UINT64 available=0;
@@ -235,9 +274,9 @@ while(written<size)
 	if(frag_pos%block_size==0)
 		{
 		SIZE_T erase=BlockAlign(copy, block_size);
-		hdevice->Erase(frag_pos, erase);
+		device->Erase(frag_pos, erase);
 		}
-	hdevice->Write(frag_pos, &pbuf[written], copy);
+	device->Write(frag_pos, &pbuf[written], copy);
 	written+=copy;
 	offset+=copy;
 	}
@@ -253,29 +292,30 @@ BOOL FileEntry::CreateInternal()
 {
 hBlockList=nullptr;
 hFragmentMap=nullptr;
-uBlockPos=0;
+uBlockPos=sizeof(EntryType);
 uCurrent=0;
 uSize=0;
-uTotalSize=0;
-auto hdevice=hDatabase->GetDevice();
-UINT block_size=hdevice->GetBlockSize();
-Handle<DeviceBuffer> dev_buf=new DeviceBuffer(hdevice, uOffset, 32);
-StreamReader reader(dev_buf);
+auto device=hDatabase->GetDevice();
+UINT block_size=device->GetBlockSize();
+uTotalSize=block_size;
+Handle<DeviceBuffer> dev_buf=new DeviceBuffer(device, uOffset, 32);
+StreamReader dev_reader(dev_buf);
 SIZE_T block_pos=0;
 EntryType id=EntryType::None;
-block_pos+=reader.Read(&id, sizeof(EntryType));
+block_pos+=dev_reader.Read(&id, sizeof(EntryType));
 if(id!=EntryType::File)
-	return false;
-uTotalSize=block_size;
-UINT64 dev_size=hdevice->GetSize();
-UINT addr_size=dev_size>0xFFFFFFFF? sizeof(UINT64): sizeof(UINT);
-UINT64 size=0;
-block_pos+=reader.Read(&size, addr_size);
-if(size>=dev_size)
 	{
-	uBlockPos=sizeof(EntryType);
+	id=EntryType::File;
+	device->Erase(uOffset, block_size);
+	device->Write(uOffset, &id, sizeof(EntryType));
 	return true;
 	}
+UINT64 dev_size=device->GetSize();
+UINT addr_size=dev_size>0xFFFFFFFF? sizeof(UINT64): sizeof(UINT);
+UINT64 size=0;
+block_pos+=dev_reader.Read(&size, addr_size);
+if(size>=dev_size)
+	return true;
 uBlockPos=(UINT)block_pos;
 uSize=size;
 UINT block_free=block_size-block_pos;
@@ -286,17 +326,17 @@ uCurrent=uOffset;
 while(1)
 	{
 	UINT64 next=0;
-	block_pos+=reader.Read(&next, addr_size);
+	block_pos+=dev_reader.Read(&next, addr_size);
 	while(block_pos+2*addr_size<block_size)
 		{
 		Fragment frag;
 		frag.Offset=0;
 		frag.Size=0;
-		reader.Read(&frag.Offset, addr_size);
+		dev_reader.Read(&frag.Offset, addr_size);
 		if(frag.Offset>=dev_size)
 			break;
 		block_pos+=addr_size;
-		block_pos+=reader.Read(&frag.Size, addr_size);
+		block_pos+=dev_reader.Read(&frag.Size, addr_size);
 		if(!hFragmentMap)
 			hFragmentMap=new FragmentMap();
 		hFragmentMap->Add(offset, frag);
@@ -317,30 +357,30 @@ uBlockPos=(UINT)block_pos;
 return true;
 }
 
-UINT64 FileEntry::GetFragment(UINT64* offset)
+UINT64 FileEntry::GetFragment(UINT64* poffset)
 {
-UINT64 pos=*offset;
-if(pos>=uSize)
+UINT64 offset=*poffset;
+if(offset>=uSize)
 	return 0;
-auto hit=hFragmentMap->Find(pos);
+auto hit=hFragmentMap->Find(offset);
 if(!hit->HasCurrent())
 	return 0;
-if(hit->GetCurrentId()>pos)
+if(hit->GetCurrentId()>offset)
 	hit->MovePrevious();
 UINT64 frag_start=hit->GetCurrentId();
-UINT64 frag_pos=pos-frag_start;
+UINT64 frag_pos=offset-frag_start;
 auto frag=hit->GetCurrentItem();
-*offset=frag.Offset+frag_pos;
+*poffset=frag.Offset+frag_pos;
 return frag.Size-frag_pos;
 }
 
 BOOL FileEntry::SetSizeInternal(UINT64 size)
 {
-if(size==uSize)
+if(uSize>0&&size==uSize)
 	return true;
-auto hdevice=hDatabase->GetDevice();
-UINT block_size=hdevice->GetBlockSize();
-UINT64 dev_size=hdevice->GetSize();
+auto device=hDatabase->GetDevice();
+UINT block_size=device->GetBlockSize();
+UINT64 dev_size=device->GetSize();
 UINT addr_size=dev_size>MAX_UINT? 8: 4;
 UINT header_size=sizeof(EntryType)+addr_size;
 UINT block_free=block_size-header_size;
@@ -359,12 +399,11 @@ if(hFragmentMap)
 		frag_start=frag_it->GetCurrentId();
 		frag=frag_it->GetCurrentItem();
 		frag_end=frag_start+frag.Size;
-		if(frag_end>=alloc_size)
-			break;
-		frag_it->MoveNext();
-		}
-	if(frag_end>alloc_size)
-		{
+		if(frag_end<=alloc_size)
+			{
+			frag_it->MoveNext();
+			continue;
+			}
 		if(frag_start<alloc_size)
 			{
 			UINT64 free_size=frag_end-alloc_size;
@@ -377,13 +416,9 @@ if(hFragmentMap)
 			frag.Size-=free_size;
 			frag_it->SetCurrentItem(frag);
 			frag_end=alloc_size;
+			frag_it->MoveNext();
 			}
-		}
-	if(frag_end==alloc_size)
-		frag_it->MoveNext();
-	if(frag_end>=alloc_size)
-		{
-		while(frag_it->HasCurrent())
+		else
 			{
 			auto frag=frag_it->GetCurrentItem();
 			if(!hDatabase->Free(frag.Offset, frag.Size))
@@ -423,8 +458,8 @@ if(hFragmentMap)
 	EntryType id=EntryType::File;
 	block_pos+=buf->Write(&id, sizeof(EntryType));
 	block_pos+=buf->Write(&size, addr_size);
-	SIZE_T next_pos=block_pos;
 	block_pos+=buf->Fill(-1, addr_size);
+	SIZE_T next_pos=block_pos;
 	auto frag_it=hFragmentMap->First();
 	uCurrent=uOffset;
 	uTotalSize=block_size;
@@ -476,38 +511,6 @@ if(hFragmentMap)
 		}
 	uBlockPos=(UINT)block_pos;
 	}
-else
-	{
-	if(uBlockPos==sizeof(EntryType))
-		{
-		Handle<Buffer> buf=new Buffer(addr_size);
-		buf->Write(&size, addr_size);
-		hDatabase->Write(uOffset+sizeof(EntryType), buf);
-		uBlockPos=header_size;
-		}
-	else
-		{
-		if(size==0)
-			{
-			Handle<Buffer> buf=new Buffer(sizeof(EntryType));
-			EntryType id=EntryType::File;
-			buf->Write(&id, sizeof(EntryType));
-			hDatabase->Write(uOffset, buf);
-			uBlockPos=sizeof(EntryType);
-			}
-		else
-			{
-			Handle<Buffer> buf=new Buffer(header_size);
-			EntryType id=EntryType::File;
-			buf->Write(&id, sizeof(EntryType));
-			buf->Write(&size, addr_size);
-			hDatabase->Write(uOffset, buf);
-			uBlockPos=header_size;
-			}
-		}
-	uCurrent=0;
-	uTotalSize=block_size;
-	}
 if(block_it)
 	{
 	while(block_it->HasCurrent())
@@ -526,8 +529,32 @@ if(hBlockList)
 	if(!hBlockList->GetCount())
 		hBlockList=nullptr;
 	}
-uSize=size;
-hDatabase->Flush();
+if(hFragmentMap)
+	{
+	hDatabase->Flush();
+	uSize=size;
+	return true;
+	}
+uCurrent=0;
+uTotalSize=block_size;
+uSize=0;
+if(frag_end>0)
+	{
+	Handle<Buffer> buf=new Buffer(sizeof(EntryType));
+	EntryType id=EntryType::File;
+	buf->Write(&id, sizeof(EntryType));
+	hDatabase->Write(uOffset, buf);
+	hDatabase->Flush();
+	uBlockPos=header_size+(UINT)size;
+	return true;
+	}
+if(size==0)
+	{
+	device->Erase(uOffset, block_size);
+	EntryType id=EntryType::File;
+	device->Write(uOffset, &id, sizeof(EntryType));
+	}
+uBlockPos=header_size+(UINT)size;
 return true;
 }
 

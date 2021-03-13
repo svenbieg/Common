@@ -27,6 +27,7 @@ namespace Storage {
 
 File::File(Handle<String> path, Handle<Database> hdb, UINT64 offset):
 Storage::File(path, "Storage.Database.File"),
+uAccessMode(FileAccessMode::None),
 uPosition(0),
 uShareMode(FileShareMode::None)
 {
@@ -54,12 +55,9 @@ Close();
 SIZE_T File::Available()
 {
 ScopedLock lock(cCriticalSection);
-if(!hEntry)
+if(uAccessMode==FileAccessMode::None)
 	return 0;
-UINT64 size=hEntry->GetSize();
-if(uPosition>=size)
-	return 0;
-UINT64 available=size-uPosition;
+UINT64 available=hEntry->Available(uPosition);
 if(available>MAX_SIZE_T)
 	return MAX_SIZE_T;
 return (SIZE_T)available;
@@ -68,7 +66,7 @@ return (SIZE_T)available;
 SIZE_T File::Read(VOID* pbuf, SIZE_T size)
 {
 ScopedLock lock(cCriticalSection);
-if(!hEntry)
+if(uAccessMode==FileAccessMode::None)
 	return 0;
 SIZE_T read=hEntry->Read(uPosition, pbuf, size);
 uPosition+=read;
@@ -83,7 +81,7 @@ return read;
 VOID File::Flush()
 {
 ScopedLock lock(cCriticalSection);
-if(!hEntry)
+if(uAccessMode==FileAccessMode::None)
 	return;
 hEntry->Flush();
 }
@@ -91,7 +89,7 @@ hEntry->Flush();
 SIZE_T File::Write(VOID const* pbuf, SIZE_T size)
 {
 ScopedLock lock(cCriticalSection);
-if(!hEntry)
+if(uAccessMode!=FileAccessMode::ReadWrite)
 	return 0;
 SIZE_T written=hEntry->Write(uPosition, pbuf, size);
 uPosition+=written;
@@ -106,7 +104,7 @@ return written;
 FileSize File::GetSize()
 {
 ScopedLock lock(cCriticalSection);
-if(!hEntry)
+if(uAccessMode==FileAccessMode::None)
 	return 0;
 return hEntry->GetSize();
 }
@@ -114,13 +112,14 @@ return hEntry->GetSize();
 BOOL File::Seek(UINT64 offset)
 {
 ScopedLock lock(cCriticalSection);
-if(!hEntry)
+if(uAccessMode==FileAccessMode::None)
 	return false;
-UINT64 size=hEntry->GetSize();
-if(offset>=size)
-	return false;
-uPosition=offset;
-return true;
+if(hEntry->Seek(offset))
+	{
+	uPosition=offset;
+	return true;
+	}
+return false;
 }
 
 
@@ -131,21 +130,36 @@ return true;
 VOID File::Close()
 {
 ScopedLock lock(cCriticalSection);
-if(uShareMode==FileShareMode::None)
+if(uAccessMode==FileAccessMode::None)
 	return;
-if(hEntry)
-	hEntry->Destroy(uShareMode);
+hEntry->Close(uShareMode);
+uAccessMode=FileAccessMode::None;
 uShareMode=FileShareMode::None;
 }
 
 BOOL File::Create(FileCreateMode create, FileAccessMode access, FileShareMode share)
 {
-return hEntry->Create(create, access, share);
+ScopedLock lock(cCriticalSection);
+if(!hEntry)
+	return false;
+if(!hEntry->Open(access, share))
+	return false;
+uAccessMode=access;
+uShareMode=share;
+return true;
 }
 
 BOOL File::SetSize(UINT64 size)
 {
-return hEntry->SetSize(size);
+ScopedLock lock(cCriticalSection);
+if(uAccessMode!=FileAccessMode::ReadWrite)
+	return false;
+if(hEntry->SetSize(size))
+	{
+	uPosition=0;
+	return true;
+	}
+return false;
 }
 
 }}

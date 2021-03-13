@@ -30,7 +30,7 @@ namespace Web {
 
 SIZE_T Interactive::WriteUpdateToStream(Handle<OutputStream> hstream, UINT ulasttime)
 {
-if(uTimeChanged<=ulasttime)
+if(uTimeChanged<ulasttime)
 	return 0;
 if(!hVariable)
 	return 0;

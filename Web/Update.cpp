@@ -44,10 +44,13 @@ SIZE_T Update::WriteToStream(Handle<OutputStream> hstream)
 SIZE_T usize=0;
 StreamWriter writer(hstream);
 usize+=writer.Print("time=%u;", uTimeNow);
-for(auto hit=hWebPage->Controls->First(); hit->HasCurrent(); hit->MoveNext())
+if(uTime>0)
 	{
-	auto hcontrol=hit->GetCurrentItem();
-	usize+=hcontrol->WriteUpdateToStream(hstream, uTime);
+	for(auto hit=hWebPage->Controls->First(); hit->HasCurrent(); hit->MoveNext())
+		{
+		auto hcontrol=hit->GetCurrentItem();
+		usize+=hcontrol->WriteUpdateToStream(hstream, uTime);
+		}
 	}
 return usize;
 }

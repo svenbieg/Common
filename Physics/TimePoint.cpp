@@ -181,6 +181,8 @@ UINT64 TimePoint::ToSeconds(TIMEPOINT const& tp)
 {
 if(tp.Year==0)
 	return 0;
+if(tp.Year==0xFFFF)
+	return -1;
 tm t;
 TimeStructFromTimePoint(&t, &tp);
 /*WORD uyear4=uYear%4;

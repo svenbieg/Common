@@ -43,9 +43,9 @@ public:
 
 	// Common
 	Handle<ChildMap> Children;
-	BOOL Create();
-	VOID Destroy();
+	VOID Close();
 	VOID Flush();
+	BOOL Open();
 
 private:
 	// Common

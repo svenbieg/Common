@@ -77,7 +77,7 @@ return usize;
 
 SIZE_T LogBox::WriteUpdateToStream(Handle<OutputStream> hstream, UINT ulasttime)
 {
-if(uTimeChanged<=ulasttime)
+if(uTimeChanged<ulasttime)
 	return 0;
 StreamWriter writer(hstream);
 SIZE_T usize=0;

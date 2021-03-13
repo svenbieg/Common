@@ -74,23 +74,25 @@ hSettingsMap->Add(hvar->GetName(), hvar);
 VOID Settings::Load()
 {
 StreamReader reader(hFile);
+SIZE_T pos=0;
 while(1)
 	{
 	UINT entry_size=0;
 	SIZE_T read=reader.ReadUInt(&entry_size);
-	if(!read)
+	if(!read||entry_size==-1)
 		break;
 	read=0;
-	auto hname=reader.ReadString('\377', &read);
-	if(hname)
-		{
-		auto hvar=hSettingsMap->Get(hname);
-		if(hvar)
-			read+=hvar->ReadFromStream(hFile);
-		}
+	auto name=reader.ReadString('\377', &read);
+	if(!name)
+		break;
+	auto var=hSettingsMap->Get(name);
+	if(var)
+		read+=var->ReadFromStream(hFile);
 	if(read<entry_size)
 		reader.Skip(entry_size-read);
+	pos+=sizeof(UINT)+entry_size;
 	}
+hFile->SetSize(pos);
 for(auto hit=hSettingsMap->First(); hit->HasCurrent(); hit->MoveNext())
 	{
 	auto hvar=hit->GetCurrentItem();
@@ -101,14 +103,6 @@ Loaded(this);
 
 VOID Settings::OnVariableChanged(Handle<Variable> hvar)
 {
-UINT64 size=hFile->GetSize();
-SIZE_T entry_size=WriteVariable(nullptr, hvar);
-if(size+entry_size<=2048)
-	{
-	WriteVariable(hFile, hvar);
-	hFile->Flush();
-	return;
-	}
 hFile->SetSize(0);
 for(auto hit=hSettingsMap->First(); hit->HasCurrent(); hit->MoveNext())
 	{

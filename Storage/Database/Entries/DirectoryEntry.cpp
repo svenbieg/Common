@@ -44,21 +44,12 @@ uCurrent(0)
 // Common
 //========
 
-BOOL DirectoryEntry::Create()
-{
-ScopedLock lock(cCriticalSection);
-if(!CreateInternal())
-	return false;
-Entry::Create();
-return true;
-}
-
-VOID DirectoryEntry::Destroy()
+VOID DirectoryEntry::Close()
 {
 ScopedLock lock(cCriticalSection);
 if(!uCurrent)
 	return;
-Entry::Destroy();
+Entry::Close();
 }
 
 VOID DirectoryEntry::Flush()
@@ -157,6 +148,15 @@ if(hBlockList)
 		hBlockList=nullptr;
 	}
 hDatabase->Flush();
+}
+
+BOOL DirectoryEntry::Open()
+{
+ScopedLock lock(cCriticalSection);
+if(!CreateInternal())
+	return false;
+Entry::Open();
+return true;
 }
 
 

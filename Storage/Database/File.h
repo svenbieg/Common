@@ -67,6 +67,7 @@ public:
 private:
 	// Common
 	Handle<FileEntry> hEntry;
+	FileAccessMode uAccessMode;
 	UINT64 uPosition;
 	FileShareMode uShareMode;
 };

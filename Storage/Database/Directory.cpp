@@ -60,7 +60,7 @@ else
 	{
 	hEntry=new DirectoryEntry(hdb, offset);
 	}
-hEntry->Create();
+hEntry->Open();
 }
 
 Directory::~Directory()
@@ -76,12 +76,10 @@ Close();
 VOID Directory::Close()
 {
 ScopedLock lock(cCriticalSection);
+if(!hEntry)
+	return;
 FindClose();
-if(hEntry)
-	{
-	hEntry->Destroy();
-	hEntry=nullptr;
-	}
+hEntry->Close();
 }
 
 Handle<Storage::File> Directory::CreateFile(Handle<String> hpath, FileCreateMode create, FileAccessMode access, FileShareMode share)

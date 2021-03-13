@@ -27,7 +27,7 @@ namespace Storage {
 // Settings
 //==========
 
-const UINT DatabaseVersion=0x20210301;
+const UINT DatabaseVersion=0x20210313;
 
 
 //========
@@ -88,7 +88,7 @@ if(id!=EntryType::None)
 	{
 	Handle<Buffer> buf=new Buffer(sizeof(EntryType));
 	buf->Write(&id, sizeof(EntryType));
-	Write(offset, buf);
+	WriteInternal(offset, buf);
 	}
 return offset;
 }
@@ -167,6 +167,7 @@ return true;
 
 Handle<Entry> Database::GetEntry(UINT64 offset)
 {
+ScopedLock lock(cCriticalSection);
 return hEntryMap->Get(offset);
 }
 
@@ -178,7 +179,6 @@ if(offset>=uSize)
 UINT64 available=uSize-offset;
 if(available<size)
 	size=(SIZE_T)available;
-UINT block_size=hDevice->GetBlockSize();
 BYTE* pdst=(BYTE*)pbufv;
 SIZE_T read=0;
 while(read<size)
@@ -219,122 +219,7 @@ VOID Database::Write(UINT64 offset, Handle<Buffer> hbuf)
 if(!hbuf)
 	return;
 ScopedLock lock(cCriticalSection);
-UINT block_size=hDevice->GetBlockSize();
-if(offset<2*block_size)
-	return;
-BYTE* pbuf=hbuf->Begin();
-SIZE_T buf_size=hbuf->GetSize();
-if(offset>=uOldSize)
-	{
-	SIZE_T erase=BlockAlign(buf_size, block_size);
-	if(offset%block_size)
-		erase=0;
-	if(erase)
-		hDevice->Erase(offset, erase);
-	hDevice->Write(offset, pbuf, buf_size);
-	hDevice->Flush();
-	return;
-	}
-UINT64 buf_end=offset+buf_size;
-Handle<Buffer> hbefore;
-SIZE_T before_size=0;
-Handle<Buffer> hnext;
-SIZE_T next_start=0;
-SIZE_T next_size=0;
-if(hBufferMap)
-	{
-	auto hit=hBufferMap->Find(offset);
-	UINT64 cur_pos=hit->GetCurrentId();
-	if(cur_pos>offset)
-		{
-		if(hit->GetPosition()>0)
-			hit->MovePrevious();
-		}
-	while(hit->HasCurrent())
-		{
-		cur_pos=hit->GetCurrentId();
-		auto hcur=hit->GetCurrentItem();
-		SIZE_T cur_size=hcur->GetSize();
-		UINT64 cur_end=cur_pos+cur_size;
-		if(cur_end<offset)
-			{
-			hit->MoveNext();
-			continue;
-			}
-		if(cur_end==offset)
-			{
-			hit->RemoveCurrent();
-			hbefore=hcur;
-			before_size=cur_size;
-			continue;
-			}
-		if(cur_pos>buf_end)
-			break;
-		if(cur_pos==buf_end)
-			{
-			hit->RemoveCurrent();
-			hnext=hcur;
-			next_size=cur_size;
-			break;
-			}
-		if(cur_pos==offset)
-			{
-			if(cur_size==buf_size)
-				{
-				hit->SetCurrentItem(hbuf);
-				return;
-				}
-			}
-		if(cur_pos<=offset)
-			{
-			SIZE_T start=(SIZE_T)(offset-cur_pos);
-			if(cur_end>=buf_end)
-				{
-				BYTE* pcur=hcur->Begin();
-				CopyMemory(&pcur[start], pbuf, buf_size);
-				return;
-				}
-			hbefore=hcur;
-			before_size=start;
-			hit->RemoveCurrent();
-			continue;
-			}
-		if(cur_end>buf_end)
-			{
-			hnext=hcur;
-			next_start=(SIZE_T)(buf_end-cur_pos);
-			next_size=cur_size-next_start;
-			hit->RemoveCurrent();
-			break;
-			}
-		hit->RemoveCurrent();
-		}
-	}
-Handle<Buffer> hnew=hbuf;
-UINT64 new_pos=offset;
-SIZE_T new_size=buf_size;
-if(hbefore)
-	{
-	new_pos-=before_size;
-	new_size+=before_size;
-	}
-if(hnext)
-	new_size+=next_size;
-if(new_size>buf_size)
-	{
-	hnew=new Buffer(new_size);
-	if(hbefore)
-		hnew->Write(hbefore->Begin(), before_size);
-	hnew->Write(pbuf, buf_size);
-	if(hnext)
-		{
-		BYTE* pnext=hnext->Begin();
-		hnew->Write(&pnext[next_start], next_size);
-		}
-	}
-if(!hBufferMap)
-	hBufferMap=new BufferMap();
-hBufferMap->Add(new_pos, hnew);
+WriteInternal(offset, hbuf);
 }
 
 
@@ -511,6 +396,126 @@ for(; block_pos+value_size<block_size; block_pos+=value_size)
 	*psize=size;
 	}
 return block_pos;
+}
+
+VOID Database::WriteInternal(UINT64 offset, Handle<Buffer> hbuf)
+{
+UINT block_size=hDevice->GetBlockSize();
+if(offset<2*block_size)
+	return;
+BYTE* pbuf=hbuf->Begin();
+SIZE_T buf_size=hbuf->GetSize();
+if(offset>=uOldSize)
+	{
+	SIZE_T erase=BlockAlign(buf_size, block_size);
+	if(offset%block_size)
+		erase=0;
+	if(erase)
+		hDevice->Erase(offset, erase);
+	hDevice->Write(offset, pbuf, buf_size);
+	hDevice->Flush();
+	return;
+	}
+UINT64 buf_end=offset+buf_size;
+Handle<Buffer> hbefore;
+SIZE_T before_size=0;
+Handle<Buffer> hnext;
+SIZE_T next_start=0;
+SIZE_T next_size=0;
+if(hBufferMap)
+	{
+	auto hit=hBufferMap->Find(offset);
+	UINT64 cur_pos=hit->GetCurrentId();
+	if(cur_pos>offset)
+		{
+		if(hit->GetPosition()>0)
+			hit->MovePrevious();
+		}
+	while(hit->HasCurrent())
+		{
+		cur_pos=hit->GetCurrentId();
+		auto hcur=hit->GetCurrentItem();
+		SIZE_T cur_size=hcur->GetSize();
+		UINT64 cur_end=cur_pos+cur_size;
+		if(cur_end<offset)
+			{
+			hit->MoveNext();
+			continue;
+			}
+		if(cur_end==offset)
+			{
+			hit->RemoveCurrent();
+			hbefore=hcur;
+			before_size=cur_size;
+			continue;
+			}
+		if(cur_pos>buf_end)
+			break;
+		if(cur_pos==buf_end)
+			{
+			hit->RemoveCurrent();
+			hnext=hcur;
+			next_size=cur_size;
+			break;
+			}
+		if(cur_pos==offset)
+			{
+			if(cur_size==buf_size)
+				{
+				hit->SetCurrentItem(hbuf);
+				return;
+				}
+			}
+		if(cur_pos<=offset)
+			{
+			SIZE_T start=(SIZE_T)(offset-cur_pos);
+			if(cur_end>=buf_end)
+				{
+				BYTE* pcur=hcur->Begin();
+				CopyMemory(&pcur[start], pbuf, buf_size);
+				return;
+				}
+			hbefore=hcur;
+			before_size=start;
+			hit->RemoveCurrent();
+			continue;
+			}
+		if(cur_end>buf_end)
+			{
+			hnext=hcur;
+			next_start=(SIZE_T)(buf_end-cur_pos);
+			next_size=cur_size-next_start;
+			hit->RemoveCurrent();
+			break;
+			}
+		hit->RemoveCurrent();
+		}
+	}
+Handle<Buffer> hnew=hbuf;
+UINT64 new_pos=offset;
+SIZE_T new_size=buf_size;
+if(hbefore)
+	{
+	new_pos-=before_size;
+	new_size+=before_size;
+	}
+if(hnext)
+	new_size+=next_size;
+if(new_size>buf_size)
+	{
+	hnew=new Buffer(new_size);
+	if(hbefore)
+		hnew->Write(hbefore->Begin(), before_size);
+	hnew->Write(pbuf, buf_size);
+	if(hnext)
+		{
+		BYTE* pnext=hnext->Begin();
+		hnew->Write(&pnext[next_start], next_size);
+		}
+	}
+if(!hBufferMap)
+	hBufferMap=new BufferMap();
+hBufferMap->Add(new_pos, hnew);
 }
 
 VOID Database::WriteSize()

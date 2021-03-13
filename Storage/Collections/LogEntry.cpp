@@ -53,8 +53,10 @@ if(!hstream)
 SIZE_T usize=0;
 Time=new TimePoint();
 usize+=Time->ReadFromStream(hstream);
+if(Time->ToSeconds()==-1)
+	return 0;
 StreamReader reader(hstream);
-Message=reader.ReadString('\000', &usize);
+Message=reader.ReadString('\377', &usize);
 return usize;
 }
 

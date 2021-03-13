@@ -47,8 +47,8 @@ protected:
 	Entry(Handle<String> Type, Handle<Database> Database, UINT64 Offset);
 
 	// Common
-	VOID Create();
-	VOID Destroy();
+	VOID Close();
+	VOID Open();
 	CriticalSection cCriticalSection;
 	Handle<Database> hDatabase;
 	UINT64 uOffset;

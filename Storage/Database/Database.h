@@ -65,6 +65,7 @@ private:
 	Handle<Buffer> GetReadBuffer(UINT64* Offset, SIZE_T* Size);
 	VOID Initialize();
 	UINT ReadSize(UINT64 Offset, UINT64* Size);
+	VOID WriteInternal(UINT64 Offset, Handle<Buffer> Buffer);
 	VOID WriteSize();
 	CriticalSection cCriticalSection;
 	Handle<BufferMap> hBufferMap;
