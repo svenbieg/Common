@@ -51,6 +51,7 @@ while(1)
 	hLastEntry=hentry;
 	}
 hFile->SetSize(pos);
+hFile->Seek(pos);
 Changed.Add(this, &Log::OnChanged);
 }
 

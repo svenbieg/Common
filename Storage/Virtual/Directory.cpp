@@ -116,7 +116,6 @@ Handle<Convertible> Directory::Get(Handle<String> hpath)
 {
 if(!hpath||hpath->IsEmpty())
 	return nullptr;
-ScopedLock lock(cCriticalSection);
 auto ppath=hpath->Begin();
 UINT upos=0;
 while(PathIsSeparator(ppath[upos]))
@@ -126,13 +125,16 @@ if(!uclen)
 	return this;
 Handle<String> hname=new String(uclen, &ppath[upos]);
 upos+=uclen;
-auto hitem=cList.get(hname);
+Handle<Convertible> hitem;
+	{
+	ScopedLock lock(cCriticalSection);
+	hitem=cList.get(hname);
+	}
 if(!hitem)
 	return nullptr;
 if(ppath[upos]==0)
 	return hitem;
 auto hsub=hitem->As<Storage::Directory>("Storage.Directory");
-lock.Release();
 if(hsub)
 	return hsub->Get(&ppath[upos]);
 return nullptr;

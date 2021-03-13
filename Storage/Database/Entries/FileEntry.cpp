@@ -250,7 +250,7 @@ if(!hFragmentMap)
 		{
 		SIZE_T written=device->Write(uOffset+block_pos, pbufv, size);
 		block_pos+=(UINT)written;
-		uBlockPos=MAX(uBlockPos, written);
+		uBlockPos=MAX(uBlockPos, block_pos);
 		return written;
 		}
 	}

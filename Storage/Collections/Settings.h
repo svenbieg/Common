@@ -50,7 +50,9 @@ private:
 	// Common
 	VOID Load();
 	VOID OnVariableChanged(Handle<Variable> Variable);
+	VOID Save();
 	SIZE_T WriteVariable(Handle<OutputStream> Stream, Handle<Variable> Variable);
+	BOOL bChanged;
 	Handle<File> hFile;
 	Handle<SettingsMap> hSettingsMap;
 };

@@ -31,19 +31,16 @@ return new Iterator(this);
 
 Handle<String> Directory::GetName()
 {
-ScopedLock lock(cCriticalSection);
 return PathGetName(hPath->Begin());
 }
 
 Handle<String> Directory::GetPath()
 {
-ScopedLock lock(cCriticalSection);
 return hPath;
 }
 
 Handle<Directory> Directory::GetRoot()
 {
-ScopedLock lock(cCriticalSection);
 if(!Parent)
 	return this;
 return Parent->GetRoot();

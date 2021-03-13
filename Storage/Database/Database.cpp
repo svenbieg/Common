@@ -27,7 +27,7 @@ namespace Storage {
 // Settings
 //==========
 
-const UINT DatabaseVersion=0x20210313;
+const UINT DatabaseVersion=0x20210312;
 
 
 //========
@@ -54,13 +54,9 @@ uSizeEnd(0)
 Current=this;
 if(!hDevice)
 	hDevice=BlockDevice::GetDefault();
-hEntryMap=new EntryMap();
-Initialize();
+ReadSize();
 DoUpdate();
-uOldSize=uSize;
-UINT block_size=hDevice->GetBlockSize();
-Root=new Directory("Internal", nullptr, this, 2*block_size);
-hSystemRoot=new Directory("System", nullptr, this, 3*block_size);
+Initialize();
 }
 
 
@@ -99,64 +95,21 @@ ScopedLock lock(cCriticalSection);
 CancelInternal();
 }
 
+VOID Database::Clear()
+{
+	{
+	ScopedLock lock(cCriticalSection);
+	ClearInternal();
+	}
+Initialize();
+}
+
 Handle<Database> Database::Current;
 
 VOID Database::Flush()
 {
 ScopedLock lock(cCriticalSection);
-if(!hBufferMap)
-	return;
-UINT64 total_size=hDevice->GetSize();
-UINT addr_size=total_size>MAX_UINT? 8: 4;
-UINT block_size=hDevice->GetBlockSize();
-hDevice->Erase(uSize, block_size);
-UINT64 current=uSize;
-SIZE_T block_pos=sizeof(EntryType);
-for(auto hit=hBufferMap->First(); hit->HasCurrent(); hit->MoveNext())
-	{
-	UINT64 offset=hit->GetCurrentId();
-	Handle<Buffer> hbuf=hit->GetCurrentItem();
-	UINT size=(UINT)hbuf->GetSize();
-	UINT entry_size=addr_size+sizeof(UINT)+size;
-	if(block_pos+entry_size>=block_size)
-		{
-		UINT erase=block_pos+entry_size-block_size;
-		erase=MAX(erase, 1);
-		erase=BlockAlign(erase, block_size);
-		hDevice->Erase(current+block_size, erase);
-		}
-	block_pos+=hDevice->Write(current+block_pos, &offset, addr_size);
-	block_pos+=hDevice->Write(current+block_pos, &size, sizeof(UINT));
-	block_pos+=hDevice->Write(current+block_pos, hbuf->Begin(), size);
-	UINT64 next=current+block_pos;
-	current=next-(next%block_size);
-	block_pos=(SIZE_T)(next%block_size);
-	}
-EntryType id=EntryType::Update;
-hDevice->Write(uSize, &id, sizeof(EntryType));
-hDevice->Flush();
-WriteSize();
-for(auto hit=hBufferMap->First(); hit->HasCurrent(); hit->MoveNext())
-	{
-	UINT64 offset=hit->GetCurrentId();
-	Handle<Buffer> hbuf=hit->GetCurrentItem();
-	SIZE_T size=hbuf->GetSize();
-	SIZE_T erase=BlockAlign(size, block_size);
-	if(offset%block_size)
-		erase=0;
-	if(erase)
-		hDevice->Erase(offset, erase);
-	hDevice->Write(offset, hbuf->Begin(), size);
-	hDevice->Flush();
-	}
-if(!hDevice->SetSize(uSize))
-	{
-	id=EntryType::None;
-	hDevice->Write(uSize, &id, sizeof(EntryType));
-	hDevice->Flush();
-	}
-hBufferMap=nullptr;
-uOldSize=uSize;
+FlushInternal();
 }
 
 BOOL Database::Free(UINT64 offset, UINT64 size)
@@ -234,8 +187,39 @@ hBufferMap=nullptr;
 uSize=uOldSize;
 }
 
+VOID Database::ClearInternal()
+{
+CancelInternal();
+UINT64 total_size=hDevice->GetSize();
+UINT addr_size=total_size>MAX_UINT? 8: 4;
+UINT value_size=addr_size+sizeof(UINT);
+UINT block_size=hDevice->GetBlockSize();
+hDevice->Erase(0, 5*block_size);
+hDevice->SetSize(4*block_size);
+EntryType id=EntryType::Directory;
+hDevice->Write(2*block_size, &id, sizeof(EntryType));
+hDevice->Write(3*block_size, &id, sizeof(EntryType));
+hDevice->Flush();
+UINT buf_size=sizeof(DatabaseHeader)+value_size;
+Handle<Buffer> hbuf=new Buffer(buf_size);
+DatabaseHeader header;
+header.Id=EntryType::Database;
+header.Version=DatabaseVersion;
+hbuf->Write(&header, sizeof(DatabaseHeader));
+hbuf->Write(&uSize, addr_size);
+hbuf->Zero(sizeof(UINT));
+hDevice->Write(0, hbuf->Begin(), buf_size);
+hDevice->Flush();
+hDevice->Write(block_size, hbuf->Begin(), buf_size);
+hDevice->Flush();
+uSize=4*block_size;
+uSizeEnd=buf_size;
+uOldSize=uSize;
+}
+
 VOID Database::DoUpdate()
 {
+uOldSize=uSize;
 UINT64 update=uSize;
 EntryType id=EntryType::None;
 update+=hDevice->Read(update, &id, sizeof(EntryType));
@@ -269,6 +253,62 @@ if(!hDevice->SetSize(uSize))
 	hDevice->Write(uSize, &id, sizeof(EntryType));
 	hDevice->Flush();
 	}
+}
+
+VOID Database::FlushInternal()
+{
+if(!hBufferMap)
+	return;
+UINT64 total_size=hDevice->GetSize();
+UINT addr_size=total_size>MAX_UINT? 8: 4;
+UINT block_size=hDevice->GetBlockSize();
+hDevice->Erase(uSize, block_size);
+UINT64 current=uSize;
+SIZE_T block_pos=sizeof(EntryType);
+for(auto hit=hBufferMap->First(); hit->HasCurrent(); hit->MoveNext())
+	{
+	UINT64 offset=hit->GetCurrentId();
+	Handle<Buffer> hbuf=hit->GetCurrentItem();
+	UINT size=(UINT)hbuf->GetSize();
+	UINT entry_size=addr_size+sizeof(UINT)+size;
+	if(block_pos+entry_size>=block_size)
+		{
+		UINT erase=block_pos+entry_size-block_size;
+		erase=MAX(erase, 1);
+		erase=BlockAlign(erase, block_size);
+		hDevice->Erase(current+block_size, erase);
+		}
+	block_pos+=hDevice->Write(current+block_pos, &offset, addr_size);
+	block_pos+=hDevice->Write(current+block_pos, &size, sizeof(UINT));
+	block_pos+=hDevice->Write(current+block_pos, hbuf->Begin(), size);
+	UINT64 next=current+block_pos;
+	current=next-(next%block_size);
+	block_pos=(SIZE_T)(next%block_size);
+	}
+EntryType id=EntryType::Update;
+hDevice->Write(uSize, &id, sizeof(EntryType));
+hDevice->Flush();
+WriteSize();
+for(auto hit=hBufferMap->First(); hit->HasCurrent(); hit->MoveNext())
+	{
+	UINT64 offset=hit->GetCurrentId();
+	Handle<Buffer> hbuf=hit->GetCurrentItem();
+	SIZE_T size=hbuf->GetSize();
+	SIZE_T erase=BlockAlign(size, block_size);
+	if(offset%block_size)
+		erase=0;
+	if(erase)
+		hDevice->Erase(offset, erase);
+	hDevice->Write(offset, hbuf->Begin(), size);
+	hDevice->Flush();
+	}
+if(!hDevice->SetSize(uSize))
+	{
+	id=EntryType::None;
+	hDevice->Write(uSize, &id, sizeof(EntryType));
+	hDevice->Flush();
+	}
+hBufferMap=nullptr;
 }
 
 Handle<Buffer> Database::GetBuffer(UINT64* poffset, SIZE_T* psize)
@@ -338,6 +378,14 @@ return nullptr;
 
 VOID Database::Initialize()
 {
+hEntryMap=new EntryMap();
+UINT block_size=hDevice->GetBlockSize();
+Root=new Directory("Internal", nullptr, this, 2*block_size);
+hSystemRoot=new Directory("System", nullptr, this, 3*block_size);
+}
+
+VOID Database::ReadSize()
+{
 UINT block_size=hDevice->GetBlockSize();
 UINT64 size1=0;
 UINT block_pos1=ReadSize(0, &size1);
@@ -347,14 +395,7 @@ if(block_pos1==0)
 	{
 	if(block_pos2==0)
 		{
-		uSize=4*block_size;
-		WriteSize();
-		EntryType id=EntryType::Directory;
-		Handle<Buffer> buf=new Buffer(sizeof(EntryType));
-		buf->Write(&id, sizeof(EntryType));
-		Write(2*block_size, buf);
-		Write(3*block_size, buf);
-		Flush();
+		ClearInternal();
 		return;
 		}
 	uSize=size2;
@@ -542,6 +583,7 @@ if(uSizeEnd==0||uSizeEnd+value_size>block_size)
 	hDevice->Erase(block_size, block_size);
 	hDevice->Write(block_size, hbuf->Begin(), buf_size);
 	hDevice->Flush();
+	uOldSize=uSize;
 	uSizeEnd=buf_size;
 	return;
 	}
@@ -553,6 +595,7 @@ hDevice->Write(uSizeEnd, hbuf->Begin(), buf_size);
 hDevice->Flush();
 hDevice->Write(block_size+uSizeEnd, hbuf->Begin(), buf_size);
 hDevice->Flush();
+uOldSize=uSize;
 uSizeEnd+=buf_size;
 }
 

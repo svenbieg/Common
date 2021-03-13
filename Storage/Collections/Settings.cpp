@@ -31,7 +31,8 @@ namespace Storage {
 // Con-/Destructors
 //==================
 
-Settings::Settings(Handle<String> hpath)
+Settings::Settings(Handle<String> hpath):
+bChanged(false)
 {
 auto happ=Application::Current;
 hFile=happ->AppData->CreateFile(hpath, FileCreateMode::OpenAlways, FileAccessMode::ReadWrite);
@@ -93,6 +94,7 @@ while(1)
 	pos+=sizeof(UINT)+entry_size;
 	}
 hFile->SetSize(pos);
+hFile->Seek(pos);
 for(auto hit=hSettingsMap->First(); hit->HasCurrent(); hit->MoveNext())
 	{
 	auto hvar=hit->GetCurrentItem();
@@ -103,6 +105,15 @@ Loaded(this);
 
 VOID Settings::OnVariableChanged(Handle<Variable> hvar)
 {
+if(bChanged)
+	return;
+bChanged=true;
+Application::Current->Loop.AddProc(this, &Settings::Save);
+}
+
+VOID Settings::Save()
+{
+bChanged=false;
 hFile->SetSize(0);
 for(auto hit=hSettingsMap->First(); hit->HasCurrent(); hit->MoveNext())
 	{

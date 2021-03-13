@@ -48,6 +48,7 @@ public:
 	// Common
 	UINT64 Alloc(UINT64 Size=0, EntryType Id=EntryType::None);
 	VOID Cancel();
+	VOID Clear();
 	static Handle<Database> Current;
 	VOID Flush();
 	BOOL Free(UINT64 Offset, UINT64 Size=0);
@@ -60,10 +61,13 @@ public:
 private:
 	// Common
 	VOID CancelInternal();
+	VOID ClearInternal();
 	VOID DoUpdate();
+	VOID FlushInternal();
 	Handle<Buffer> GetBuffer(UINT64* Offset, SIZE_T* Size);
 	Handle<Buffer> GetReadBuffer(UINT64* Offset, SIZE_T* Size);
 	VOID Initialize();
+	VOID ReadSize();
 	UINT ReadSize(UINT64 Offset, UINT64* Size);
 	VOID WriteInternal(UINT64 Offset, Handle<Buffer> Buffer);
 	VOID WriteSize();
