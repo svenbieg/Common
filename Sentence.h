@@ -43,7 +43,7 @@ public:
 	template <class... _args_t> Sentence(LPCSTR Format, _args_t... Arguments)
 		{
 		UnknownClass args[]={ Arguments... };
-		VariableArguments vargs(args, ARRAYSIZE(args));
+		VariableArguments vargs(args, ArraySize(args));
 		UINT len=StringPrintArgs((LPSTR)nullptr, 0, Format, vargs);
 		LPSTR value=new CHAR[len+1];
 		StringPrintArgs(value, len+1, Format, vargs);

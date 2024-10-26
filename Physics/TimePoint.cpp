@@ -290,7 +290,7 @@ UpdateTimer();
 
 VOID TimePoint::OnClockSecond(Clock* clock)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 if(!clock->Update(&tValue))
 	return;
 clock->Second.Remove(this);
@@ -375,7 +375,7 @@ return StringPrint(str, size, "%02u:%02u", hour, min);
 
 VOID TimePoint::UpdateTimer()
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 auto clock=Clock::Get();
 clock->Second.Remove(this);
 UINT64 ticks=TimePointToTickCount(tValue);

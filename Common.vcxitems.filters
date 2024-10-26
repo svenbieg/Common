@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Culture">
+      <UniqueIdentifier>{ea6b6ccf-e1c2-4921-a2b2-49a159c3e9a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collections">
+      <UniqueIdentifier>{b02f9ab9-dfb6-4c9c-bf72-7f4b86d3d600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{2c73b18a-9b82-4ee5-9862-b28492949eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage">
+      <UniqueIdentifier>{9ab2824d-6a2a-4b2b-b93d-a924eae69943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Virtual">
+      <UniqueIdentifier>{80fb50e1-ae66-40fc-a8e8-8c1de402d0a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Devices">
+      <UniqueIdentifier>{af4d2dd1-ce0c-45c5-948e-fd9142309e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2627988c-39dd-45c0-9eea-1a8e1b6c22d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Strings">
+      <UniqueIdentifier>{7988abd1-982b-48fc-b64c-06b9b65b5cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Storage\Xml">
+      <UniqueIdentifier>{61548989-3405-4807-85f4-55bf61fa5d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Icons">
+      <UniqueIdentifier>{a3ba2fb0-1c62-4c0c-82af-2ad2398192f0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h">
+      <Filter>Culture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Log.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collections\LogEntry.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimePoint.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Workspace.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.h">
+      <Filter>Storage\Virtual</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\FileSize.h">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Clock.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Random.h">
+      <Filter>Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoolClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CharClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Enum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Flags.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FloatClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Guid.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IntegerClasses.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Variable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VariableHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Months.h">
+      <Filter>Resources\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Days.h">
+      <Filter>Resources\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Language.h">
+      <Filter>Resources\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlContent.h">
+      <Filter>Storage\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlElement.h">
+      <Filter>Storage\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.h">
+      <Filter>Storage\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h">
+      <Filter>Culture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sentence.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h">
+      <Filter>Resources\Icons</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\String.h">
+      <Filter>Resources\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Platform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp">
+      <Filter>Culture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp">
+      <Filter>Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collections\LogEntry.cpp">
+      <Filter>Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimePoint.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp">
+      <Filter>Storage\Virtual</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\FileSize.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Clock.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Random.cpp">
+      <Filter>Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Enum.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Flags.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Variable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlContent.cpp">
+      <Filter>Storage\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.cpp">
+      <Filter>Storage\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp">
+      <Filter>Culture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sentence.cpp" />
+  </ItemGroup>
+</Project>

@@ -26,7 +26,7 @@ namespace Devices {
 //========
 
 CHAR RandomChars[]="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-constexpr UINT RandomCharCount=ARRAYSIZE(RandomChars);
+constexpr UINT RandomCharCount=ArraySize(RandomChars);
 
 Handle<String> RandomString(UINT len)
 {

@@ -70,7 +70,7 @@ return size;
 
 VOID Flags::Clear(BOOL notify)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 if(cFlags.get_count()==0)
 	return;
 cFlags.clear();
@@ -80,7 +80,7 @@ if(notify)
 
 VOID Flags::Clear(Handle<String> flag, BOOL notify)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 if(!cFlags.contains(flag))
 	return;
 cFlags.remove(flag);
@@ -97,7 +97,7 @@ if(str=="0")
 	Clear(notify);
 	return true;
 	}
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 Handle<StringList> list=new StringList(str);
 BOOL changed=false;
 for(auto it=list->First(); it->HasCurrent(); it->MoveNext())
@@ -139,7 +139,7 @@ return size;
 
 VOID Flags::Set(Handle<String> flag, BOOL notify)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 if(cFlags.contains(flag))
 	return;
 cFlags.set(flag);

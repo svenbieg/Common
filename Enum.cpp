@@ -13,6 +13,7 @@
 #include "Storage/Streams/StreamWriter.h"
 #include "Enum.h"
 
+using namespace Concurrency;
 using namespace Storage::Streams;
 
 
@@ -65,7 +66,7 @@ return size;
 
 VOID Enum::Add(Handle<Sentence> value)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 cEnum.set(value);
 if(!hValue)
 	hValue=value;
@@ -95,7 +96,7 @@ return size;
 
 BOOL Enum::Set(Handle<Sentence> value, BOOL notify)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 if(!cEnum.contains(value))
 	return false;
 if(hValue==value)

@@ -43,7 +43,10 @@ public:
 	// Using
 	using InputStream=Storage::Streams::InputStream;
 	using LanguageCode=Culture::LanguageCode;
+	using Mutex=Concurrency::Mutex;
 	using OutputStream=Storage::Streams::OutputStream;
+	using ScopedLock=Concurrency::ScopedLock;
+	using SharedLock=Concurrency::SharedLock;
 
 	// Common
 	Event<Variable> Changed;
@@ -59,7 +62,7 @@ protected:
 	~Variable();
 
 	// Common
-	SharedMutex cMutex;
+	Mutex cMutex;
 };
 
 
@@ -84,6 +87,7 @@ public:
 		{
 		if(!Stream)
 			return sizeof(_value_t);
+		ScopedLock lock(cMutex);
 		_value_t value;
 		SIZE_T size=Stream->Read(&value, sizeof(_value_t));
 		if(size==sizeof(_value_t))
@@ -93,7 +97,7 @@ public:
 	Event<Variable, _value_t&> Reading;
 	virtual VOID Set(_value_t const& Value, BOOL Notify=true)
 		{
-		UniqueLock lock(cMutex);
+		ScopedLock lock(cMutex);
 		if(tValue==Value)
 			return;
 		tValue=Value;

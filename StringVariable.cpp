@@ -75,7 +75,7 @@ return size;
 
 BOOL StringVariable::Set(Handle<String> value, BOOL notify)
 {
-UniqueLock lock(cMutex);
+ScopedLock lock(cMutex);
 if(hValue==value)
 	return true;
 hValue=value;
