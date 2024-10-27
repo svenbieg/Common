@@ -86,35 +86,35 @@ public:
 	template <class _friend_t> friend class Handle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(std::nullptr_t): pObject(nullptr) {}
-	Handle(LPCSTR Value) { HandleCreate<Sentence, Sentence>(&pObject, new Sentence(Value)); }
-	Handle(STRING const* Value) { HandleCreate<Sentence, Sentence>(&pObject, new Sentence(Value)); }
-	Handle(Sentence* Value) { HandleCreate<Sentence, Sentence>(&pObject, Value); }
-	Handle(Handle<Sentence> const& Handle) { HandleCreate<Sentence, Sentence>(&pObject, Handle.pObject); }
-	Handle(Handle<Sentence>&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(std::nullptr_t): m_Object(nullptr) {}
+	Handle(LPCSTR Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
+	Handle(STRING const* Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
+	Handle(Sentence* Value) { HandleCreate<Sentence, Sentence>(&m_Object, Value); }
+	Handle(Handle<Sentence> const& Handle) { HandleCreate<Sentence, Sentence>(&m_Object, Handle.m_Object); }
+	Handle(Handle<Sentence>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	inline operator Sentence*()const { return pObject; }
-	inline Sentence* operator->()const { return pObject; }
+	inline operator Sentence*()const { return m_Object; }
+	inline Sentence* operator->()const { return m_Object; }
 
 	// Assignment
-	inline Handle& operator=(std::nullptr_t) { HandleClear(&pObject); return *this; }
-	inline Handle& operator=(LPCSTR Value) { HandleAssign<Sentence, Sentence>(&pObject, new Sentence(Value)); return *this; }
-	inline Handle& operator=(STRING const* Value) { HandleAssign<Sentence, Sentence>(&pObject, new Sentence(Value)); return *this; }
-	inline Handle& operator=(Handle<Sentence> Value) { HandleAssign<Sentence, Sentence>(&pObject, Value.pObject); return *this; }
-	inline Handle& operator=(Sentence* Value) { HandleAssign<Sentence, Sentence>(&pObject, Value); return *this; }
+	inline Handle& operator=(std::nullptr_t) { HandleClear(&m_Object); return *this; }
+	inline Handle& operator=(LPCSTR Value) { HandleAssign<Sentence, Sentence>(&m_Object, new Sentence(Value)); return *this; }
+	inline Handle& operator=(STRING const* Value) { HandleAssign<Sentence, Sentence>(&m_Object, new Sentence(Value)); return *this; }
+	inline Handle& operator=(Handle<Sentence> Value) { HandleAssign<Sentence, Sentence>(&m_Object, Value.m_Object); return *this; }
+	inline Handle& operator=(Sentence* Value) { HandleAssign<Sentence, Sentence>(&m_Object, Value); return *this; }
 
 	// Comparison
-	inline bool operator==(std::nullptr_t)const { return pObject==nullptr; }
-	inline bool operator==(Handle<Sentence> const& Value)const { return Compare(pObject, Value.pObject)==0; }
-	inline bool operator!=(std::nullptr_t)const { return pObject!=nullptr; }
-	inline bool operator!=(Handle<Sentence> const& Value)const { return Compare(pObject, Value.pObject)!=0; }
-	inline bool operator>(Handle<Sentence> const& Value)const { return Compare(pObject, Value.pObject)>0; }
-	inline bool operator>=(Handle<Sentence> const& Value)const { return Compare(pObject, Value.pObject)>=0; }
-	inline bool operator<(Handle<Sentence> const& Value)const { return Compare(pObject, Value.pObject)<0; }
-	inline bool operator<=(Handle<Sentence> const& Value)const { return Compare(pObject, Value.pObject)<=0; }
+	inline bool operator==(std::nullptr_t)const { return m_Object==nullptr; }
+	inline bool operator==(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)==0; }
+	inline bool operator!=(std::nullptr_t)const { return m_Object!=nullptr; }
+	inline bool operator!=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)!=0; }
+	inline bool operator>(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>0; }
+	inline bool operator>=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>=0; }
+	inline bool operator<(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<0; }
+	inline bool operator<=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<=0; }
 
 private:
 	// Common
@@ -126,5 +126,5 @@ private:
 			return -1;
 		return 0;
 		}
-	Sentence* pObject;
+	Sentence* m_Object;
 };

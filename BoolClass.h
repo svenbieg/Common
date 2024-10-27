@@ -44,24 +44,24 @@ public:
 	template <class _friend_t> friend class Handle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(Bool* Object) { HandleCreate(&pObject, Object); }
-	Handle(Handle<Bool>&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(Bool* Object) { HandleCreate(&m_Object, Object); }
+	Handle(Handle<Bool>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	operator bool()const { return VariableGet(pObject, false); }
-	Bool* operator->()const { return pObject; }
+	operator bool()const { return VariableGet(m_Object, false); }
+	Bool* operator->()const { return m_Object; }
 
 	// Comparison
-	bool operator==(BOOL Value) { return VariableEqual(pObject, Value); }
-	bool operator!=(BOOL Value) { return !VariableEqual(pObject, Value); }
+	bool operator==(BOOL Value) { return VariableEqual(m_Object, Value); }
+	bool operator!=(BOOL Value) { return !VariableEqual(m_Object, Value); }
 
 	// Assignment
-	Handle& operator=(BOOL Value) { VariableAssign(&pObject, Value); return *this; }
-	Handle& operator=(Bool* Object) { HandleAssign(&pObject, Object); return *this; }
+	Handle& operator=(BOOL Value) { VariableAssign(&m_Object, Value); return *this; }
+	Handle& operator=(Bool* Object) { HandleAssign(&m_Object, Object); return *this; }
 
 private:
 	// Common
-	Bool* pObject;
+	Bool* m_Object;
 };

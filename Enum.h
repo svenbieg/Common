@@ -69,21 +69,21 @@ public:
 	template <class _owner_t, class _obj_t> friend class DynamicHandle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(decltype(nullptr)): pObject(nullptr) {}
-	Handle(Enum* Pointer) { HandleCreate<Enum, Enum>(&pObject, Pointer); }
-	Handle(Handle<Enum> const& Handle) { HandleCreate<Enum, Enum>(&pObject, Handle.pObject); }
-	Handle(Handle<Enum>&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(decltype(nullptr)): m_Object(nullptr) {}
+	Handle(Enum* Pointer) { HandleCreate<Enum, Enum>(&m_Object, Pointer); }
+	Handle(Handle<Enum> const& Handle) { HandleCreate<Enum, Enum>(&m_Object, Handle.m_Object); }
+	Handle(Handle<Enum>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	inline operator Handle<Sentence>()const { return pObject? pObject->Get(): nullptr; }
-	inline Enum* operator->()const { return pObject; }
+	inline operator Handle<Sentence>()const { return m_Object? m_Object->Get(): nullptr; }
+	inline Enum* operator->()const { return m_Object; }
 
 	// Comparison
 	inline bool operator==(STRING const* Value)const
 		{
-		Handle<Sentence> value=pObject? pObject->Get(): nullptr;
+		Handle<Sentence> value=m_Object? m_Object->Get(): nullptr;
 		if(!value)
 			{
 			if(Value)
@@ -95,16 +95,16 @@ public:
 	inline BOOL operator!=(STRING const* Value)const { return !operator==(Value); }
 
 	// Assignment
-	inline Handle& operator=(Enum* Value) { HandleAssign(&pObject, Value); return *this; }
+	inline Handle& operator=(Enum* Value) { HandleAssign(&m_Object, Value); return *this; }
 	inline Handle& operator=(STRING const* Value)
 		{
-		if(pObject)
-			pObject->Set(Value);
+		if(m_Object)
+			m_Object->Set(Value);
 		return *this;
 		}
 
 private:
-	Enum* pObject;
+	Enum* m_Object;
 };
 
 

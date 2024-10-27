@@ -143,28 +143,28 @@ public:
 	template <class _friend_t> friend class Handle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(TimePoint* TimePoint) { HandleCreate(&pObject, TimePoint); }
-	Handle(Handle<TimePoint> const& Handle) { HandleCreate(&pObject, Handle.pObject); }
-	Handle(Handle<TimePoint>&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(TimePoint* TimePoint) { HandleCreate(&m_Object, TimePoint); }
+	Handle(Handle<TimePoint> const& Handle) { HandleCreate(&m_Object, Handle.m_Object); }
+	Handle(Handle<TimePoint>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	operator TIMEPOINT()const { return VariableGet<TimePoint, TIMEPOINT>(pObject, { 0, 0, 0, 0, 0, 0, 0 }); }
-	operator TimePoint*()const { return pObject; }
-	TimePoint* operator->()const { return pObject; }
+	operator TIMEPOINT()const { return VariableGet<TimePoint, TIMEPOINT>(m_Object, { 0, 0, 0, 0, 0, 0, 0 }); }
+	operator TimePoint*()const { return m_Object; }
+	TimePoint* operator->()const { return m_Object; }
 
 	// Comparison
-	bool operator==(TIMEPOINT const& Value) { return VariableEqual(pObject, Value); }
-	bool operator!=(TIMEPOINT const& Value) { return !VariableEqual(pObject, Value); }
+	bool operator==(TIMEPOINT const& Value) { return VariableEqual(m_Object, Value); }
+	bool operator!=(TIMEPOINT const& Value) { return !VariableEqual(m_Object, Value); }
 
 	// Assignment
-	Handle<TimePoint>& operator=(decltype(nullptr)) { HandleClear(&pObject); return *this; }
-	Handle<TimePoint>& operator=(TIMEPOINT const& Value) { VariableAssign(&pObject, Value); return *this; }
-	Handle& operator=(TimePoint* Value) { HandleAssign(&pObject, Value); return *this; }
-	Handle& operator=(Handle const& Handle) { HandleAssign(&pObject, Handle.pObject); return *this; }
+	Handle<TimePoint>& operator=(decltype(nullptr)) { HandleClear(&m_Object); return *this; }
+	Handle<TimePoint>& operator=(TIMEPOINT const& Value) { VariableAssign(&m_Object, Value); return *this; }
+	Handle& operator=(TimePoint* Value) { HandleAssign(&m_Object, Value); return *this; }
+	Handle& operator=(Handle const& Handle) { HandleAssign(&m_Object, Handle.m_Object); return *this; }
 
 private:
 	// Common
-	TimePoint* pObject;
+	TimePoint* m_Object;
 };

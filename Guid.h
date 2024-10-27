@@ -75,32 +75,32 @@ public:
 	template <class _friend_t> friend class Handle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(decltype(nullptr)): pObject(nullptr) {}
-	Handle(Guid* Object) { HandleCreate(&pObject, Object); }
-	Handle(Handle const& Handle) { HandleCreate(&pObject, Handle.pObject); }
-	Handle(Handle&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(decltype(nullptr)): m_Object(nullptr) {}
+	Handle(Guid* Object) { HandleCreate(&m_Object, Object); }
+	Handle(Handle const& Handle) { HandleCreate(&m_Object, Handle.m_Object); }
+	Handle(Handle&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	operator GLOBAL_UNIQUE_ID()const { return VariableGet<Guid, GLOBAL_UNIQUE_ID>(pObject, GLOBAL_UNIQUE_ID()); }
-	Guid* operator->()const { return pObject; }
+	operator GLOBAL_UNIQUE_ID()const { return VariableGet<Guid, GLOBAL_UNIQUE_ID>(m_Object, GLOBAL_UNIQUE_ID()); }
+	Guid* operator->()const { return m_Object; }
 
 	// Comparison
-	BOOL operator==(GLOBAL_UNIQUE_ID Value) { return VariableEqual(pObject, Value); }
-	BOOL operator!=(GLOBAL_UNIQUE_ID Value) { return !VariableEqual(pObject, Value); }
-	BOOL operator>(GLOBAL_UNIQUE_ID Value) { return VariableAbove(pObject, Value); }
-	BOOL operator>=(GLOBAL_UNIQUE_ID Value) { return VariableAboveOrEqual(pObject, Value); }
-	BOOL operator<(GLOBAL_UNIQUE_ID Value) { return VariableBelow(pObject, Value); }
-	BOOL operator<=(GLOBAL_UNIQUE_ID Value) { return VariableBelowOrEqual(pObject, Value); }
+	BOOL operator==(GLOBAL_UNIQUE_ID Value) { return VariableEqual(m_Object, Value); }
+	BOOL operator!=(GLOBAL_UNIQUE_ID Value) { return !VariableEqual(m_Object, Value); }
+	BOOL operator>(GLOBAL_UNIQUE_ID Value) { return VariableAbove(m_Object, Value); }
+	BOOL operator>=(GLOBAL_UNIQUE_ID Value) { return VariableAboveOrEqual(m_Object, Value); }
+	BOOL operator<(GLOBAL_UNIQUE_ID Value) { return VariableBelow(m_Object, Value); }
+	BOOL operator<=(GLOBAL_UNIQUE_ID Value) { return VariableBelowOrEqual(m_Object, Value); }
 
 	// Assignment
-	Handle& operator=(decltype(nullptr)) { HandleClear(&pObject); return *this; }
-	Handle& operator=(GLOBAL_UNIQUE_ID Value) { VariableAssign(&pObject, Value); return *this; }
-	Handle& operator=(Guid* Object) { HandleAssign(&pObject, Object); return *this; }
-	Handle& operator=(Handle const& Handle) { HandleAssign(&pObject, Handle.pObject); return *this; }
+	Handle& operator=(decltype(nullptr)) { HandleClear(&m_Object); return *this; }
+	Handle& operator=(GLOBAL_UNIQUE_ID Value) { VariableAssign(&m_Object, Value); return *this; }
+	Handle& operator=(Guid* Object) { HandleAssign(&m_Object, Object); return *this; }
+	Handle& operator=(Handle const& Handle) { HandleAssign(&m_Object, Handle.m_Object); return *this; }
 
 private:
 	// Common
-	Guid* pObject;
+	Guid* m_Object;
 };

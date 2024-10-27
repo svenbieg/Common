@@ -43,34 +43,34 @@ public:
 	template <class _friend_t> friend class Handle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(decltype(nullptr)): pObject(nullptr) {}
-	Handle(Int32* Object) { HandleCreate(&pObject, Object); }
-	Handle(Handle const& Handle) { HandleCreate(&pObject, Handle.pObject); }
-	Handle(Handle&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(decltype(nullptr)): m_Object(nullptr) {}
+	Handle(Int32* Object) { HandleCreate(&m_Object, Object); }
+	Handle(Handle const& Handle) { HandleCreate(&m_Object, Handle.m_Object); }
+	Handle(Handle&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	operator INT()const { return VariableGet(pObject, 0); }
-	Int32* operator->()const { return pObject; }
+	operator INT()const { return VariableGet(m_Object, 0); }
+	Int32* operator->()const { return m_Object; }
 
 	// Comparison
-	bool operator==(INT Value) { return VariableEqual(pObject, Value); }
-	bool operator!=(INT Value) { return !VariableEqual(pObject, Value); }
-	bool operator>(INT Value) { return VariableAbove(pObject, Value); }
-	bool operator>=(INT Value) { return VariableAboveOrEqual(pObject, Value); }
-	bool operator<(INT Value) { return VariableBelow(pObject, Value); }
-	bool operator<=(INT Value) { return VariableBelowOrEqual(pObject, Value); }
+	bool operator==(INT Value) { return VariableEqual(m_Object, Value); }
+	bool operator!=(INT Value) { return !VariableEqual(m_Object, Value); }
+	bool operator>(INT Value) { return VariableAbove(m_Object, Value); }
+	bool operator>=(INT Value) { return VariableAboveOrEqual(m_Object, Value); }
+	bool operator<(INT Value) { return VariableBelow(m_Object, Value); }
+	bool operator<=(INT Value) { return VariableBelowOrEqual(m_Object, Value); }
 
 	// Assignment
-	Handle& operator=(decltype(nullptr)) { HandleClear(&pObject); return *this; }
-	Handle& operator=(INT Value) { VariableAssign(&pObject, Value); return *this; }
-	Handle& operator=(Int32* Object) { HandleAssign(&pObject, Object); return *this; }
-	Handle& operator=(Handle const& Handle) { HandleAssign(&pObject, Handle.pObject); return *this; }
+	Handle& operator=(decltype(nullptr)) { HandleClear(&m_Object); return *this; }
+	Handle& operator=(INT Value) { VariableAssign(&m_Object, Value); return *this; }
+	Handle& operator=(Int32* Object) { HandleAssign(&m_Object, Object); return *this; }
+	Handle& operator=(Handle const& Handle) { HandleAssign(&m_Object, Handle.m_Object); return *this; }
 
 private:
 	// Common
-	Int32* pObject;
+	Int32* m_Object;
 };
 
 
@@ -105,32 +105,32 @@ public:
 	template <class _friend_t> friend class Handle;
 
 	// Con-/Destructors
-	Handle(): pObject(nullptr) {}
-	Handle(decltype(nullptr)): pObject(nullptr) {}
-	Handle(Int64* Object) { HandleCreate(&pObject, Object); }
-	Handle(Handle const& Handle) { HandleCreate(&pObject, Handle.pObject); }
-	Handle(Handle&& Handle)noexcept: pObject(Handle.pObject) { Handle.pObject=nullptr; }
-	~Handle() { HandleClear(&pObject); }
+	Handle(): m_Object(nullptr) {}
+	Handle(decltype(nullptr)): m_Object(nullptr) {}
+	Handle(Int64* Object) { HandleCreate(&m_Object, Object); }
+	Handle(Handle const& Handle) { HandleCreate(&m_Object, Handle.m_Object); }
+	Handle(Handle&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
+	~Handle() { HandleClear(&m_Object); }
 
 	// Access
-	operator INT64()const { return VariableGet<Int64, INT64>(pObject, 0); }
-	Int64* operator->()const { return pObject; }
+	operator INT64()const { return VariableGet<Int64, INT64>(m_Object, 0); }
+	Int64* operator->()const { return m_Object; }
 
 	// Comparison
-	bool operator==(INT64 Value) { return VariableEqual(pObject, Value); }
-	bool operator!=(INT64 Value) { return !VariableEqual(pObject, Value); }
-	bool operator>(INT64 Value) { return VariableAbove(pObject, Value); }
-	bool operator>=(INT64 Value) { return VariableAboveOrEqual(pObject, Value); }
-	bool operator<(INT64 Value) { return VariableBelow(pObject, Value); }
-	bool operator<=(INT64 Value) { return VariableBelowOrEqual(pObject, Value); }
+	bool operator==(INT64 Value) { return VariableEqual(m_Object, Value); }
+	bool operator!=(INT64 Value) { return !VariableEqual(m_Object, Value); }
+	bool operator>(INT64 Value) { return VariableAbove(m_Object, Value); }
+	bool operator>=(INT64 Value) { return VariableAboveOrEqual(m_Object, Value); }
+	bool operator<(INT64 Value) { return VariableBelow(m_Object, Value); }
+	bool operator<=(INT64 Value) { return VariableBelowOrEqual(m_Object, Value); }
 
 	// Assignment
-	Handle& operator=(decltype(nullptr)) { HandleClear(&pObject); return *this; }
-	Handle& operator=(INT64 Value) { VariableAssign(&pObject, Value); return *this; }
-	Handle& operator=(Int64* Object) { HandleAssign(&pObject, Object); return *this; }
-	Handle& operator=(Handle const& Handle) { HandleAssign(&pObject, Handle.pObject); return *this; }
+	Handle& operator=(decltype(nullptr)) { HandleClear(&m_Object); return *this; }
+	Handle& operator=(INT64 Value) { VariableAssign(&m_Object, Value); return *this; }
+	Handle& operator=(Int64* Object) { HandleAssign(&m_Object, Object); return *this; }
+	Handle& operator=(Handle const& Handle) { HandleAssign(&m_Object, Handle.m_Object); return *this; }
 
 private:
 	// Common
-	Int64* pObject;
+	Int64* m_Object;
 };
