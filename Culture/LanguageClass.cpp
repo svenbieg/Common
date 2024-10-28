@@ -23,18 +23,9 @@ using namespace Resources::Strings;
 namespace Culture {
 
 
-//==================
-// Con-/Destructors
-//==================
-
-Language::Language(Handle<String> name, LanguageCode lng):
-TypedVariable(name, lng)
-{}
-
-
-//========
-// Common
-//========
+//=============
+// Translation
+//=============
 
 typedef struct
 {
@@ -48,6 +39,20 @@ constexpr TRANSLATION TRANS_LANGUAGE[]=
 	{ LNG::EN, STR_ENGLISH },
 	{ LNG::None, nullptr }
 	};
+
+
+//==================
+// Con-/Destructors
+//==================
+
+Language::Language(Handle<String> name, LanguageCode lng):
+TypedVariable(name, lng)
+{}
+
+
+//========
+// Common
+//========
 
 Handle<String> Language::ToString(LanguageCode lng_str)
 {

@@ -70,7 +70,7 @@ public:
 
 	// Con-/Destructors
 	Handle(): m_Object(nullptr) {}
-	Handle(decltype(nullptr)): m_Object(nullptr) {}
+	Handle(nullptr_t): m_Object(nullptr) {}
 	Handle(Enum* Pointer) { HandleCreate<Enum, Enum>(&m_Object, Pointer); }
 	Handle(Handle<Enum> const& Handle) { HandleCreate<Enum, Enum>(&m_Object, Handle.m_Object); }
 	Handle(Handle<Enum>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }

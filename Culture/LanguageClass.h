@@ -9,8 +9,7 @@
 // Using
 //=======
 
-#include "Culture/Language.h"
-#include "Variable.h"
+#include "Language.h"
 
 
 //===========

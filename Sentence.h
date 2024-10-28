@@ -87,6 +87,7 @@ public:
 
 	// Con-/Destructors
 	Handle(): m_Object(nullptr) {}
+	Handle(nullptr_t): m_Object(nullptr) {}
 	Handle(LPCSTR Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
 	Handle(STRING const* Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
 	Handle(Sentence* Value) { HandleCreate<Sentence, Sentence>(&m_Object, Value); }
