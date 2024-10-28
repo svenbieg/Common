@@ -36,7 +36,7 @@ public:
 
 private:
 	// Common
-	Handle<String> hValue;
+	Handle<String> m_Value;
 };
 
 
@@ -53,7 +53,6 @@ public:
 
 	// Con-/Destructors
 	Handle(): m_Object(nullptr) {}
-	Handle(decltype(nullptr)): m_Object(nullptr) {}
 	Handle(Handle const& Handle) { HandleCreate(&m_Object, Handle.m_Object); }
 	Handle(Handle&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
 	Handle(StringVariable* Variable)noexcept { HandleCreate<StringVariable, StringVariable>(&m_Object, Variable); }
@@ -66,33 +65,33 @@ public:
 	StringVariable* operator->() { return m_Object; }
 
 	// Comparison
-	BOOL operator==(decltype(nullptr))const
+	BOOL operator==(nullptr_t)const
 		{
 		if(!m_Object)
 			return true;
-		auto hstr=m_Object->Get();
-		return hstr==nullptr;
+		auto str=m_Object->Get();
+		return str==nullptr;
 		}
 	BOOL operator==(LPCSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr==Value;
+		auto str=m_Object->Get();
+		return str==Value;
 		}
 	BOOL operator==(LPCWSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr==Value;
+		auto str=m_Object->Get();
+		return str==Value;
 		}
 	BOOL operator==(Handle<String> const& Handle)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr==Handle;
+		auto str=m_Object->Get();
+		return str==Handle;
 		}
 	inline BOOL operator!=(decltype(nullptr))const { return !operator==(nullptr); }
 	inline BOOL operator!=(LPCSTR Value)const { return !operator==(Value); }
@@ -102,101 +101,101 @@ public:
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>nullptr;
+		auto str=m_Object->Get();
+		return str>nullptr;
 		}
 	BOOL operator>(LPCSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>Value;
+		auto str=m_Object->Get();
+		return str>Value;
 		}
 	BOOL operator>(LPCWSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>Value;
+		auto str=m_Object->Get();
+		return str>Value;
 		}
 	BOOL operator>(Handle<String> const& Handle)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>Handle;
+		auto str=m_Object->Get();
+		return str>Handle;
 		}
 	BOOL operator>=(decltype(nullptr))const { return true; }
 	BOOL operator>=(LPCSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>=Value;
+		auto str=m_Object->Get();
+		return str>=Value;
 		}
 	BOOL operator>=(LPCWSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>=Value;
+		auto str=m_Object->Get();
+		return str>=Value;
 		}
 	BOOL operator>=(Handle<String> const& Handle)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr>=Handle;
+		auto str=m_Object->Get();
+		return str>=Handle;
 		}
 	BOOL operator<(decltype(nullptr))const { return false; }
 	BOOL operator<(LPCSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<Value;
+		auto str=m_Object->Get();
+		return str<Value;
 		}
 	BOOL operator<(LPCWSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<Value;
+		auto str=m_Object->Get();
+		return str<Value;
 		}
 	BOOL operator<(Handle<String> const& Handle)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<Handle;
+		auto str=m_Object->Get();
+		return str<Handle;
 		}
 	BOOL operator<=(decltype(nullptr))const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<=nullptr;
+		auto str=m_Object->Get();
+		return str<=nullptr;
 		}
 	BOOL operator<=(LPCSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<=Value;
+		auto str=m_Object->Get();
+		return str<=Value;
 		}
 	BOOL operator<=(LPCWSTR Value)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<=Value;
+		auto str=m_Object->Get();
+		return str<=Value;
 		}
 	BOOL operator<=(Handle<String> const& Handle)const
 		{
 		if(!m_Object)
 			return false;
-		auto hstr=m_Object->Get();
-		return hstr<=Handle;
+		auto str=m_Object->Get();
+		return str<=Handle;
 		}
 
 	// Assignment

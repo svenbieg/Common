@@ -48,8 +48,8 @@ public:
 
 private:
 	// Common
-	Clusters::index<Handle<Sentence>> cEnum;
-	Handle<Sentence> hValue;
+	Handle<Sentence> m_Value;
+	Clusters::index<Handle<Sentence>> m_Values;
 };
 
 
@@ -120,19 +120,19 @@ public:
 	~EnumIterator();
 
 	// Access
-	Handle<Sentence> GetCurrent()const { return cIt.get_current(); }
-	UINT GetPosition()const { return cIt.get_position(); }
-	BOOL HasCurrent()const { return cIt.has_current(); }
+	Handle<Sentence> GetCurrent()const { return m_It.get_current(); }
+	UINT GetPosition()const { return m_It.get_position(); }
+	BOOL HasCurrent()const { return m_It.has_current(); }
 
 	// Navigation
-	BOOL First() { return cIt.begin(); }
-	BOOL Last() { return cIt.rbegin(); }
-	BOOL MoveNext() { return cIt.move_next(); }
-	BOOL MovePrevious() { return cIt.move_previous(); }
-	BOOL SetPosition(UINT Position) { return cIt.set_position(Position); }
+	BOOL First() { return m_It.begin(); }
+	BOOL Last() { return m_It.rbegin(); }
+	BOOL MoveNext() { return m_It.move_next(); }
+	BOOL MovePrevious() { return m_It.move_previous(); }
+	BOOL SetPosition(UINT Position) { return m_It.set_position(Position); }
 
 private:
 	// Common
-	typename Clusters::index<Handle<Sentence>>::iterator cIt;
-	Handle<Enum> hEnum;
+	Handle<Enum> m_Enum;
+	typename Clusters::index<Handle<Sentence>>::iterator m_It;
 };

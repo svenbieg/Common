@@ -50,8 +50,8 @@ public:
 		STRING* string=new STRING[1];
 		string->Language=LanguageCode::None;
 		string->Value=value;
-		pString=string;
-		pValue=value;
+		m_String=string;
+		m_Value=value;
 		}
 	~Sentence();
 
@@ -66,8 +66,8 @@ public:
 
 private:
 	// Common
-	STRING const* pString;
-	LPCSTR pValue;
+	STRING const* m_String;
+	LPCSTR m_Value;
 };
 
 
@@ -87,7 +87,6 @@ public:
 
 	// Con-/Destructors
 	Handle(): m_Object(nullptr) {}
-	Handle(std::nullptr_t): m_Object(nullptr) {}
 	Handle(LPCSTR Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
 	Handle(STRING const* Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
 	Handle(Sentence* Value) { HandleCreate<Sentence, Sentence>(&m_Object, Value); }

@@ -42,21 +42,21 @@ BYTE DaysPerMonth[4][12]={
 
 Handle<Clock> Clock::Get()
 {
-if(!hCurrent)
-	hCurrent=new Clock();
-return hCurrent;
+if(!m_Current)
+	m_Current=new Clock();
+return m_Current;
 }
 
 INT Clock::GetDayOfYear()const
 {
-if(cTimePoint.Year==0)
+if(m_TimePoint.Year==0)
 	return 0;
-UINT uyear=cTimePoint.Year;
+UINT uyear=m_TimePoint.Year;
 WORD uyear4=uyear%4;
 INT iday=0;
-for(INT i=0; i<cTimePoint.Month; i++)
+for(INT i=0; i<m_TimePoint.Month; i++)
 	iday+=DaysPerMonth[uyear4][i];
-iday+=cTimePoint.DayOfMonth+1;
+iday+=m_TimePoint.DayOfMonth+1;
 return iday;
 }
 
@@ -75,7 +75,7 @@ BOOL Clock::Update(TIMEPOINT* tp)
 {
 if(!tp)
 	return false;
-if(cTimePoint.Year==0)
+if(m_TimePoint.Year==0)
 	return false;
 UINT64 ticks=TimePointToTickCount(*tp);
 if(ticks==0)
@@ -91,12 +91,12 @@ return ClockGetTime(*tp, delta);
 //==========================
 
 Clock::Clock():
-cTimePoint({ 0, 0, 0, 0, 0, 0, 0 }),
-uTicks(0)
+m_Ticks(0),
+m_TimePoint({ 0 })
 {
-hTimer=new Timer();
-hTimer->Triggered.Add(this, &Clock::OnTimerTriggered);
-hTimer->StartPeriodic(100);
+m_Timer=new Timer();
+m_Timer->Triggered.Add(this, &Clock::OnTimerTriggered);
+m_Timer->StartPeriodic(100);
 }
 
 
@@ -109,8 +109,8 @@ VOID Clock::DoSecond()
 TIMEPOINT tp_new;
 if(!ClockGetTime(tp_new))
 	return;
-TIMEPOINT tp_old(cTimePoint);
-cTimePoint=tp_new;
+TIMEPOINT tp_old(m_TimePoint);
+m_TimePoint=tp_new;
 if(tp_old.Year==0)
 	TimeSet(this);
 if(tp_old.Second!=tp_new.Second)
@@ -130,15 +130,15 @@ if(tp_old.Year!=tp_new.Year)
 VOID Clock::OnTimerTriggered()
 {
 Tick(this);
-uTicks++;
-if(uTicks%10)
+m_Ticks++;
+if(m_Ticks%10)
 	return;
-uTicks=0;
+m_Ticks=0;
 auto app=Application::Current;
 if(app)
 	app->Dispatch(this, &Clock::DoSecond);
 }
 
-Handle<Clock> Clock::hCurrent;
+Handle<Clock> Clock::m_Current;
 
 }

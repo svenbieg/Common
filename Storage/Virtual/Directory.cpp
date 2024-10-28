@@ -38,7 +38,7 @@ BOOL Directory::Add(Handle<String> name, Handle<Object> obj, BOOL notify)
 {
 if(!obj)
 	return false;
-if(!cMap.add(name, obj))
+if(!m_Map.add(name, obj))
 	return false;
 if(notify)
 	Changed(this);
@@ -47,19 +47,19 @@ return true;
 
 VOID Directory::Clear()
 {
-cMap.clear();
+m_Map.clear();
 }
 
 Handle<Object> Directory::GetChild(Handle<String> name)
 {
 if(!name||name->IsEmpty())
 	return nullptr;
-return cMap.get(name);
+return m_Map.get(name);
 }
 
 BOOL Directory::Remove(Handle<String> name, BOOL notify)
 {
-if(!cMap.remove(name))
+if(!m_Map.remove(name))
 	return false;
 if(notify)
 	Changed(this);
@@ -68,7 +68,7 @@ return true;
 
 VOID Directory::RemoveAll()
 {
-if(cMap.clear())
+if(m_Map.clear())
 	Changed(this);
 }
 
@@ -100,7 +100,7 @@ if(!uclen)
 	return this;
 Handle<String> name=new String(uclen, &path_ptr[pos]);
 pos+=uclen;
-auto obj=cMap.get(name);
+auto obj=m_Map.get(name);
 if(!obj)
 	return nullptr;
 if(path_ptr[pos]==0)
@@ -117,8 +117,8 @@ return nullptr;
 //===========================
 
 DirectoryIterator::DirectoryIterator(Handle<Directory> dir):
-cIt(&dir->cMap),
-hDirectory(dir)
+m_Directory(dir),
+m_It(&dir->m_Map)
 {
 First();
 }

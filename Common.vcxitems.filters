@@ -33,9 +33,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h">
-      <Filter>Culture</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Log.h">
       <Filter>Collections</Filter>
     </ClInclude>
@@ -104,9 +101,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Platform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp">
-      <Filter>Culture</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp">
       <Filter>Collections</Filter>
     </ClCompile>

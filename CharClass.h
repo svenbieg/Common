@@ -28,11 +28,11 @@ public:
 	Char(Handle<String> Name, WCHAR Value): TypedVariable(Name, CharToAnsi(Value)) {}
 
 	// Access
-	inline BOOL IsAlpha() { return CharIsAlpha(tValue); }
-	inline BOOL IsBreak() { return CharIsBreak(tValue); }
-	inline BOOL IsCapital() { return CharIsCapital(tValue); }
-	inline BOOL IsDigit(UINT Base=10) { return CharIsDigit(tValue, Base); }
-	inline BOOL IsSmall() { return CharIsSmall(tValue); }
-	inline BOOL IsSpecial() { return CharIsSpecial(tValue); }
+	inline BOOL IsAlpha() { return CharIsAlpha(m_Value); }
+	inline BOOL IsBreak() { return CharIsBreak(m_Value); }
+	inline BOOL IsCapital() { return CharIsCapital(m_Value); }
+	inline BOOL IsDigit(UINT Base=10) { return CharIsDigit(m_Value, Base); }
+	inline BOOL IsSmall() { return CharIsSmall(m_Value); }
+	inline BOOL IsSpecial() { return CharIsSpecial(m_Value); }
 	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override { return new String("%c", Get()); }
 };

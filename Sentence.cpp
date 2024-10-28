@@ -42,26 +42,26 @@ return string->Value;
 //==================
 
 Sentence::Sentence():
-pString(nullptr),
-pValue(nullptr)
+m_String(nullptr),
+m_Value(nullptr)
 {}
 
 Sentence::Sentence(LPCSTR value):
-pString(nullptr),
-pValue(value)
+m_String(nullptr),
+m_Value(value)
 {}
 
 Sentence::Sentence(STRING const* value):
-pString(value),
-pValue(nullptr)
+m_String(value),
+m_Value(nullptr)
 {}
 
 Sentence::~Sentence()
 {
-if(pString&&pValue)
+if(m_String&&m_Value)
 	{
-	delete pString;
-	delete pValue;
+	delete m_String;
+	delete m_Value;
 	}
 }
 
@@ -72,9 +72,9 @@ if(pString&&pValue)
 
 LPCSTR Sentence::Begin(LanguageCode lng)const
 {
-if(pString)
-	return Translate(pString, lng);
-return pValue;
+if(m_String)
+	return Translate(m_String, lng);
+return m_Value;
 }
 
 template <class _char_t> INT SentenceCompare(STRING const* string, _char_t const* value)
@@ -94,27 +94,27 @@ return 1;
 
 INT Sentence::Compare(LPCSTR value)const
 {
-if(pString)
-	return SentenceCompare<CHAR>(pString, value);
-return StringCompare(pValue, value, 0, false)==0;
+if(m_String)
+	return SentenceCompare<CHAR>(m_String, value);
+return StringCompare(m_Value, value, 0, false)==0;
 }
 
 INT Sentence::Compare(LPCWSTR value)const
 {
-if(pString)
-	return SentenceCompare<WCHAR>(pString, value);
-return StringCompare(pValue, value, 0, false)==0;
+if(m_String)
+	return SentenceCompare<WCHAR>(m_String, value);
+return StringCompare(m_Value, value, 0, false)==0;
 }
 
 INT Sentence::Compare(STRING const* string)const
 {
-if(pString==string)
+if(m_String==string)
 	return 0;
-if(!pString)
+if(!m_String)
 	return -1;
 if(!string)
 	return 1;
-auto string1=pString;
+auto string1=m_String;
 while(string1)
 	{
 	auto string2=string;
@@ -138,7 +138,7 @@ return 1;
 
 INT Sentence::Compare(Sentence const* sentence)const
 {
-STRING const* string=sentence? sentence->pString: nullptr;
+STRING const* string=sentence? sentence->m_String: nullptr;
 return Compare(string);
 }
 
@@ -151,8 +151,8 @@ if(!str)
 	return size;
 auto str_ptr=str->Begin();
 UINT len=StringLength(str_ptr);
-pValue=new CHAR[len+1];
-LPSTR value_ptr=const_cast<LPSTR>(pValue);
+m_Value=new CHAR[len+1];
+LPSTR value_ptr=const_cast<LPSTR>(m_Value);
 UINT count=0;
 for(UINT pos=0; pos<len; pos++)
 	{
@@ -164,8 +164,8 @@ for(UINT pos=0; pos<len; pos++)
 		}
 	value_ptr[pos]=CharToChar<CHAR, TCHAR>(c);
 	}
-pString=new STRING[count+1];
-auto string=const_cast<STRING*>(pString);
+m_String=new STRING[count+1];
+auto string=const_cast<STRING*>(m_String);
 UINT id=0;
 for(UINT pos=0; pos<len; pos++)
 	{
@@ -186,10 +186,10 @@ SIZE_T Sentence::WriteToStream(OutputStream* stream)
 {
 SIZE_T size=0;
 StreamWriter writer(stream);
-if(pString)
+if(m_String)
 	{
 	SIZE_T size=0;
-	auto string=pString;
+	auto string=m_String;
 	while(1)
 		{
 		auto lng=string->Language;
@@ -206,7 +206,7 @@ if(pString)
 	}
 auto lng_str=LanguageCodeToString(LanguageCode::None);
 size+=writer.Print(lng_str);
-size+=writer.Print(pValue);
+size+=writer.Print(m_Value);
 size+=writer.Print("\r\0");
 return size;
 }

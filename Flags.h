@@ -37,5 +37,5 @@ public:
 
 private:
 	// Common
-	Clusters::index<Handle<String>> cFlags;
+	Clusters::index<Handle<String>> m_Flags;
 };

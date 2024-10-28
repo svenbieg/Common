@@ -39,7 +39,7 @@ public:
 	friend DirectoryIterator;
 
 	// Con-/Destructors
-	Directory(Handle<String> Path);
+	Directory(Handle<String> Path=nullptr);
 
 	// Common
 	BOOL Add(Handle<String> Name, Handle<Object> Object, BOOL Notify=true);
@@ -56,7 +56,7 @@ public:
 
 private:
 	// Common
-	Clusters::shared_map<Handle<String>, Handle<Object>> cMap;
+	Clusters::shared_map<Handle<String>, Handle<Object>> m_Map;
 };
 
 
@@ -71,20 +71,20 @@ public:
 	DirectoryIterator(Handle<Directory> Directory);
 
 	// Common
-	BOOL Find(Handle<String> Name) { return cIt.find(Name); }
-	BOOL First() { return cIt.set_position(0); }
-	Handle<Object> GetCurrent()const override { return cIt->get_value(); }
-	UINT GetPosition()const { return cIt.get_position(); }
-	BOOL HasCurrent()const override { return cIt.has_current(); }
-	BOOL MoveNext()override { return cIt.move_next(); }
-	BOOL MovePrevious() { return cIt.move_previous(); }
-	BOOL RemoveCurrent() { return cIt.remove_current(); }
-	VOID SetPosition(UINT Position) { cIt.set_position(Position); }
+	BOOL Find(Handle<String> Name) { return m_It.find(Name); }
+	BOOL First() { return m_It.set_position(0); }
+	Handle<Object> GetCurrent()const override { return m_It->get_value(); }
+	UINT GetPosition()const { return m_It.get_position(); }
+	BOOL HasCurrent()const override { return m_It.has_current(); }
+	BOOL MoveNext()override { return m_It.move_next(); }
+	BOOL MovePrevious() { return m_It.move_previous(); }
+	BOOL RemoveCurrent() { return m_It.remove_current(); }
+	VOID SetPosition(UINT Position) { m_It.set_position(Position); }
 
 private:
 	// Common
-	typename Clusters::shared_map<Handle<String>, Handle<Object>>::iterator cIt;
-	Handle<Directory> hDirectory;
+	Handle<Directory> m_Directory;
+	typename Clusters::shared_map<Handle<String>, Handle<Object>>::iterator m_It;
 };
 
 }}

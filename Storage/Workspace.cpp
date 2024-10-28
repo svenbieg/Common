@@ -26,9 +26,9 @@ namespace Storage {
 Workspace::Workspace(Handle<String> name):
 Directory(name)
 {
-hDirectories=new DirectoryList();
-hVirtual=new Storage::Virtual::Directory("Virtual");
-AddDirectory(hVirtual);
+m_Directories=new DirectoryList();
+m_Virtual=new Storage::Virtual::Directory("Virtual");
+AddDirectory(m_Virtual);
 }
 
 
@@ -38,49 +38,49 @@ AddDirectory(hVirtual);
 
 BOOL Workspace::Add(Handle<String> name, Handle<Object> obj)
 {
-return hVirtual->Add(name, obj);
+return m_Virtual->Add(name, obj);
 }
 
 VOID Workspace::AddDirectory(Handle<Storage::Directory> dir)
 {
 if(!dir)
 	return;
-hDirectories->Append(dir);
-hVirtual->Add(dir->GetName(), dir);
+m_Directories->Append(dir);
+m_Virtual->Add(dir->GetName(), dir);
 }
 
 Handle<File> Workspace::CreateFile(Handle<String> path, FileCreateMode create, FileAccessMode access, FileShareMode share)
 {
 if(!path||path->IsEmpty())
 	return nullptr;
-auto ppath=path->Begin();
+auto str=path->Begin();
 UINT pos=0;
-while(PathIsSeparator(ppath[pos]))
+while(PathIsSeparator(str[pos]))
 	pos++;
-UINT uclen=PathGetComponentLength(&ppath[pos]);
-if(!uclen)
+UINT len=PathGetComponentLength(&str[pos]);
+if(!len)
 	return nullptr;
-Handle<String> name=new String(uclen, &ppath[pos]);
-pos+=uclen;
-if(ppath[pos]==0)
+Handle<String> name=new String(len, &str[pos]);
+pos+=len;
+if(str[pos]==0)
 	return nullptr;
-auto obj=hVirtual->GetChild(name);
+auto obj=m_Virtual->GetChild(name);
 if(!obj)
 	return nullptr;
 auto dir=Convert<Storage::Directory>(obj);
 if(!dir)
 	return nullptr;
-return dir->CreateFile(&ppath[pos], create, access, share);
+return dir->CreateFile(&str[pos], create, access, share);
 }
 
 Handle<DirectoryIterator> Workspace::First()
 {
-return hVirtual->First();
+return m_Virtual->First();
 }
 
 Handle<Object> Workspace::Get(Handle<String> path)
 {
-for(auto it=hDirectories->First(); it->HasCurrent(); it->MoveNext())
+for(auto it=m_Directories->First(); it->HasCurrent(); it->MoveNext())
 	{
 	auto dir=it->GetCurrent();
 	auto obj=dir->Get(path);

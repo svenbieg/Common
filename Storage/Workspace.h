@@ -44,8 +44,8 @@ public:
 
 private:
 	// Common
-	Handle<DirectoryList> hDirectories;
-	Handle<Storage::Virtual::Directory> hVirtual;
+	Handle<DirectoryList> m_Directories;
+	Handle<Storage::Virtual::Directory> m_Virtual;
 };
 
 }

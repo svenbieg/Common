@@ -38,8 +38,8 @@ TypedVariable(hname, usec)
 
 Handle<String> TimeSpan::ToString()
 {
-SharedLock lock(cMutex);
-return ToString(tValue);
+SharedLock lock(m_Mutex);
+return ToString(m_Value);
 }
 
 Handle<String> TimeSpan::ToString(UINT us)

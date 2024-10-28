@@ -136,14 +136,14 @@ return 0;
 
 BOOL TimePoint::IsAbsolute()
 {
-SharedLock lock(cMutex);
-return tValue.Year!=0;
+SharedLock lock(m_Mutex);
+return m_Value.Year!=0;
 }
 
 UINT64 TimePoint::ToSeconds()
 {
-SharedLock lock(cMutex);
-return ToSeconds(tValue);
+SharedLock lock(m_Mutex);
+return ToSeconds(m_Value);
 }
 
 UINT64 TimePoint::ToSeconds(TIMEPOINT const& tp)
@@ -169,17 +169,17 @@ return mktime(&t);
 
 Handle<String> TimePoint::ToString(LanguageCode lng)
 {
-SharedLock lock(cMutex);
+SharedLock lock(m_Mutex);
 CHAR str[64];
-ToString(tValue, str, 64, TimeFormat::DateTime, lng);
+ToString(m_Value, str, 64, TimeFormat::DateTime, lng);
 return str;
 }
 
 Handle<String> TimePoint::ToString(TimeFormat fmt, LanguageCode lng)
 {
-SharedLock lock(cMutex);
+SharedLock lock(m_Mutex);
 CHAR str[64];
-ToString(tValue, str, 64, fmt, lng);
+ToString(m_Value, str, 64, fmt, lng);
 return str;
 }
 
@@ -219,8 +219,8 @@ SIZE_T TimePoint::WriteToStream(OutputStream* stream)
 {
 if(!stream)
 	return sizeof(TIMEPOINT);
-SharedLock lock(cMutex);
-TIMEPOINT tp(tValue);
+SharedLock lock(m_Mutex);
+TIMEPOINT tp(m_Value);
 if(tp.Year==0)
 	ZeroMemory(&tp, sizeof(TIMEPOINT));
 return stream->Write(&tp, sizeof(TIMEPOINT));
@@ -233,8 +233,8 @@ return stream->Write(&tp, sizeof(TIMEPOINT));
 
 BOOL TimePoint::operator==(TIMEPOINT const& tp)
 {
-SharedLock lock(cMutex);
-return tValue==tp;
+SharedLock lock(m_Mutex);
+return m_Value==tp;
 }
 
 
@@ -290,8 +290,8 @@ UpdateTimer();
 
 VOID TimePoint::OnClockSecond(Clock* clock)
 {
-ScopedLock lock(cMutex);
-if(!clock->Update(&tValue))
+ScopedLock lock(m_Mutex);
+if(!clock->Update(&m_Value))
 	return;
 clock->Second.Remove(this);
 lock.Unlock();
@@ -375,10 +375,10 @@ return StringPrint(str, size, "%02u:%02u", hour, min);
 
 VOID TimePoint::UpdateTimer()
 {
-ScopedLock lock(cMutex);
+ScopedLock lock(m_Mutex);
 auto clock=Clock::Get();
 clock->Second.Remove(this);
-UINT64 ticks=TimePointToTickCount(tValue);
+UINT64 ticks=TimePointToTickCount(m_Value);
 if(ticks)
 	clock->Second.Add(this, &TimePoint::OnClockSecond);
 }

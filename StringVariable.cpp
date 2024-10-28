@@ -22,7 +22,7 @@ using namespace Storage::Streams;
 
 StringVariable::StringVariable(Handle<String> name, Handle<String> value):
 Variable(name),
-hValue(value)
+m_Value(value)
 {}
 
 
@@ -32,17 +32,17 @@ hValue(value)
 
 Handle<String> StringVariable::Get()
 {
-SharedLock lock(cMutex);
-Handle<String> hvalue=hValue;
+SharedLock lock(m_Mutex);
+Handle<String> value=m_Value;
 lock.Unlock();
-Reading(this, hvalue);
-return hvalue;
+Reading(this, value);
+return value;
 }
 
 SIZE_T StringVariable::WriteToStream(OutputStream* stream)
 {
-SharedLock lock(cMutex);
-Handle<String> value=hValue;
+SharedLock lock(m_Mutex);
+Handle<String> value=m_Value;
 lock.Unlock();
 Reading(this, value);
 SIZE_T size=0;
@@ -75,10 +75,10 @@ return size;
 
 BOOL StringVariable::Set(Handle<String> value, BOOL notify)
 {
-ScopedLock lock(cMutex);
-if(hValue==value)
+ScopedLock lock(m_Mutex);
+if(m_Value==value)
 	return true;
-hValue=value;
+m_Value=value;
 lock.Unlock();
 if(notify)
 	Changed(this);

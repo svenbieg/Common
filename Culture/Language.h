@@ -21,7 +21,7 @@ enum class LanguageCode: UINT
 None,
 DE,
 EN,
-Unknown=0xFFFFFFFF
+Unknown=-1
 };
 
 LPCSTR LanguageCodeToString(LanguageCode Language);
@@ -34,5 +34,20 @@ LanguageCode LanguageCodeFromString(LPCWSTR Language);
 //=========
 
 extern LanguageCode CurrentLanguage;
+
+
+//==========
+// Language
+//==========
+
+class Language: public TypedVariable<LanguageCode>
+{
+public:
+	// Con-/Destructors
+	Language(Handle<String> Name, LanguageCode Language);
+
+	// Common
+	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override;
+};
 
 }

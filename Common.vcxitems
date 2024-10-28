@@ -24,7 +24,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Log.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\LogEntry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Clock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Random.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Enum.h" />
@@ -56,7 +55,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\LogEntry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Clock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Random.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Enum.cpp" />

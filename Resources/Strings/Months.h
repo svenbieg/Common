@@ -9,7 +9,7 @@
 // Using
 //=======
 
-#include "Resources/Strings/String.h"
+#include "String.h"
 
 
 //===========

@@ -33,16 +33,16 @@ Variable(name)
 
 BOOL Flags::Get(Handle<String> flag)
 {
-SharedLock lock(cMutex);
-return cFlags.contains(flag);
+SharedLock lock(m_Mutex);
+return m_Flags.contains(flag);
 }
 
 Handle<String> Flags::ToString(LanguageCode lng)
 {
-SharedLock lock(cMutex);
+SharedLock lock(m_Mutex);
 Handle<String> flags;
 UINT count=0;
-for(auto it=cFlags.cbegin(); it.has_current(); it.move_next())
+for(auto it=m_Flags.cbegin(); it.has_current(); it.move_next())
 	{
 	if(count>0)
 		flags=flags+"|";
@@ -70,20 +70,20 @@ return size;
 
 VOID Flags::Clear(BOOL notify)
 {
-ScopedLock lock(cMutex);
-if(cFlags.get_count()==0)
+ScopedLock lock(m_Mutex);
+if(m_Flags.get_count()==0)
 	return;
-cFlags.clear();
+m_Flags.clear();
 if(notify)
 	Changed(this);
 }
 
 VOID Flags::Clear(Handle<String> flag, BOOL notify)
 {
-ScopedLock lock(cMutex);
-if(!cFlags.contains(flag))
+ScopedLock lock(m_Mutex);
+if(!m_Flags.contains(flag))
 	return;
-cFlags.remove(flag);
+m_Flags.remove(flag);
 if(notify)
 	Changed(this);
 }
@@ -97,7 +97,7 @@ if(str=="0")
 	Clear(notify);
 	return true;
 	}
-ScopedLock lock(cMutex);
+ScopedLock lock(m_Mutex);
 Handle<StringList> list=new StringList(str);
 BOOL changed=false;
 for(auto it=list->First(); it->HasCurrent(); it->MoveNext())
@@ -107,17 +107,17 @@ for(auto it=list->First(); it->HasCurrent(); it->MoveNext())
 	if(CharCompare(p[0], '!')==0)
 		{
 		Handle<String> clear=new String(&p[1]);
-		if(cFlags.contains(clear))
+		if(m_Flags.contains(clear))
 			{
-			cFlags.remove(clear);
+			m_Flags.remove(clear);
 			changed=true;
 			}
 		}
 	else
 		{
-		if(!cFlags.contains(flag))
+		if(!m_Flags.contains(flag))
 			{
-			cFlags.set(flag);
+			m_Flags.set(flag);
 			changed=true;
 			}
 		}
@@ -139,10 +139,10 @@ return size;
 
 VOID Flags::Set(Handle<String> flag, BOOL notify)
 {
-ScopedLock lock(cMutex);
-if(cFlags.contains(flag))
+ScopedLock lock(m_Mutex);
+if(m_Flags.contains(flag))
 	return;
-cFlags.set(flag);
+m_Flags.set(flag);
 lock.Unlock();
 if(notify)
 	Changed(this);

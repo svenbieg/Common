@@ -62,7 +62,7 @@ protected:
 	~Variable();
 
 	// Common
-	Mutex cMutex;
+	Mutex m_Mutex;
 };
 
 
@@ -77,8 +77,8 @@ public:
 	// Common
 	_value_t Get()
 		{
-		SharedLock lock(cMutex);
-		_value_t value=tValue;
+		SharedLock lock(m_Mutex);
+		_value_t value=m_Value;
 		lock.Unlock();
 		Reading(this, value);
 		return value;
@@ -87,7 +87,7 @@ public:
 		{
 		if(!Stream)
 			return sizeof(_value_t);
-		ScopedLock lock(cMutex);
+		ScopedLock lock(m_Mutex);
 		_value_t value;
 		SIZE_T size=Stream->Read(&value, sizeof(_value_t));
 		if(size==sizeof(_value_t))
@@ -97,10 +97,10 @@ public:
 	Event<Variable, _value_t&> Reading;
 	virtual VOID Set(_value_t const& Value, BOOL Notify=true)
 		{
-		ScopedLock lock(cMutex);
-		if(tValue==Value)
+		ScopedLock lock(m_Mutex);
+		if(m_Value==Value)
 			return;
-		tValue=Value;
+		m_Value=Value;
 		lock.Unlock();
 		if(Notify)
 			Changed(this);
@@ -109,8 +109,8 @@ public:
 		{
 		if(!Stream)
 			return sizeof(_value_t);
-		SharedLock lock(cMutex);
-		_value_t value=tValue;
+		SharedLock lock(m_Mutex);
+		_value_t value=m_Value;
 		lock.Unlock();
 		Reading(this, value);
 		return Stream->Write(&value, sizeof(_value_t));
@@ -118,8 +118,8 @@ public:
 
 protected:
 	// Con-/Destructors
-	TypedVariable(Handle<String> Name, _value_t Value): Variable(Name), tValue(Value) {}
+	TypedVariable(Handle<String> Name, _value_t Value): Variable(Name), m_Value(Value) {}
 	
 	// Common
-	_value_t tValue;
+	_value_t m_Value;
 };
