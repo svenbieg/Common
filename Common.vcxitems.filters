@@ -102,6 +102,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h">
       <Filter>Culture</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Settings.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp">
@@ -149,6 +152,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Sentence.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp">
       <Filter>Culture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Settings.cpp">
+      <Filter>Collections</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
