@@ -9,10 +9,10 @@
 // Using
 //=======
 
-#include "Devices/Clock.h"
+#include "Devices/Timers/Clock.h"
 #include "LogEntry.h"
 
-using namespace Devices;
+using namespace Devices::Timers;
 
 
 //===========
@@ -34,10 +34,7 @@ Message(msg),
 Time(time)
 {
 if(!Time)
-	{
-	auto clock=Clock::Get();
-	Time=clock->Now();
-	}
+	Time=Clock::Now();
 }
 
 

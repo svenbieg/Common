@@ -115,7 +115,7 @@ VOID XmlNode::OnValueChanged(Handle<String> value)
 {
 if(Elements->GetCount()==1)
 	{
-	auto content=Convert<XmlContent>(Elements->GetAt(0));
+	auto content=Elements->GetAt(0).As<XmlContent>();
 	if(content)
 		{
 		content->Value.Set(value, false);
@@ -151,7 +151,7 @@ while(1)
 	}
 if(Elements->GetCount()==1)
 	{
-	auto content=Convert<XmlContent>(Elements->GetAt(0));
+	auto content=Elements->GetAt(0).As<XmlContent>();
 	if(content)
 		Value.Set(content->Value, false);
 	}

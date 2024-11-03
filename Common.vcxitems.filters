@@ -31,6 +31,9 @@
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{a3ba2fb0-1c62-4c0c-82af-2ad2398192f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devices\Timers">
+      <UniqueIdentifier>{649236c7-ea9a-4656-87e3-12b55c9ab9f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Log.h">
@@ -53,9 +56,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\FileSize.h">
       <Filter>Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Clock.h">
-      <Filter>Devices</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Random.h">
       <Filter>Devices</Filter>
@@ -105,6 +105,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Settings.h">
       <Filter>Collections</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Timers\Clock.h">
+      <Filter>Devices\Timers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Timers\Timer.h">
+      <Filter>Devices\Timers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp">
@@ -127,9 +133,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\FileSize.cpp">
       <Filter>Storage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Clock.cpp">
-      <Filter>Devices</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Random.cpp">
       <Filter>Devices</Filter>
@@ -155,6 +158,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Settings.cpp">
       <Filter>Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Timers\Clock.cpp">
+      <Filter>Devices\Timers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Timers\Timer.cpp">
+      <Filter>Devices\Timers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,8 +9,8 @@
 // Using
 //=======
 
-#include <random>
-#include <stdlib.h>
+//#include <random>
+//#include <stdlib.h>
 #include "Random.h"
 
 
@@ -32,10 +32,10 @@ Handle<String> RandomString(UINT len)
 {
 Handle<String> str=new String(len, nullptr);
 auto str_ptr=const_cast<LPTSTR>(str->Begin());
-std::mt19937 rng(GetTickCount());
+//std::mt19937 rng(GetTickCount());
 for(UINT u=0; u<len; u++)
 	{
-	UINT rnd=rng()%RandomCharCount;
+	UINT rnd=0;//rng()%RandomCharCount;
 	str_ptr[u]=CharToChar<TCHAR, CHAR>(RandomChars[rnd]);
 	}
 str_ptr[len]=0;

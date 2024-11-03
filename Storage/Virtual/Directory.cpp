@@ -105,7 +105,7 @@ if(!obj)
 	return nullptr;
 if(path_ptr[pos]==0)
 	return obj;
-auto sub=Convert<Storage::Directory>(obj);
+auto sub=obj.As<Storage::Directory>();
 if(sub)
 	return sub->Get(&path_ptr[pos]);
 return nullptr;

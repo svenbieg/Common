@@ -67,7 +67,7 @@ if(str[pos]==0)
 auto obj=m_Virtual->GetChild(name);
 if(!obj)
 	return nullptr;
-auto dir=Convert<Storage::Directory>(obj);
+auto dir=obj.As<Storage::Directory>();
 if(!dir)
 	return nullptr;
 return dir->CreateFile(&str[pos], create, access, share);

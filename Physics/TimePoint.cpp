@@ -9,14 +9,13 @@
 // Using
 //=======
 
-#include <time.h>
-#include "Devices/Clock.h"
+#include "Devices/Timers/Clock.h"
 #include "Resources/Strings/Days.h"
 #include "Resources/Strings/Months.h"
 #include "Sentence.h"
 #include "TimePoint.h"
 
-using namespace Devices;
+using namespace Devices::Timers;
 using namespace Resources::Strings;
 
 
@@ -27,60 +26,21 @@ using namespace Resources::Strings;
 namespace Physics {
 
 
-//==================
-// Helper-Functions
-//==================
+//=========
+// Globals
+//=========
 
-VOID TimeStructFromTimePoint(tm* Struct, TIMEPOINT const* Time)
-{
-if(Time->Year==0)
+constexpr WORD DaysInMonth[4][12]=
 	{
-	ZeroMemory(Struct, sizeof(tm));
-	return;
-	}
-UINT wday=Time->DayOfWeek;
-if(wday==7)
-	wday=0;
-Struct->tm_hour=Time->Hour;
-Struct->tm_isdst=0;
-Struct->tm_mday=Time->DayOfMonth;
-Struct->tm_min=Time->Minute;
-Struct->tm_mon=Time->Month;
-Struct->tm_sec=Time->Second;
-Struct->tm_wday=wday;
-Struct->tm_yday=0;
-Struct->tm_year=Time->Year;
-}
+	{ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 },
+	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
+	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
+	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 }
+	};
 
-
-//========
-// Struct
-//========
-
-VOID TimePointFromTickCount(TIMEPOINT* tp, UINT64 ticks)
-{
-tp->Year=0;
-tp->Month=(BYTE)(ticks>>40);
-tp->DayOfMonth=(BYTE)(ticks>>32);
-tp->DayOfWeek=(BYTE)(ticks>>24);
-tp->Hour=(BYTE)(ticks>>16);
-tp->Minute=(BYTE)(ticks>>8);
-tp->Second=(BYTE)ticks;
-}
-
-UINT64 TimePointToTickCount(TIMEPOINT const& tp)
-{
-if(tp.Year!=0)
-	return 0;
-UINT64 ticks=0;
-ticks|=((UINT64)tp.Month)<<40;
-ticks|=((UINT64)tp.DayOfMonth)<<32;
-ticks|=((UINT64)tp.DayOfWeek)<<24;
-ticks|=((UINT64)tp.Hour)<<16;
-ticks|=((UINT64)tp.Minute)<<8;
-ticks|=tp.Second;
-return ticks;
-}
+constexpr UINT SecondsPerDay=86'400;
+constexpr UINT SecondsPerHour=3'600;
+constexpr UINT SecondsPerMinute=60;
 
 
 //==================
@@ -88,7 +48,7 @@ return ticks;
 //==================
 
 TimePoint::TimePoint():
-TimePoint(nullptr, { 0, 0, 0, 0, 0, 0, 0 })
+TimePoint(nullptr, { 0 })
 {}
 
 TimePoint::TimePoint(TIMEPOINT const& tp):
@@ -96,7 +56,7 @@ TimePoint(nullptr, tp)
 {}
 
 TimePoint::TimePoint(Handle<String> name):
-TimePoint(name, { 0, 0, 0, 0, 0, 0, 0 })
+TimePoint(name, { 0 })
 {}
 
 TimePoint::TimePoint(Handle<String> name, TIMEPOINT const& tp):
@@ -120,6 +80,15 @@ for(UINT u=0; u<7; u++)
 		return u+1;
 	}
 return 0;
+}
+
+UINT TimePoint::GetDayOfYear(TIMEPOINT const& tp)
+{
+if(tp.Year==0)
+	return 0;
+UINT year4=tp.Year%4;
+UINT day=DaysInMonth[year4][tp.Month-1];
+return day+tp.DayOfMonth-1;
 }
 
 UINT TimePoint::GetMonth(LPCSTR str)
@@ -150,21 +119,17 @@ UINT64 TimePoint::ToSeconds(TIMEPOINT const& tp)
 {
 if(tp.Year==0)
 	return 0;
-if(tp.Year==0xFFFF)
-	return 0;
-tm t;
-TimeStructFromTimePoint(&t, &tp);
-/*WORD uyear4=uYear%4;
-UINT year=uYear-uyear4;
-UINT udays=year*365+year/4;
-if(uyear4>0)
-	udays+=366+(uyear4-1)*365;
-UINT64 sec=udays*24*60*60;
-sec+=DaysPerMonth[uyear4][uMonth-1]*24*60*60;
-sec+=uHour*60*60;
-sec+=uMinute*60;
-sec+=uSecond;*/
-return mktime(&t);
+UINT year4=tp.Year%4;
+UINT year=tp.Year-year4;
+UINT days=year*365+year/4;
+constexpr WORD days_per_year[]={ 0, 366, 365, 365 };
+days+=days_per_year[year4];
+days+=DaysInMonth[year4][tp.Month-1];
+UINT64 sec=days*24*60*60;
+sec+=tp.Hour*60*60;
+sec+=tp.Minute*60;
+sec+=tp.Second;
+return sec;
 }
 
 Handle<String> TimePoint::ToString(LanguageCode lng)
@@ -197,7 +162,8 @@ if(!str||!size)
 str[0]=0;
 if(tp.Year==0)
 	{
-	UINT64 ticks=TimePointToTickCount(tp);
+	UINT64 ticks=0;
+	CopyMemory(&ticks, &tp, sizeof(UINT64));
 	if(ticks==0)
 		return StringCopy(str, size, "-");
 	return ToStringRelative(ticks, str, size, fmt, lng);
@@ -234,7 +200,7 @@ return stream->Write(&tp, sizeof(TIMEPOINT));
 BOOL TimePoint::operator==(TIMEPOINT const& tp)
 {
 SharedLock lock(m_Mutex);
-return m_Value==tp;
+return CompareMemory(&m_Value, &tp, sizeof(TIMEPOINT))==0;
 }
 
 
@@ -247,6 +213,54 @@ VOID TimePoint::Clear(BOOL notify)
 TIMEPOINT tp;
 ZeroMemory(&tp, sizeof(TIMEPOINT));
 Set(tp, notify);
+}
+
+VOID TimePoint::FromSeconds(TIMEPOINT* tp, UINT64 seconds)
+{
+constexpr UINT sec_per_year4=126'230'400;
+UINT year4=(UINT)(seconds/sec_per_year4);
+seconds-=year4*sec_per_year4;
+UINT year=year4*4;
+constexpr UINT sec_per_year[4]={ 31'622'400, 31'536'000, 31'536'000, 31'536'000 };
+for(year4=0; seconds>=sec_per_year[year4]; year4++)
+	seconds-=sec_per_year[year4];
+year+=year4;
+UINT day_of_year=seconds/SecondsPerDay;
+seconds-=day_of_year*SecondsPerDay;
+BYTE hour=(BYTE)(seconds/SecondsPerHour);
+seconds-=hour*SecondsPerHour;
+BYTE min=(BYTE)(seconds/SecondsPerMinute);
+BYTE sec=(BYTE)(seconds%SecondsPerMinute);
+constexpr BYTE days_per_month[4][12]=
+	{
+	{ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+	{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+	{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+	{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+	};
+UINT day=day_of_year;
+UINT month=0;
+for(; day>=days_per_month[year4][month]; month++)
+	day-=days_per_month[year4][month];
+constexpr BYTE days_of_week[28]=
+	{
+	0, 2, 3, 4,
+	5, 7, 8, 9,
+	10, 12, 13, 14,
+	15, 17, 18, 19,
+	20, 22, 23, 24,
+	25, 27, 28, 29,
+	30, 32, 33, 34
+	};
+UINT year28=year%28;
+UINT day_of_week=(days_of_week[year28]+day_of_year)%7;
+tp->DayOfMonth=day+1;
+tp->DayOfWeek=day_of_week;
+tp->Hour=hour;
+tp->Minute=min;
+tp->Month=month+1;
+tp->Second=sec;
+tp->Year=year;
 }
 
 BOOL TimePoint::FromTimeStamp(TIMEPOINT* tp, LPCSTR str)
@@ -288,13 +302,22 @@ UpdateTimer();
 // Common Private
 //================
 
+UINT64 TimePoint::GetTickCount(TIMEPOINT const& tp)
+{
+if(tp.Year!=0)
+	return 0;
+UINT64 ticks=0;
+CopyMemory(&ticks, &tp, sizeof(UINT64));
+return ticks;
+}
+
 VOID TimePoint::OnClockSecond(Clock* clock)
 {
 ScopedLock lock(m_Mutex);
-if(!clock->Update(&m_Value))
+if(!Clock::Update(&m_Value))
 	return;
-clock->Second.Remove(this);
 lock.Unlock();
+clock->Second.Remove(this);
 Changed(this);
 }
 
@@ -378,9 +401,13 @@ VOID TimePoint::UpdateTimer()
 ScopedLock lock(m_Mutex);
 auto clock=Clock::Get();
 clock->Second.Remove(this);
-UINT64 ticks=TimePointToTickCount(m_Value);
-if(ticks)
-	clock->Second.Add(this, &TimePoint::OnClockSecond);
+if(m_Value.Year==0)
+	{
+	UINT64 ticks=0;
+	CopyMemory(&ticks, &m_Value, sizeof(UINT64));
+	if(ticks)
+		clock->Second.Add(this, &TimePoint::OnClockSecond);
+	}
 }
 
 }

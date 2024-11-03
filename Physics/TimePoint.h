@@ -19,7 +19,10 @@
 
 namespace Devices
 {
-class Clock;
+namespace Timers
+	{
+	class Clock;
+	}
 }
 
 
@@ -45,18 +48,10 @@ BYTE Month;
 WORD Year;
 };
 
-inline BOOL operator==(TIMEPOINT const& Value1, TIMEPOINT const& Value2)
+inline bool operator==(TIMEPOINT const& TimePoint1, TIMEPOINT const& TimePoint2)
 {
-return CompareMemory(&Value1, &Value2, sizeof(TIMEPOINT))==0;
+return CompareMemory(&TimePoint1, &TimePoint2, sizeof(TIMEPOINT))==0;
 }
-
-inline BOOL operator!=(TIMEPOINT const& Value1, TIMEPOINT const& Value2)
-{
-return CompareMemory(&Value1, &Value2, sizeof(TIMEPOINT))!=0;
-}
-
-VOID TimePointFromTickCount(TIMEPOINT* TimePoint, UINT64 TickCount);
-UINT64 TimePointToTickCount(TIMEPOINT const& TimePoint);
 
 
 //=============
@@ -79,14 +74,11 @@ class TimePoint: public TypedVariable<TIMEPOINT>
 {
 private:
 	// Using
-	using Clock=Devices::Clock;
+	using Clock=Devices::Timers::Clock;
 	using LanguageCode=Culture::LanguageCode;
 	using OutputStream=Storage::Streams::OutputStream;
 
 public:
-	// Friends
-	friend class Devices::Clock;
-
 	// Con-/Destructors
 	TimePoint();
 	TimePoint(TIMEPOINT const& TimePoint);
@@ -95,6 +87,7 @@ public:
 
 	// Access
 	static UINT GetDayOfWeek(LPCSTR String);
+	static UINT GetDayOfYear(TIMEPOINT const& TimePoint);
 	static UINT GetMonth(LPCSTR String);
 	BOOL IsAbsolute();
 	UINT64 ToSeconds();
@@ -110,11 +103,13 @@ public:
 
 	// Modification
 	VOID Clear(BOOL Notify=true);
+	static VOID FromSeconds(TIMEPOINT* TimePoint, UINT64 Seconds);
 	static BOOL FromTimeStamp(TIMEPOINT* TimePoint, LPCSTR TimeStamp);
 	VOID Set(TIMEPOINT const& TimePoint, BOOL Notify=true)override;
 
 private:
 	// Common
+	UINT64 GetTickCount(TIMEPOINT const& TimePoint);
 	VOID OnClockSecond(Clock* Clock);
 	static UINT ToStringDateTime(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
 	static UINT ToStringFull(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
