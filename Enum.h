@@ -10,7 +10,7 @@
 //=======
 
 #include "Clusters/index.hpp"
-#include "Sentence.h"
+#include "Culture/Sentence.h"
 #include "Variable.h"
 
 
@@ -28,6 +28,9 @@ class EnumIterator;
 class Enum: public Variable
 {
 public:
+	// Using
+	using Sentence=Culture::Sentence;
+
 	// Friends
 	friend EnumIterator;
 
@@ -62,6 +65,7 @@ class Handle<Enum>
 {
 public:
 	// Using
+	using Sentence=Culture::Sentence;
 	using STRING=Resources::Strings::STRING;
 
 	// Friends
@@ -115,6 +119,9 @@ private:
 class EnumIterator: public Object
 {
 public:
+	// Using
+	using Sentence=Culture::Sentence;
+
 	// Con-/Destructors
 	EnumIterator(Handle<Enum> Enum);
 	~EnumIterator();

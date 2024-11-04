@@ -10,6 +10,7 @@
 //=======
 
 #include "Language.h"
+#include "Variable.h"
 
 
 //===========

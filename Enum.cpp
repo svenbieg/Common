@@ -14,6 +14,7 @@
 #include "Enum.h"
 
 using namespace Concurrency;
+using namespace Culture;
 using namespace Storage::Streams;
 
 

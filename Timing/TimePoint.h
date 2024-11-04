@@ -13,24 +13,18 @@
 #include "TimeSpan.h"
 
 
-//======================
-// Forward-Declarations
-//======================
-
-namespace Devices
-{
-namespace Timers
-	{
-	class Clock;
-	}
-}
-
-
 //===========
 // Namespace
 //===========
 
-namespace Physics {
+namespace Timing {
+
+
+//======================
+// Forward-Declarations
+//======================
+
+class Clock;
 
 
 //========
@@ -74,7 +68,6 @@ class TimePoint: public TypedVariable<TIMEPOINT>
 {
 private:
 	// Using
-	using Clock=Devices::Timers::Clock;
 	using LanguageCode=Culture::LanguageCode;
 	using OutputStream=Storage::Streams::OutputStream;
 
@@ -126,12 +119,12 @@ private:
 //===================
 
 template <>
-class Handle<Physics::TimePoint>
+class Handle<Timing::TimePoint>
 {
 private:
 	// Using
-	using TIMEPOINT=Physics::TIMEPOINT;
-	using TimePoint=Physics::TimePoint;
+	using TIMEPOINT=Timing::TIMEPOINT;
+	using TimePoint=Timing::TimePoint;
 
 public:
 	// Friends

@@ -33,7 +33,8 @@ public:
 	using EntryList=List<Handle<LogEntry>>;
 	using InputStream=Storage::Streams::InputStream;
 	using OutputStream=Storage::Streams::OutputStream;
-	using TimePoint=Physics::TimePoint;
+	using Sentence=Culture::Sentence;
+	using TimePoint=Timing::TimePoint;
 
 	// Con-/Destructors
 	Log();

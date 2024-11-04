@@ -10,15 +10,14 @@
 //=======
 
 #include "Devices/Timers/SystemTimer.h"
-#include "Physics/TimePoint.h"
+#include "TimePoint.h"
 
 
 //===========
 // Namespace
 //===========
 
-namespace Devices {
-	namespace Timers {
+namespace Timing {
 
 
 //=======
@@ -29,8 +28,6 @@ class Clock: public Object
 {
 private:
 	// Using
-	using TIMEPOINT=Physics::TIMEPOINT;
-	using TimePoint=Physics::TimePoint;
 	using SystemTimer=Devices::Timers::SystemTimer;
 
 public:
@@ -80,4 +77,4 @@ private:
 	static UINT64 s_Offset;
 };
 
-}}
+}

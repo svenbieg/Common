@@ -9,11 +9,9 @@
 // Using
 //=======
 
-#include "Core/Application.h"
 #include "Devices/Timers/SystemTimer.h"
 #include "Timer.h"
 
-using namespace Core;
 using namespace Devices::Timers;
 
 
@@ -21,8 +19,7 @@ using namespace Devices::Timers;
 // Namespace
 //===========
 
-namespace Devices {
-	namespace Timers {
+namespace Timing {
 
 
 //==================
@@ -98,12 +95,11 @@ VOID Timer::OnClockTick()
 UINT64 now=GetTickCount64();
 if(m_NextTime>now)
 	return;
-auto app=Application::Current;
-Application::Current->Dispatch(this, &Timer::DoTrigger);
+Triggered(this);
 if(m_Interval>0)
 	Stop();
 UINT time=m_Interval>0? m_Interval: -m_Interval;
 m_NextTime=now+time;
 }
 
-}}
+}

@@ -16,7 +16,7 @@
 // Namespace
 //===========
 
-namespace Physics {
+namespace Timing {
 
 
 //==================

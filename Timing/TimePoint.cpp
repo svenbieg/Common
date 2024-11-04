@@ -9,13 +9,12 @@
 // Using
 //=======
 
-#include "Devices/Timers/Clock.h"
+#include "Culture/Sentence.h"
 #include "Resources/Strings/Days.h"
 #include "Resources/Strings/Months.h"
-#include "Sentence.h"
+#include "Clock.h"
 #include "TimePoint.h"
 
-using namespace Devices::Timers;
 using namespace Resources::Strings;
 
 
@@ -23,7 +22,7 @@ using namespace Resources::Strings;
 // Namespace
 //===========
 
-namespace Physics {
+namespace Timing {
 
 
 //=========

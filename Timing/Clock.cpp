@@ -15,15 +15,13 @@
 
 using namespace Core;
 using namespace Culture;
-using namespace Physics;
 
 
 //===========
 // Namespace
 //===========
 
-namespace Devices {
-	namespace Timers {
+namespace Timing {
 
 
 //==================
@@ -162,4 +160,4 @@ Handle<Clock> Clock::s_Current;
 TIMEPOINT Clock::s_Now={ 0 };
 UINT64 Clock::s_Offset=0;
 
-}}
+}

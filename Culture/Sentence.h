@@ -15,12 +15,18 @@
 #include "StringClass.h"
 
 
+//===========
+// Namespace
+//===========
+
+namespace Culture {
+
+
 //========
 // Common
 //========
 
 LPCSTR Translate(Resources::Strings::STRING const* Value, Culture::LanguageCode Language=Culture::CurrentLanguage);
-
 
 
 //==========
@@ -70,16 +76,19 @@ private:
 	LPCSTR m_Value;
 };
 
+}
 
-//=================
-// Sentence-Handle
-//=================
+
+//========
+// Handle
+//========
 
 template <>
-class Handle<Sentence>
+class Handle<Culture::Sentence>
 {
 public:
 	// Using
+	using Sentence=Culture::Sentence;
 	using STRING=Resources::Strings::STRING;
 
 	// Friends
@@ -100,16 +109,16 @@ public:
 	inline Sentence* operator->()const { return m_Object; }
 
 	// Assignment
-	inline Handle& operator=(std::nullptr_t) { HandleClear(&m_Object); return *this; }
+	inline Handle& operator=(nullptr_t) { HandleClear(&m_Object); return *this; }
 	inline Handle& operator=(LPCSTR Value) { HandleAssign<Sentence, Sentence>(&m_Object, new Sentence(Value)); return *this; }
 	inline Handle& operator=(STRING const* Value) { HandleAssign<Sentence, Sentence>(&m_Object, new Sentence(Value)); return *this; }
 	inline Handle& operator=(Handle<Sentence> Value) { HandleAssign<Sentence, Sentence>(&m_Object, Value.m_Object); return *this; }
 	inline Handle& operator=(Sentence* Value) { HandleAssign<Sentence, Sentence>(&m_Object, Value); return *this; }
 
 	// Comparison
-	inline bool operator==(std::nullptr_t)const { return m_Object==nullptr; }
+	inline bool operator==(nullptr_t)const { return m_Object==nullptr; }
 	inline bool operator==(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)==0; }
-	inline bool operator!=(std::nullptr_t)const { return m_Object!=nullptr; }
+	inline bool operator!=(nullptr_t)const { return m_Object!=nullptr; }
 	inline bool operator!=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)!=0; }
 	inline bool operator>(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>0; }
 	inline bool operator>=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>=0; }

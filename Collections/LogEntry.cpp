@@ -9,10 +9,10 @@
 // Using
 //=======
 
-#include "Devices/Timers/Clock.h"
+#include "Timing/Clock.h"
 #include "LogEntry.h"
 
-using namespace Devices::Timers;
+using namespace Timing;
 
 
 //===========

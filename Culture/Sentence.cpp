@@ -13,9 +13,15 @@
 #include "Storage/Streams/StreamWriter.h"
 #include "Sentence.h"
 
-using namespace Culture;
 using namespace Resources::Strings;
 using namespace Storage::Streams;
+
+
+//===========
+// Namespace
+//===========
+
+namespace Culture {
 
 
 //========
@@ -209,4 +215,6 @@ size+=writer.Print(lng_str);
 size+=writer.Print(m_Value);
 size+=writer.Print("\r\0");
 return size;
+}
+
 }

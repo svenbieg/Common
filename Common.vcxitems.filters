@@ -7,17 +7,11 @@
     <Filter Include="Collections">
       <UniqueIdentifier>{b02f9ab9-dfb6-4c9c-bf72-7f4b86d3d600}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Physics">
-      <UniqueIdentifier>{2c73b18a-9b82-4ee5-9862-b28492949eaf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Storage">
       <UniqueIdentifier>{9ab2824d-6a2a-4b2b-b93d-a924eae69943}</UniqueIdentifier>
     </Filter>
     <Filter Include="Storage\Virtual">
       <UniqueIdentifier>{80fb50e1-ae66-40fc-a8e8-8c1de402d0a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Devices">
-      <UniqueIdentifier>{af4d2dd1-ce0c-45c5-948e-fd9142309e5e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{2627988c-39dd-45c0-9eea-1a8e1b6c22d2}</UniqueIdentifier>
@@ -31,8 +25,8 @@
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{a3ba2fb0-1c62-4c0c-82af-2ad2398192f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Devices\Timers">
-      <UniqueIdentifier>{649236c7-ea9a-4656-87e3-12b55c9ab9f8}</UniqueIdentifier>
+    <Filter Include="Timing">
+      <UniqueIdentifier>{e2f3aad0-adf0-45ef-88e2-794eda0c8caa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,23 +36,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\LogEntry.h">
       <Filter>Collections</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimePoint.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Workspace.h">
       <Filter>Storage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.h">
       <Filter>Storage\Virtual</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\FileSize.h">
       <Filter>Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Random.h">
-      <Filter>Devices</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)BoolClass.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CharClass.h" />
@@ -91,7 +76,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h">
       <Filter>Culture</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Sentence.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h">
       <Filter>Resources\Icons</Filter>
     </ClInclude>
@@ -105,11 +89,20 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Settings.h">
       <Filter>Collections</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Timers\Clock.h">
-      <Filter>Devices\Timers</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Timing\TimePoint.h">
+      <Filter>Timing</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Devices\Timers\Timer.h">
-      <Filter>Devices\Timers</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Timing\TimeSpan.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Timing\Clock.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Timing\Timer.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Sentence.h">
+      <Filter>Culture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,23 +112,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\LogEntry.cpp">
       <Filter>Collections</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimePoint.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp">
       <Filter>Storage</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp">
       <Filter>Storage\Virtual</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Physics\TimeSpan.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\FileSize.cpp">
       <Filter>Storage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Random.cpp">
-      <Filter>Devices</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Enum.cpp" />
@@ -152,18 +136,26 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp">
       <Filter>Culture</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Sentence.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp">
       <Filter>Culture</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Settings.cpp">
       <Filter>Collections</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Timers\Clock.cpp">
-      <Filter>Devices\Timers</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Timing\TimePoint.cpp">
+      <Filter>Timing</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Devices\Timers\Timer.cpp">
-      <Filter>Devices\Timers</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Timing\TimeSpan.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Timing\Clock.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Timing\Timer.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Sentence.cpp">
+      <Filter>Culture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

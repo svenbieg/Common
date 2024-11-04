@@ -9,10 +9,10 @@
 // Using
 //=======
 
-#include "Physics/TimePoint.h"
+#include "Culture/Sentence.h"
 #include "Storage/Streams/InputStream.h"
 #include "Storage/Streams/OutputStream.h"
-#include "Sentence.h"
+#include "Timing/TimePoint.h"
 
 
 //===========
@@ -32,7 +32,8 @@ private:
 	// Using
 	using InputStream=Storage::Streams::InputStream;
 	using OutputStream=Storage::Streams::OutputStream;
-	using TimePoint=Physics::TimePoint;
+	using Sentence=Culture::Sentence;
+	using TimePoint=Timing::TimePoint;
 
 public:
 	// Con-/Destructors

@@ -9,8 +9,7 @@
 // Namespace
 //===========
 
-namespace Devices {
-	namespace Timers {
+namespace Timing {
 
 
 //=======
@@ -40,4 +39,4 @@ private:
 	UINT64 m_NextTime;
 };
 
-}}
+}
