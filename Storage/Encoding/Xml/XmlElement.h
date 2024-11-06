@@ -17,7 +17,8 @@
 //===========
 
 namespace Storage {
-	namespace Xml {
+	namespace Encoding {
+		namespace Xml {
 
 
 //======================
@@ -46,4 +47,4 @@ protected:
 	XmlElement(XmlNode* Parent): Parent(Parent) {}
 };
 
-}}
+}}}

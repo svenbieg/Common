@@ -20,7 +20,8 @@
 //===========
 
 namespace Storage {
-	namespace Xml {
+	namespace Encoding {
+		namespace Xml {
 
 
 //==========
@@ -56,4 +57,4 @@ private:
 	SIZE_T ReadTag(StreamReader& Reader);
 };
 
-}}
+}}}

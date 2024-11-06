@@ -21,7 +21,8 @@ using namespace Storage::Streams;
 //===========
 
 namespace Storage {
-	namespace Xml {
+	namespace Encoding {
+		namespace Xml {
 
 
 //==================
@@ -60,4 +61,4 @@ if(siblings->GetCount()==1)
 	Parent->Value.Set(value, false);
 }
 
-}}
+}}}

@@ -21,7 +21,8 @@ using namespace Storage::Streams;
 //===========
 
 namespace Storage {
-	namespace Xml {
+	namespace Encoding {
+		namespace Xml {
 
 
 //==================
@@ -181,4 +182,4 @@ while(reader.LastChar==' ')
 return size;
 }
 
-}}
+}}}

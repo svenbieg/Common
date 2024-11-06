@@ -17,7 +17,8 @@
 //===========
 
 namespace Storage {
-	namespace Xml {
+	namespace Encoding {
+		namespace Xml {
 
 
 //=============
@@ -39,4 +40,4 @@ private:
 	VOID OnValueChanged(Handle<String> Value);
 };
 
-}}
+}}}
