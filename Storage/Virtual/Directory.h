@@ -9,7 +9,7 @@
 // Using
 //=======
 
-#include "Clusters/shared_map.hpp"
+#include "Collections/shared_map.hpp"
 #include "Storage/Directory.h"
 
 
@@ -56,7 +56,7 @@ public:
 
 private:
 	// Common
-	Clusters::shared_map<Handle<String>, Handle<Object>> m_Map;
+	Collections::shared_map<Handle<String>, Handle<Object>> m_Map;
 };
 
 
@@ -84,7 +84,7 @@ public:
 private:
 	// Common
 	Handle<Directory> m_Directory;
-	typename Clusters::shared_map<Handle<String>, Handle<Object>>::iterator m_It;
+	typename Collections::shared_map<Handle<String>, Handle<Object>>::iterator m_It;
 };
 
 }}

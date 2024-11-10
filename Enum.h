@@ -9,7 +9,7 @@
 // Using
 //=======
 
-#include "Clusters/index.hpp"
+#include "Collections/index.hpp"
 #include "Culture/Sentence.h"
 #include "Variable.h"
 
@@ -52,7 +52,7 @@ public:
 private:
 	// Common
 	Handle<Sentence> m_Value;
-	Clusters::index<Handle<Sentence>> m_Values;
+	Collections::index<Handle<Sentence>> m_Values;
 };
 
 
@@ -141,5 +141,5 @@ public:
 private:
 	// Common
 	Handle<Enum> m_Enum;
-	typename Clusters::index<Handle<Sentence>>::iterator m_It;
+	typename Collections::index<Handle<Sentence>>::iterator m_It;
 };

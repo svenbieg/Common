@@ -9,7 +9,7 @@
 // Using
 //=======
 
-#include "Clusters/index.hpp"
+#include "Collections/index.hpp"
 #include "Variable.h"
 
 
@@ -37,5 +37,5 @@ public:
 
 private:
 	// Common
-	Clusters::index<Handle<String>> m_Flags;
+	Collections::index<Handle<String>> m_Flags;
 };
