@@ -61,33 +61,28 @@ private:
 //=============
 
 template <>
-class Handle<Enum>
+class Handle<Enum>: public ::Details::HandleBase<Enum>
 {
 public:
 	// Using
+	using _base_t=::Details::HandleBase<Enum>;
+	using _base_t::_base_t;
 	using Sentence=Culture::Sentence;
 	using STRING=Resources::Strings::STRING;
 
-	// Friends
-	template <class _friend_t> friend class Handle;
-	template <class _owner_t, class _obj_t> friend class DynamicHandle;
-
-	// Con-/Destructors
-	Handle(): m_Object(nullptr) {}
-	Handle(nullptr_t): m_Object(nullptr) {}
-	Handle(Enum* Pointer) { HandleCreate<Enum, Enum>(&m_Object, Pointer); }
-	Handle(Handle<Enum> const& Handle) { HandleCreate<Enum, Enum>(&m_Object, Handle.m_Object); }
-	Handle(Handle<Enum>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
-	~Handle() { HandleClear(&m_Object); }
-
 	// Access
-	inline operator Handle<Sentence>()const { return m_Object? m_Object->Get(): nullptr; }
-	inline Enum* operator->()const { return m_Object; }
+	inline operator Handle<Sentence>()const { return Get(); }
+	Handle<Sentence> Get()const
+		{
+		if(!m_Object)
+			return nullptr;
+		return m_Object->Get();
+		}
 
 	// Comparison
 	inline bool operator==(STRING const* Value)const
 		{
-		Handle<Sentence> value=m_Object? m_Object->Get(): nullptr;
+		Handle<Sentence> value=Get();
 		if(!value)
 			{
 			if(Value)
@@ -99,16 +94,12 @@ public:
 	inline BOOL operator!=(STRING const* Value)const { return !operator==(Value); }
 
 	// Assignment
-	inline Handle& operator=(Enum* Value) { HandleAssign(&m_Object, Value); return *this; }
 	inline Handle& operator=(STRING const* Value)
 		{
 		if(m_Object)
 			m_Object->Set(Value);
 		return *this;
 		}
-
-private:
-	Enum* m_Object;
 };
 
 

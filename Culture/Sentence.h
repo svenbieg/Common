@@ -84,42 +84,25 @@ private:
 //========
 
 template <>
-class Handle<Culture::Sentence>
+class Handle<Culture::Sentence>: public ::Details::HandleBase<Culture::Sentence>
 {
 public:
 	// Using
+	using _base_t=::Details::HandleBase<Culture::Sentence>;
+	using _base_t::_base_t;
 	using Sentence=Culture::Sentence;
 	using STRING=Resources::Strings::STRING;
 
-	// Friends
-	template <class _friend_t> friend class Handle;
-
 	// Con-/Destructors
-	Handle(): m_Object(nullptr) {}
-	Handle(nullptr_t): m_Object(nullptr) {}
-	Handle(LPCSTR Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
-	Handle(STRING const* Value) { HandleCreate<Sentence, Sentence>(&m_Object, new Sentence(Value)); }
-	Handle(Sentence* Value) { HandleCreate<Sentence, Sentence>(&m_Object, Value); }
-	Handle(Handle<Sentence> const& Handle) { HandleCreate<Sentence, Sentence>(&m_Object, Handle.m_Object); }
-	Handle(Handle<Sentence>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
-	~Handle() { HandleClear(&m_Object); }
-
-	// Access
-	inline operator Sentence*()const { return m_Object; }
-	inline Sentence* operator->()const { return m_Object; }
+	Handle(LPCSTR Value) { Create(new Sentence(Value)); }
+	Handle(STRING const* Value) { Create(new Sentence(Value)); }
 
 	// Assignment
-	inline Handle& operator=(nullptr_t) { HandleClear(&m_Object); return *this; }
-	inline Handle& operator=(LPCSTR Value) { HandleAssign<Sentence, Sentence>(&m_Object, new Sentence(Value)); return *this; }
-	inline Handle& operator=(STRING const* Value) { HandleAssign<Sentence, Sentence>(&m_Object, new Sentence(Value)); return *this; }
-	inline Handle& operator=(Handle<Sentence> Value) { HandleAssign<Sentence, Sentence>(&m_Object, Value.m_Object); return *this; }
-	inline Handle& operator=(Sentence* Value) { HandleAssign<Sentence, Sentence>(&m_Object, Value); return *this; }
+	inline Handle& operator=(LPCSTR Value) { Set(new Sentence(Value)); return *this; }
+	inline Handle& operator=(STRING const* Value) { Set(new Sentence(Value)); return *this; }
 
 	// Comparison
-	inline bool operator==(nullptr_t)const { return m_Object==nullptr; }
-	inline bool operator==(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)==0; }
-	inline bool operator!=(nullptr_t)const { return m_Object!=nullptr; }
-	inline bool operator!=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)!=0; }
+	inline bool operator==(Sentence* Value)const override { return Compare(m_Object, Value)==0; }
 	inline bool operator>(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>0; }
 	inline bool operator>=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>=0; }
 	inline bool operator<(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<0; }
@@ -135,5 +118,4 @@ private:
 			return -1;
 		return 0;
 		}
-	Sentence* m_Object;
 };

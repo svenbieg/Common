@@ -50,7 +50,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Timing\Timer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timing\TimeSpan.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Variable.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)VariableHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />

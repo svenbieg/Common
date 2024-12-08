@@ -119,40 +119,14 @@ private:
 //===================
 
 template <>
-class Handle<Timing::TimePoint>
+class Handle<Timing::TimePoint>: public Details::VariableHandle<Timing::TimePoint, Timing::TIMEPOINT>
 {
-private:
-	// Using
-	using TIMEPOINT=Timing::TIMEPOINT;
-	using TimePoint=Timing::TimePoint;
-
 public:
-	// Friends
-	template <class _friend_t> friend class Handle;
+	// Using
+	using _base_t=Details::VariableHandle<Timing::TimePoint, Timing::TIMEPOINT>;
+	using _base_t::_base_t;
+	using TIMEPOINT=Timing::TIMEPOINT;
 
-	// Con-/Destructors
-	Handle(): m_Object(nullptr) {}
-	Handle(TimePoint* TimePoint) { HandleCreate(&m_Object, TimePoint); }
-	Handle(Handle<TimePoint> const& Handle) { HandleCreate(&m_Object, Handle.m_Object); }
-	Handle(Handle<TimePoint>&& Handle)noexcept: m_Object(Handle.m_Object) { Handle.m_Object=nullptr; }
-	~Handle() { HandleClear(&m_Object); }
-
-	// Access
-	operator TIMEPOINT()const { return VariableGet<TimePoint, TIMEPOINT>(m_Object, { 0, 0, 0, 0, 0, 0, 0 }); }
-	operator TimePoint*()const { return m_Object; }
-	TimePoint* operator->()const { return m_Object; }
-
-	// Comparison
-	bool operator==(TIMEPOINT const& Value) { return VariableEqual(m_Object, Value); }
-	bool operator!=(TIMEPOINT const& Value) { return !VariableEqual(m_Object, Value); }
-
-	// Assignment
-	Handle<TimePoint>& operator=(decltype(nullptr)) { HandleClear(&m_Object); return *this; }
-	Handle<TimePoint>& operator=(TIMEPOINT const& Value) { VariableAssign(&m_Object, Value); return *this; }
-	Handle& operator=(TimePoint* Value) { HandleAssign(&m_Object, Value); return *this; }
-	Handle& operator=(Handle const& Handle) { HandleAssign(&m_Object, Handle.m_Object); return *this; }
-
-private:
-	// Common
-	TimePoint* m_Object;
+	// Modification
+	Handle& operator=(TIMEPOINT const& Value) { Set(Value); return *this; }
 };

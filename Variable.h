@@ -14,7 +14,6 @@
 #include "Storage/Streams/InputStream.h"
 #include "Storage/Streams/OutputStream.h"
 #include "StringClass.h"
-#include "VariableHelper.h"
 
 
 //======================
@@ -121,5 +120,89 @@ protected:
 	TypedVariable(Handle<String> Name, _value_t Value): Variable(Name), m_Value(Value) {}
 	
 	// Common
+	BOOL FromString(Handle<String> Value, LPCSTR Format, BOOL Notify)
+		{
+		_value_t value;
+		if(Value->Scan(Format, &value)!=1)
+			return false;
+		Set(value, Notify);
+		return true;
+		}
 	_value_t m_Value;
 };
+
+
+//========
+// Handle
+//========
+
+namespace Details {
+template <class _obj_t, class _value_t> class VariableHandle: public HandleBase<_obj_t>
+{
+public:
+	// Using
+	using _base_t=HandleBase<_obj_t>;
+	using _base_t::_base_t;
+
+	// Access
+	virtual operator _value_t()const { return Get(_value_t()); }
+	_value_t Get(_value_t Default)const
+		{
+		if(!m_Object)
+			return Default;
+		return m_Object->Get();
+		}
+
+	// Comparison
+	bool operator==(_value_t Value)const
+		{
+		if(!m_Object)
+			return false;
+		return m_Object->Get()==Value;
+		}
+	inline bool operator!=(_value_t Value)const { return !operator==(Value); }
+	bool operator>(_value_t Value)const
+		{
+		if(!m_Object)
+			return false;
+		return m_Object->Get()>Value;
+		}
+	bool operator>=(_value_t Value)const
+		{
+		if(!m_Object)
+			return false;
+		return m_Object->Get()>=Value;
+		}
+	bool operator<(_value_t Value)const
+		{
+		if(!m_Object)
+			return false;
+		return m_Object->Get()<Value;
+		}
+	bool operator<=(_value_t Value)const
+		{
+		if(!m_Object)
+			return false;
+		return m_Object->Get()<=Value;
+		}
+
+	// Modification
+	inline VariableHandle& operator=(_value_t const& Value) { Set(Value); return *this; }
+	BOOL FromString(Handle<String> Value, LPCSTR Format, BOOL Notify)
+		{
+		if(!m_Object)
+			return false;
+		return m_Object->FromString(Value, Format, Notify);
+		}
+	VOID Set(_value_t const& Value, BOOL Notify=true)
+		{
+		if(m_Object)
+			{
+			m_Object->Set(Value, Notify);
+			}
+		else
+			{
+			Create(new _obj_t(Value));
+			}
+		}
+};}

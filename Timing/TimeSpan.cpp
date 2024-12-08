@@ -23,12 +23,12 @@ namespace Timing {
 // Con-/Destructors
 //==================
 
-TimeSpan::TimeSpan(UINT usec):
-TimeSpan(nullptr, usec)
+TimeSpan::TimeSpan(UINT sec):
+TimeSpan(nullptr, sec)
 {}
 
-TimeSpan::TimeSpan(Handle<String> hname, UINT usec):
-TypedVariable(hname, usec)
+TimeSpan::TimeSpan(Handle<String> name, UINT sec):
+TypedVariable(name, sec)
 {}
 
 
