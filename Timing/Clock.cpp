@@ -9,11 +9,11 @@
 // Using
 //=======
 
-#include "Core/Application.h"
+#include "Concurrency/MainTask.h"
 #include "Devices/Timers/SystemTimer.h"
 #include "Clock.h"
 
-using namespace Core;
+using namespace Concurrency;
 using namespace Culture;
 
 
@@ -138,7 +138,7 @@ VOID Clock::OnSystemTimerTick()
 {
 if(++m_Ticks%10)
 	return;
-Application::Current->Dispatch(this, &Clock::DoTick);
+MainTask::Dispatch(this, &Clock::DoTick);
 }
 
 VOID Clock::OnTick()

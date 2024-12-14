@@ -148,61 +148,61 @@ public:
 	virtual operator _value_t()const { return Get(_value_t()); }
 	_value_t Get(_value_t Default)const
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return Default;
-		return m_Object->Get();
+		return _base_t::m_Object->Get();
 		}
 
 	// Comparison
 	bool operator==(_value_t Value)const
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return false;
-		return m_Object->Get()==Value;
+		return _base_t::m_Object->Get()==Value;
 		}
 	inline bool operator!=(_value_t Value)const { return !operator==(Value); }
 	bool operator>(_value_t Value)const
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return false;
-		return m_Object->Get()>Value;
+		return _base_t::m_Object->Get()>Value;
 		}
 	bool operator>=(_value_t Value)const
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return false;
-		return m_Object->Get()>=Value;
+		return _base_t::m_Object->Get()>=Value;
 		}
 	bool operator<(_value_t Value)const
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return false;
-		return m_Object->Get()<Value;
+		return _base_t::m_Object->Get()<Value;
 		}
 	bool operator<=(_value_t Value)const
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return false;
-		return m_Object->Get()<=Value;
+		return _base_t::m_Object->Get()<=Value;
 		}
 
 	// Modification
 	inline VariableHandle& operator=(_value_t const& Value) { Set(Value); return *this; }
 	BOOL FromString(Handle<String> Value, LPCSTR Format, BOOL Notify)
 		{
-		if(!m_Object)
+		if(!_base_t::m_Object)
 			return false;
-		return m_Object->FromString(Value, Format, Notify);
+		return _base_t::m_Object->FromString(Value, Format, Notify);
 		}
 	VOID Set(_value_t const& Value, BOOL Notify=true)
 		{
-		if(m_Object)
+		if(_base_t::m_Object)
 			{
-			m_Object->Set(Value, Notify);
+			_base_t::m_Object->Set(Value, Notify);
 			}
 		else
 			{
-			Create(new _obj_t(Value));
+			_base_t::Create(new _obj_t(Value));
 			}
 		}
 };}
