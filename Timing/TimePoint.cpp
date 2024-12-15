@@ -10,11 +10,13 @@
 //=======
 
 #include "Culture/Sentence.h"
+#include "Devices/Timers/SystemTimer.h"
 #include "Resources/Strings/Days.h"
 #include "Resources/Strings/Months.h"
 #include "Clock.h"
 #include "TimePoint.h"
 
+using namespace Devices::Timers;
 using namespace Resources::Strings;
 
 
@@ -372,7 +374,7 @@ UINT TimePoint::ToStringRelative(UINT64 ticks, LPSTR str, UINT size, TimeFormat 
 if(!str||!size)
 	return 0;
 str[0]=0;
-UINT64 ticks_now=GetTickCount64();
+UINT64 ticks_now=SystemTimer::GetTickCount();
 UINT delta=(UINT)((ticks_now-ticks)/1000);
 CHAR time_span[32];
 TimeSpan::ToString(delta, time_span, 32);

@@ -36,7 +36,7 @@ private:
 	VOID DoTrigger();
 	VOID OnClockTick();
 	INT m_Interval;
-	UINT64 m_NextTime;
+	SIZE_T m_NextTime;
 };
 
 }

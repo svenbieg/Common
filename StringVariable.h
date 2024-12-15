@@ -59,7 +59,7 @@ public:
 	operator Handle<String>()const { return m_Object? m_Object->Get(): nullptr; }
 
 	// Comparison
-	bool operator==(nullptr_t)const override
+	BOOL operator==(nullptr_t)const override
 		{
 		if(!m_Object)
 			return true;

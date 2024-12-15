@@ -21,7 +21,6 @@
 #include "Enum.h"
 #include "Flags.h"
 #include "FloatClass.h"
-#include "Function.h"
 #include "Guid.h"
 #include "IntegerClasses.h"
 #include "StringVariable.h"

@@ -102,11 +102,11 @@ public:
 	inline Handle& operator=(STRING const* Value) { Set(new Sentence(Value)); return *this; }
 
 	// Comparison
-	inline bool operator==(Sentence* Value)const override { return Compare(m_Object, Value)==0; }
-	inline bool operator>(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>0; }
-	inline bool operator>=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>=0; }
-	inline bool operator<(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<0; }
-	inline bool operator<=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<=0; }
+	inline BOOL operator==(Sentence* Value)const override { return Compare(m_Object, Value)==0; }
+	inline BOOL operator>(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>0; }
+	inline BOOL operator>=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>=0; }
+	inline BOOL operator<(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<0; }
+	inline BOOL operator<=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<=0; }
 
 private:
 	// Common
