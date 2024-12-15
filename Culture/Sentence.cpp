@@ -89,7 +89,7 @@ if(!value)
 	return 1;
 while(string)
 	{
-	if(StringCompare(string->Value, value, 0, false)==0)
+	if(StringHelper::Compare(string->Value, value, 0, false)==0)
 		return 0;
 	if(string->Language==LanguageCode::None)
 		break;
@@ -102,14 +102,14 @@ INT Sentence::Compare(LPCSTR value)const
 {
 if(m_String)
 	return SentenceCompare<CHAR>(m_String, value);
-return StringCompare(m_Value, value, 0, false)==0;
+return StringHelper::Compare(m_Value, value, 0, false)==0;
 }
 
 INT Sentence::Compare(LPCWSTR value)const
 {
 if(m_String)
 	return SentenceCompare<WCHAR>(m_String, value);
-return StringCompare(m_Value, value, 0, false)==0;
+return StringHelper::Compare(m_Value, value, 0, false)==0;
 }
 
 INT Sentence::Compare(STRING const* string)const
@@ -128,7 +128,7 @@ while(string1)
 		{
 		if(string1->Language==string2->Language)
 			{
-			if(StringCompare(string1->Value, string2->Value, 0, false)==0)
+			if(StringHelper::Compare(string1->Value, string2->Value, 0, false)==0)
 				return 0;
 			}
 		if(string2->Language==LanguageCode::None)
@@ -156,19 +156,19 @@ auto str=reader.ReadString(&size);
 if(!str)
 	return size;
 auto str_ptr=str->Begin();
-UINT len=StringLength(str_ptr);
+UINT len=StringHelper::Length(str_ptr);
 m_Value=new CHAR[len+1];
 LPSTR value_ptr=const_cast<LPSTR>(m_Value);
 UINT count=0;
 for(UINT pos=0; pos<len; pos++)
 	{
 	TCHAR c=str_ptr[pos];
-	if(CharCompare(c, '\r')==0)
+	if(CharHelper::Compare(c, '\r')==0)
 		{
 		c=0;
 		count++;
 		}
-	value_ptr[pos]=CharToChar<CHAR, TCHAR>(c);
+	value_ptr[pos]=CharHelper::ToAnsi(c);
 	}
 m_String=new STRING[count+1];
 auto string=const_cast<STRING*>(m_String);

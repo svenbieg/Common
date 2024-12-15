@@ -58,12 +58,12 @@ us-=hours*60*60;
 UINT mins=us/60;
 us-=mins*60;
 if(days>0)
-	return StringPrint(str, size, "%ud %uh", days, hours);
+	return StringHelper::Print(str, size, "%ud %uh", days, hours);
 if(hours>0)
-	return StringPrint(str, size, "%u:%02uh", hours, mins);
+	return StringHelper::Print(str, size, "%u:%02uh", hours, mins);
 if(mins>0)
-	return StringPrint(str, size, "%um", mins);
-return StringPrint(str, size, "%us", us);
+	return StringHelper::Print(str, size, "%um", mins);
+return StringHelper::Print(str, size, "%us", us);
 }
 
 }

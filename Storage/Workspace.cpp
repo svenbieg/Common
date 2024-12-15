@@ -55,9 +55,9 @@ if(!path||path->IsEmpty())
 	return nullptr;
 auto str=path->Begin();
 UINT pos=0;
-while(PathIsSeparator(str[pos]))
+while(PathHelper::IsSeparator(str[pos]))
 	pos++;
-UINT len=PathGetComponentLength(&str[pos]);
+UINT len=PathHelper::GetComponentLength(&str[pos]);
 if(!len)
 	return nullptr;
 Handle<String> name=new String(len, &str[pos]);

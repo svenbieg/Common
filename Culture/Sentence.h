@@ -50,9 +50,9 @@ public:
 		{
 		UnknownClass args[]={ Arguments... };
 		VariableArguments vargs(args, ArraySize(args));
-		UINT len=StringPrintArgs((LPSTR)nullptr, 0, Format, vargs);
+		UINT len=StringHelper::PrintArgs((LPSTR)nullptr, 0, Format, vargs);
 		LPSTR value=new CHAR[len+1];
-		StringPrintArgs(value, len+1, Format, vargs);
+		StringHelper::PrintArgs(value, len+1, Format, vargs);
 		STRING* string=new STRING[1];
 		string->Language=LanguageCode::None;
 		string->Value=value;

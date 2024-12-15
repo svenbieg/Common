@@ -77,7 +77,7 @@ auto days=STRS_DAYS;
 for(UINT u=0; u<7; u++)
 	{
 	LPCSTR day=Translate(days[u], LNG::EN);
-	if(StringCompare(str, day, 3, false)==0)
+	if(StringHelper::Compare(str, day, 3, false)==0)
 		return u+1;
 	}
 return 0;
@@ -98,7 +98,7 @@ auto months=STRS_MONTHS;
 for(UINT u=0; u<12; u++)
 	{
 	LPCSTR month=Translate(months[u], LNG::EN);
-	if(StringCompare(str, month, 3, false)==0)
+	if(StringHelper::Compare(str, month, 3, false)==0)
 		return u+1;
 	}
 return 0;
@@ -166,7 +166,7 @@ if(tp.Year==0)
 	UINT64 ticks=0;
 	CopyMemory(&ticks, &tp, sizeof(UINT64));
 	if(ticks==0)
-		return StringCopy(str, size, "-");
+		return StringHelper::Copy(str, size, "-");
 	return ToStringRelative(ticks, str, size, fmt, lng);
 	}
 switch(fmt)
@@ -273,7 +273,7 @@ UINT hour=0;
 UINT min=0;
 UINT sec=0;
 UINT year=0;
-if(StringScan(str, "%s %s %u %u:%u:%u %u", day_str, 4, mon_str, 4, &mday, &hour, &min, &sec, &year)!=7)
+if(StringHelper::Scan(str, "%s %s %u %u:%u:%u %u", day_str, 4, mon_str, 4, &mday, &hour, &min, &sec, &year)!=7)
 	return false;
 UINT wday=GetDayOfWeek(day_str);
 if(wday==0)
@@ -336,9 +336,9 @@ switch(lng)
 	{
 	case LNG::None:
 	case LNG::DE:
-		return StringPrint(str, size, "%02u.%02u.%u %02u:%02u", mday, mon, year, hour, min);
+		return StringHelper::Print(str, size, "%02u.%02u.%u %02u:%02u", mday, mon, year, hour, min);
 	case LNG::EN:
-		return StringPrint(str, size, "%02u-%02u-%u %02u:%02u", mon, mday, year, hour, min);
+		return StringHelper::Print(str, size, "%02u-%02u-%u %02u:%02u", mon, mday, year, hour, min);
 	}
 return 0;
 }
@@ -355,16 +355,16 @@ UINT wday=tp.DayOfWeek;
 UINT hour=tp.Hour;
 UINT min=tp.Minute;
 if(wday==0||wday>7||mon==0||mon>12)
-	return StringCopy(str, size, "-");
+	return StringHelper::Copy(str, size, "-");
 auto str_mon=Translate(STRS_MONTHS[mon-1], lng);
 auto str_day=Translate(STRS_DAYS[wday-1], lng);
 switch(lng)
 	{
 	case LNG::None:
 	case LNG::DE:
-		return StringPrint(str, size, "%s, %u. %s %u %02u:%02u", str_day, mday, str_mon, year, hour, min);
+		return StringHelper::Print(str, size, "%s, %u. %s %u %02u:%02u", str_day, mday, str_mon, year, hour, min);
 	case LNG::EN:
-		return StringPrint(str, size, "%s, %u %s %u - %02u:%02u", str_day, mday, str_mon, year, hour, min);
+		return StringHelper::Print(str, size, "%s, %u %s %u - %02u:%02u", str_day, mday, str_mon, year, hour, min);
 	}
 return 0;
 }
@@ -383,9 +383,9 @@ switch(lng)
 	{
 	case LNG::None:
 	case LNG::DE:
-		return StringPrint(str, size, "vor %s", time_span);
+		return StringHelper::Print(str, size, "vor %s", time_span);
 	case LNG::EN:
-		return StringPrint(str, size, "%s ago", time_span);
+		return StringHelper::Print(str, size, "%s ago", time_span);
 	}
 return 0;
 }
@@ -394,7 +394,7 @@ UINT TimePoint::ToStringTime(TIMEPOINT const& tp, LPSTR str, UINT size, Language
 {
 UINT hour=tp.Hour;
 UINT min=tp.Minute;
-return StringPrint(str, size, "%02u:%02u", hour, min);
+return StringHelper::Print(str, size, "%02u:%02u", hour, min);
 }
 
 VOID TimePoint::UpdateTimer()

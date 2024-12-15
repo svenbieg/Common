@@ -44,42 +44,42 @@ BOOL Bool::FromString(Handle<String> value, BOOL* ptr)
 {
 if(!value)
 	return false;
-if(StringCompare(value->Begin(), "0", false)==0)
+if(StringHelper::Compare(value->Begin(), "0", false)==0)
 	{
 	*ptr=false;
 	return true;
 	}
-if(StringCompare(value->Begin(), "1", false)==0)
+if(StringHelper::Compare(value->Begin(), "1", false)==0)
 	{
 	*ptr=true;
 	return true;
 	}
-if(StringCompare(value->Begin(), "FALSE", false)==0)
+if(StringHelper::Compare(value->Begin(), "false", false)==0)
 	{
 	*ptr=false;
 	return true;
 	}
-if(StringCompare(value->Begin(), "TRUE", false)==0)
+if(StringHelper::Compare(value->Begin(), "true", false)==0)
 	{
 	*ptr=true;
 	return true;
 	}
-if(StringCompare(value->Begin(), "NO", false)==0)
+if(StringHelper::Compare(value->Begin(), "no", false)==0)
 	{
 	*ptr=false;
 	return true;
 	}
-if(StringCompare(value->Begin(), "YES", false)==0)
+if(StringHelper::Compare(value->Begin(), "yes", false)==0)
 	{
 	*ptr=true;
 	return true;
 	}
-if(StringCompare(value->Begin(), "NEIN", false)==0)
+if(StringHelper::Compare(value->Begin(), "nein", false)==0)
 	{
 	*ptr=false;
 	return true;
 	}
-if(StringCompare(value->Begin(), "JA", false)==0)
+if(StringHelper::Compare(value->Begin(), "ja", false)==0)
 	{
 	*ptr=true;
 	return true;

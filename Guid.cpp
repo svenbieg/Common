@@ -38,7 +38,7 @@ auto* p1=(UINT*)&data[0];
 auto p2=(WORD*)&data[4];
 auto p3=(WORD*)&data[6];
 CHAR buf[40];
-StringPrint(buf, 40, "{%08x-%04x-%04x-%02x%02x%02x%02x%02x%02x%02x%02x}", *p1, *p2, *p3, data[8], data[9], data[10], data[11], data[12], data[13], data[14], data[15]);
+StringHelper::Print(buf, 40, "{%08x-%04x-%04x-%02x%02x%02x%02x%02x%02x%02x%02x}", *p1, *p2, *p3, data[8], data[9], data[10], data[11], data[12], data[13], data[14], data[15]);
 return buf;
 }
 
