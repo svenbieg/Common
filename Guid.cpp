@@ -18,9 +18,9 @@
 
 GLOBAL_UNIQUE_ID::GLOBAL_UNIQUE_ID(DWORD data1, WORD data2, WORD data3, BYTE data4, BYTE data5, BYTE data6, BYTE data7, BYTE data8, BYTE data9, BYTE data10, BYTE data11)
 {
-CopyMemory(m_Value, &data1, 4);
-CopyMemory(&m_Value[4], &data2, 2);
-CopyMemory(&m_Value[6], &data3, 2);
+MemoryHelper::Copy(m_Value, &data1, 4);
+MemoryHelper::Copy(&m_Value[4], &data2, 2);
+MemoryHelper::Copy(&m_Value[6], &data3, 2);
 m_Value[8]=data4;
 m_Value[9]=data5;
 m_Value[10]=data6;

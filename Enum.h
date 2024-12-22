@@ -40,7 +40,7 @@ public:
 	// Access
 	Handle<EnumIterator> First();
 	Handle<Sentence> Get();
-	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override;
+	Handle<String> ToString(LanguageCode Language)override;
 	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification

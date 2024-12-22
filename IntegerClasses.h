@@ -24,7 +24,7 @@ public:
 	Int32(Handle<String> Name, INT Value=0): TypedVariable(Name, Value) {}
 
 	// Access
-	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override { return new String("%i", Get()); }
+	Handle<String> ToString(LanguageCode Language)override { return new String("%i", Get()); }
 
 	// Modification
 	BOOL FromString(Handle<String> Value, BOOL Notify=true)override { return TypedVariable::FromString(Value, "%i", Notify); }

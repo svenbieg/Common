@@ -1,4 +1,4 @@
-//========
+﻿//========
 // Days.h
 //========
 
@@ -26,50 +26,50 @@ namespace Resources {
 
 constexpr STRING STR_MONDAY[]=
 	{
-	{ LNG::DE, "Mo" },
-	{ LNG::EN, "Mon" },
+	{ LNG::DE, L"Mo" },
+	{ LNG::EN, L"Mon" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_TUESDAY[]=
 	{
-	{ LNG::DE, "Di" },
-	{ LNG::EN, "Tue" },
+	{ LNG::DE, L"Di" },
+	{ LNG::EN, L"Tue" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_WEDNESDAY[]=
 	{
-	{ LNG::DE, "Mi" },
-	{ LNG::EN, "Wed" },
+	{ LNG::DE, L"Mi" },
+	{ LNG::EN, L"Wed" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_THURSDAY[]=
 	{
-	{ LNG::DE, "Do" },
-	{ LNG::EN, "Thu" },
+	{ LNG::DE, L"Do" },
+	{ LNG::EN, L"Thu" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_FRIDAY[]=
 	{
-	{ LNG::DE, "Fr" },
-	{ LNG::EN, "Fri" },
+	{ LNG::DE, L"Fr" },
+	{ LNG::EN, L"Fri" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_SATURDAY[]=
 	{
-	{ LNG::DE, "Sa" },
-	{ LNG::EN, "Sat" },
+	{ LNG::DE, L"Sa" },
+	{ LNG::EN, L"Sat" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_SUNDAY[]=
 	{
-	{ LNG::DE, "So" },
-	{ LNG::EN, "Sun" },
+	{ LNG::DE, L"So" },
+	{ LNG::EN, L"Sun" },
 	{ LNG::None, nullptr }
 	};
 

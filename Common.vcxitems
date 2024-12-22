@@ -24,8 +24,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Log.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\LogEntry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Settings.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageCode.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Sentence.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Enum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Flags.h" />
@@ -57,7 +57,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\LogEntry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Settings.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Sentence.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Enum.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Flags.cpp" />

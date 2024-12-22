@@ -16,6 +16,7 @@
 #include "Clock.h"
 #include "TimePoint.h"
 
+using namespace Culture;
 using namespace Devices::Timers;
 using namespace Resources::Strings;
 
@@ -76,7 +77,7 @@ UINT TimePoint::GetDayOfWeek(LPCSTR str)
 auto days=STRS_DAYS;
 for(UINT u=0; u<7; u++)
 	{
-	LPCSTR day=Translate(days[u], LNG::EN);
+	auto day=Sentence::Translate(days[u], LNG::EN);
 	if(StringHelper::Compare(str, day, 3, false)==0)
 		return u+1;
 	}
@@ -97,7 +98,7 @@ UINT TimePoint::GetMonth(LPCSTR str)
 auto months=STRS_MONTHS;
 for(UINT u=0; u<12; u++)
 	{
-	LPCSTR month=Translate(months[u], LNG::EN);
+	auto month=Sentence::Translate(months[u], LNG::EN);
 	if(StringHelper::Compare(str, month, 3, false)==0)
 		return u+1;
 	}
@@ -164,7 +165,7 @@ str[0]=0;
 if(tp.Year==0)
 	{
 	UINT64 ticks=0;
-	CopyMemory(&ticks, &tp, sizeof(UINT64));
+	MemoryHelper::Copy(&ticks, &tp, sizeof(UINT64));
 	if(ticks==0)
 		return StringHelper::Copy(str, size, "-");
 	return ToStringRelative(ticks, str, size, fmt, lng);
@@ -189,7 +190,7 @@ if(!stream)
 SharedLock lock(m_Mutex);
 TIMEPOINT tp(m_Value);
 if(tp.Year==0)
-	ZeroMemory(&tp, sizeof(TIMEPOINT));
+	MemoryHelper::Fill(&tp, sizeof(TIMEPOINT), 0);
 return stream->Write(&tp, sizeof(TIMEPOINT));
 }
 
@@ -201,7 +202,7 @@ return stream->Write(&tp, sizeof(TIMEPOINT));
 BOOL TimePoint::operator==(TIMEPOINT const& tp)
 {
 SharedLock lock(m_Mutex);
-return CompareMemory(&m_Value, &tp, sizeof(TIMEPOINT))==0;
+return MemoryHelper::Compare(&m_Value, &tp, sizeof(TIMEPOINT))==0;
 }
 
 
@@ -212,7 +213,7 @@ return CompareMemory(&m_Value, &tp, sizeof(TIMEPOINT))==0;
 VOID TimePoint::Clear(BOOL notify)
 {
 TIMEPOINT tp;
-ZeroMemory(&tp, sizeof(TIMEPOINT));
+MemoryHelper::Fill(&tp, sizeof(TIMEPOINT), 0);
 Set(tp, notify);
 }
 
@@ -308,7 +309,7 @@ UINT64 TimePoint::GetTickCount(TIMEPOINT const& tp)
 if(tp.Year!=0)
 	return 0;
 UINT64 ticks=0;
-CopyMemory(&ticks, &tp, sizeof(UINT64));
+MemoryHelper::Copy(&ticks, &tp, sizeof(UINT64));
 return ticks;
 }
 
@@ -356,8 +357,8 @@ UINT hour=tp.Hour;
 UINT min=tp.Minute;
 if(wday==0||wday>7||mon==0||mon>12)
 	return StringHelper::Copy(str, size, "-");
-auto str_mon=Translate(STRS_MONTHS[mon-1], lng);
-auto str_day=Translate(STRS_DAYS[wday-1], lng);
+auto str_mon=Sentence::Translate(STRS_MONTHS[mon-1], lng);
+auto str_day=Sentence::Translate(STRS_DAYS[wday-1], lng);
 switch(lng)
 	{
 	case LNG::None:
@@ -405,7 +406,7 @@ clock->Second.Remove(this);
 if(m_Value.Year==0)
 	{
 	UINT64 ticks=0;
-	CopyMemory(&ticks, &m_Value, sizeof(UINT64));
+	MemoryHelper::Copy(&ticks, &m_Value, sizeof(UINT64));
 	if(ticks)
 		clock->Second.Add(this, &TimePoint::OnClockSecond);
 	}

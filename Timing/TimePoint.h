@@ -44,7 +44,7 @@ WORD Year;
 
 inline bool operator==(TIMEPOINT const& TimePoint1, TIMEPOINT const& TimePoint2)
 {
-return CompareMemory(&TimePoint1, &TimePoint2, sizeof(TIMEPOINT))==0;
+return MemoryHelper::Compare(&TimePoint1, &TimePoint2, sizeof(TIMEPOINT))==0;
 }
 
 
@@ -68,6 +68,7 @@ class TimePoint: public TypedVariable<TIMEPOINT>
 {
 private:
 	// Using
+	using Language=Culture::Language;
 	using LanguageCode=Culture::LanguageCode;
 	using OutputStream=Storage::Streams::OutputStream;
 
@@ -85,7 +86,7 @@ public:
 	BOOL IsAbsolute();
 	UINT64 ToSeconds();
 	static UINT64 ToSeconds(TIMEPOINT const& TimePoint);
-	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override;
+	Handle<String> ToString(LanguageCode Language=Language::Current)override;
 	Handle<String> ToString(TimeFormat Format, LanguageCode Language=LanguageCode::None);
 	static Handle<String> ToString(TIMEPOINT const& TimePoint, TimeFormat Format, LanguageCode Language=LanguageCode::None);
 	static UINT ToString(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, TimeFormat Format, LanguageCode Language=LanguageCode::None);

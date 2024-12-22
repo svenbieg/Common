@@ -1,4 +1,4 @@
-//============
+﻿//============
 // Language.h
 //============
 
@@ -26,9 +26,9 @@ namespace Resources {
 
 constexpr STRING STR_LANGUAGE_CODE[]=
 	{
-	{ LNG::DE, "DE" },
-	{ LNG::EN, "EN" },
-	{ LNG::None, "__" }
+	{ LNG::DE, L"DE" },
+	{ LNG::EN, L"EN" },
+	{ LNG::None, nullptr }
 	};
 
 
@@ -38,16 +38,16 @@ constexpr STRING STR_LANGUAGE_CODE[]=
 
 constexpr STRING STR_GERMAN[]=
 	{
-	{ LNG::DE, "Deutsch" },
-	{ LNG::EN, "German" },
-	{ LNG::None, "GERMAN" }
+	{ LNG::DE, L"Deutsch" },
+	{ LNG::EN, L"German" },
+	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_ENGLISH[]=
 	{
-	{ LNG::DE, "Englisch" },
-	{ LNG::EN, "English" },
-	{ LNG::None, "ENGLISH" }
+	{ LNG::DE, L"Englisch" },
+	{ LNG::EN, L"English" },
+	{ LNG::None, nullptr }
 	};
 
 }}

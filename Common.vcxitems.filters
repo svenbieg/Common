@@ -66,9 +66,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Language.h">
       <Filter>Resources\Strings</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.h">
-      <Filter>Culture</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h">
       <Filter>Resources\Icons</Filter>
     </ClInclude>
@@ -106,6 +103,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Encoding\Xml\XmlNode.h">
       <Filter>Storage\Encoding\Xml</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageCode.h">
+      <Filter>Culture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp">
@@ -129,9 +129,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Variable.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Culture\LanguageClass.cpp">
-      <Filter>Culture</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp">
       <Filter>Culture</Filter>
     </ClCompile>

@@ -26,7 +26,7 @@ public:
 	// Access
 	Handle<String> Get();
 	Event<Variable, Handle<String>&> Reading;
-	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override { return Get(); }
+	Handle<String> ToString(LanguageCode Language)override { return Get(); }
 	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification

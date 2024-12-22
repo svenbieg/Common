@@ -1,4 +1,4 @@
-//==========
+﻿//==========
 // Months.h
 //==========
 
@@ -26,85 +26,85 @@ namespace Resources {
 
 constexpr STRING STR_JANUARY[]=
 	{
-	{ LNG::DE, "Jan" },
-	{ LNG::EN, "Jan" },
+	{ LNG::DE, L"Jan" },
+	{ LNG::EN, L"Jan" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_FEBRUARY[]=
 	{
-	{ LNG::DE, "Feb" },
-	{ LNG::EN, "Feb" },
+	{ LNG::DE, L"Feb" },
+	{ LNG::EN, L"Feb" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_MARCH[]=
 	{
-	{ LNG::DE, "M�r" },
-	{ LNG::EN, "Mar" },
+	{ LNG::DE, L"Mär" },
+	{ LNG::EN, L"Mar" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_APRIL[]=
 	{
-	{ LNG::DE, "Apr" },
-	{ LNG::EN, "Apr" },
+	{ LNG::DE, L"Apr" },
+	{ LNG::EN, L"Apr" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_MAY[]=
 	{
-	{ LNG::DE, "Mai" },
-	{ LNG::EN, "May" },
+	{ LNG::DE, L"Mai" },
+	{ LNG::EN, L"May" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_JUNE[]=
 	{
-	{ LNG::DE, "Jun" },
-	{ LNG::EN, "Jun" },
+	{ LNG::DE, L"Jun" },
+	{ LNG::EN, L"Jun" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_JULY[]=
 	{
-	{ LNG::DE, "Jul" },
-	{ LNG::EN, "Jul" },
+	{ LNG::DE, L"Jul" },
+	{ LNG::EN, L"Jul" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_AUGUST[]=
 	{
-	{ LNG::DE, "Aug" },
-	{ LNG::EN, "Aug" },
+	{ LNG::DE, L"Aug" },
+	{ LNG::EN, L"Aug" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_SEPTEMBER[]=
 	{
-	{ LNG::DE, "Sep" },
-	{ LNG::EN, "Sep" },
+	{ LNG::DE, L"Sep" },
+	{ LNG::EN, L"Sep" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_OCTOBER[]=
 	{
-	{ LNG::DE, "Okt" },
-	{ LNG::EN, "Oct" },
+	{ LNG::DE, L"Okt" },
+	{ LNG::EN, L"Oct" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_NOVEMBER[]=
 	{
-	{ LNG::DE, "Nov" },
-	{ LNG::EN, "Nov" },
+	{ LNG::DE, L"Nov" },
+	{ LNG::EN, L"Nov" },
 	{ LNG::None, nullptr }
 	};
 
 constexpr STRING STR_DECEMBER[]=
 	{
-	{ LNG::DE, "Dez" },
-	{ LNG::EN, "Dec" },
+	{ LNG::DE, L"Dez" },
+	{ LNG::EN, L"Dec" },
 	{ LNG::None, nullptr }
 	};
 

@@ -9,6 +9,7 @@
 // Using
 //=======
 
+#include "Collections/map.hpp"
 #include "Resources/Strings/String.h"
 #include "Storage/Streams/InputStream.h"
 #include "Storage/Streams/OutputStream.h"
@@ -22,13 +23,6 @@
 namespace Culture {
 
 
-//========
-// Common
-//========
-
-LPCSTR Translate(Resources::Strings::STRING const* Value, Culture::LanguageCode Language=Culture::CurrentLanguage);
-
-
 //==========
 // Sentence
 //==========
@@ -38,7 +32,6 @@ class Sentence: public Object
 public:
 	// Using
 	using InputStream=Storage::Streams::InputStream;
-	using LanguageCode=Culture::LanguageCode;
 	using OutputStream=Storage::Streams::OutputStream;
 	using STRING=Resources::Strings::STRING;
 
@@ -46,34 +39,24 @@ public:
 	Sentence();
 	Sentence(LPCSTR Value);
 	Sentence(STRING const* Value);
-	template <class... _args_t> Sentence(LPCSTR Format, _args_t... Arguments)
-		{
-		UnknownClass args[]={ Arguments... };
-		VariableArguments vargs(args, ArraySize(args));
-		UINT len=StringHelper::PrintArgs((LPSTR)nullptr, 0, Format, vargs);
-		LPSTR value=new CHAR[len+1];
-		StringHelper::PrintArgs(value, len+1, Format, vargs);
-		STRING* string=new STRING[1];
-		string->Language=LanguageCode::None;
-		string->Value=value;
-		m_String=string;
-		m_Value=value;
-		}
-	~Sentence();
 
 	// Common
-	LPCSTR Begin(LanguageCode Language=Culture::CurrentLanguage)const;
+	LPCTSTR Begin(LanguageCode Language=Language::Current);
 	INT Compare(LPCSTR Value)const;
 	INT Compare(LPCWSTR Value)const;
 	INT Compare(STRING const* Value)const;
-	INT Compare(Sentence const* Value)const;
+	static INT Compare(STRING const* String, LPCTSTR Value);
+	static INT Compare(Sentence const* Sentence1, Sentence const* Sentence2);
 	SIZE_T ReadFromStream(InputStream* Stream);
-	SIZE_T WriteToStream(OutputStream* Stream);
+	inline Handle<String> ToString()override { return this->ToString(Language::Current); }
+	Handle<String> ToString(LanguageCode Language);
+	static LPCWSTR Translate(STRING const* Value, LanguageCode Language=Language::Current);
+	SIZE_T WriteToStream(OutputStream* Stream)const;
 
 private:
 	// Common
 	STRING const* m_String;
-	LPCSTR m_Value;
+	Collections::map<LanguageCode, Handle<String>> m_Strings;
 };
 
 }
@@ -98,24 +81,12 @@ public:
 	Handle(STRING const* Value) { Create(new Sentence(Value)); }
 
 	// Assignment
-	inline Handle& operator=(LPCSTR Value) { Set(new Sentence(Value)); return *this; }
 	inline Handle& operator=(STRING const* Value) { Set(new Sentence(Value)); return *this; }
 
 	// Comparison
-	inline BOOL operator==(Sentence* Value)const override { return Compare(m_Object, Value)==0; }
-	inline BOOL operator>(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>0; }
-	inline BOOL operator>=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)>=0; }
-	inline BOOL operator<(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<0; }
-	inline BOOL operator<=(Handle<Sentence> const& Value)const { return Compare(m_Object, Value.m_Object)<=0; }
-
-private:
-	// Common
-	static inline INT Compare(Sentence const* Sentence1, Sentence const* Sentence2)
-		{
-		if(Sentence1)
-			return Sentence1->Compare(Sentence2);
-		if(Sentence2)
-			return -1;
-		return 0;
-		}
+	inline BOOL operator==(Sentence* Value)const override { return Sentence::Compare(m_Object, Value)==0; }
+	inline BOOL operator>(Handle<Sentence> const& Value)const { return Sentence::Compare(m_Object, Value.m_Object)>0; }
+	inline BOOL operator>=(Handle<Sentence> const& Value)const { return Sentence::Compare(m_Object, Value.m_Object)>=0; }
+	inline BOOL operator<(Handle<Sentence> const& Value)const { return Sentence::Compare(m_Object, Value.m_Object)<0; }
+	inline BOOL operator<=(Handle<Sentence> const& Value)const { return Sentence::Compare(m_Object, Value.m_Object)<=0; }
 };

@@ -24,50 +24,31 @@ using namespace Storage::Streams;
 namespace Culture {
 
 
-//========
-// Common
-//========
-
-LPCSTR Translate(STRING const* string_ptr, LanguageCode lng)
-{
-if(!string_ptr)
-	return nullptr;
-auto string=string_ptr;
-while(string->Language!=lng)
-	{
-	if(string->Language==LanguageCode::None)
-		break;
-	string++;
-	}
-return string->Value;
-}
-
-
 //==================
 // Con-/Destructors
 //==================
 
 Sentence::Sentence():
-m_String(nullptr),
-m_Value(nullptr)
+m_String(nullptr)
 {}
 
-Sentence::Sentence(LPCSTR value):
-m_String(nullptr),
-m_Value(value)
-{}
-
-Sentence::Sentence(STRING const* value):
-m_String(value),
-m_Value(nullptr)
-{}
-
-Sentence::~Sentence()
+Sentence::Sentence(LPCSTR str):
+m_String(nullptr)
 {
-if(m_String&&m_Value)
+if(!str)
+	return;
+m_Strings.add(Language::Current, str);
+}
+
+Sentence::Sentence(STRING const* str):
+m_String(str)
+{
+if(!str)
+	return;
+while(str->Language!=LanguageCode::None)
 	{
-	delete m_String;
-	delete m_Value;
+	m_Strings.add(str->Language, str->Value);
+	str++;
 	}
 }
 
@@ -76,144 +57,155 @@ if(m_String&&m_Value)
 // Common
 //========
 
-LPCSTR Sentence::Begin(LanguageCode lng)const
+LPCTSTR Sentence::Begin(LanguageCode lng)
 {
-if(m_String)
-	return Translate(m_String, lng);
-return m_Value;
-}
-
-template <class _char_t> INT SentenceCompare(STRING const* string, _char_t const* value)
-{
-if(!value)
-	return 1;
-while(string)
-	{
-	if(StringHelper::Compare(string->Value, value, 0, false)==0)
-		return 0;
-	if(string->Language==LanguageCode::None)
-		break;
-	string++;
-	}
-return 1;
+auto str=ToString(lng);
+return str? str->Begin(): nullptr;
 }
 
 INT Sentence::Compare(LPCSTR value)const
 {
-if(m_String)
-	return SentenceCompare<CHAR>(m_String, value);
-return StringHelper::Compare(m_Value, value, 0, false)==0;
+for(auto it: m_Strings)
+	{
+	auto str=it.get_value();
+	if(StringHelper::Compare(str->Begin(), value, 0, false)==0)
+		return 0;
+	}
+return -1;
 }
 
 INT Sentence::Compare(LPCWSTR value)const
 {
-if(m_String)
-	return SentenceCompare<WCHAR>(m_String, value);
-return StringHelper::Compare(m_Value, value, 0, false)==0;
-}
-
-INT Sentence::Compare(STRING const* string)const
-{
-if(m_String==string)
-	return 0;
-if(!m_String)
-	return -1;
-if(!string)
-	return 1;
-auto string1=m_String;
-while(string1)
+for(auto it: m_Strings)
 	{
-	auto string2=string;
-	while(string2)
-		{
-		if(string1->Language==string2->Language)
-			{
-			if(StringHelper::Compare(string1->Value, string2->Value, 0, false)==0)
-				return 0;
-			}
-		if(string2->Language==LanguageCode::None)
-			break;
-		string2++;
-		}
-	if(string1->Language==LanguageCode::None)
-		break;
-	string1++;
+	auto str=it.get_value();
+	if(StringHelper::Compare(str->Begin(), value, 0, false)==0)
+		return 0;
 	}
-return 1;
+return -1;
 }
 
-INT Sentence::Compare(Sentence const* sentence)const
+INT Sentence::Compare(STRING const* str)const
 {
-STRING const* string=sentence? sentence->m_String: nullptr;
-return Compare(string);
+if(m_String==str)
+	return 0;
+if(!str)
+	return -1;
+while(str->Language!=LanguageCode::None)
+	{
+	auto str1=m_Strings.get(str->Language);
+	if(!str1)
+		continue;
+	if(StringHelper::Compare(str1->Begin(), str->Value, 0, false)==0)
+		return 0;
+	}
+return -1;
+}
+
+INT Sentence::Compare(STRING const* str, LPCTSTR value)
+{
+if(!str)
+	{
+	if(!value)
+		return 0;
+	return -1;
+	}
+if(!value)
+	return -1;
+while(str->Language!=LanguageCode::None)
+	{
+	if(StringHelper::Compare(str->Value, value, 0, false)==0)
+		return 0;
+	str++;
+	}
+return -1;
+}
+
+INT Sentence::Compare(Sentence const* sentence1, Sentence const* sentence2)
+{
+if(!sentence1||!sentence2)
+	return -1;
+if(sentence1->m_String==sentence2->m_String)
+	return 0;
+for(auto it: sentence1->m_Strings)
+	{
+	auto lng=it.get_key();
+	auto str2=sentence2->m_Strings.get(lng);
+	if(!str2)
+		continue;
+	auto str1=it.get_value();
+	return StringHelper::Compare(str1->Begin(), str2->Begin(), 0, false);
+	}
+return -1;
 }
 
 SIZE_T Sentence::ReadFromStream(InputStream* stream)
 {
-SIZE_T size=0;
 StreamReader reader(stream);
-auto str=reader.ReadString(&size);
-if(!str)
-	return size;
-auto str_ptr=str->Begin();
-UINT len=StringHelper::Length(str_ptr);
-m_Value=new CHAR[len+1];
-LPSTR value_ptr=const_cast<LPSTR>(m_Value);
-UINT count=0;
-for(UINT pos=0; pos<len; pos++)
+SIZE_T size=0;
+while(1)
 	{
-	TCHAR c=str_ptr[pos];
-	if(CharHelper::Compare(c, '\r')==0)
-		{
-		c=0;
-		count++;
-		}
-	value_ptr[pos]=CharHelper::ToAnsi(c);
-	}
-m_String=new STRING[count+1];
-auto string=const_cast<STRING*>(m_String);
-UINT id=0;
-for(UINT pos=0; pos<len; pos++)
-	{
-	auto lng=LanguageCodeFromString(&value_ptr[pos]);
-	if(lng==LanguageCode::Unknown)
+	SIZE_T lng_len=0;
+	auto lng_str=reader.ReadString(&lng_len, "\t");
+	size+=lng_len;
+	if(!lng_str)
 		break;
-	pos+=2;
-	string[id].Language=lng;
-	string[id].Value=&value_ptr[pos];
-	id++;
-	while(value_ptr[pos])
-		pos++;
+	auto lng=Language::FromString(lng_str->Begin());
+	if(lng==LanguageCode::None)
+		break;
+	SIZE_T str_len=0;
+	auto str=reader.ReadString(&str_len, "\n");
+	if(!str_len)
+		break;
+	size+=str_len;
+	m_Strings.add(lng, str);
 	}
 return size;
 }
 
-SIZE_T Sentence::WriteToStream(OutputStream* stream)
+Handle<String> Sentence::ToString(LanguageCode lng)
 {
-SIZE_T size=0;
-StreamWriter writer(stream);
-if(m_String)
+auto str=m_Strings.get(lng);
+if(str)
+	return str;
+str=m_Strings.get(Language::Current);
+if(str)
+	return str;
+if(!m_Strings)
+	return nullptr;
+return m_Strings.get_at(0).get_value();
+}
+
+LPCWSTR Sentence::Translate(STRING const* str, LanguageCode lng)
+{
+if(!str)
+	return nullptr;
+while(str)
 	{
-	SIZE_T size=0;
-	auto string=m_String;
-	while(1)
-		{
-		auto lng=string->Language;
-		auto lng_str=LanguageCodeToString(lng);
-		size+=writer.Print(lng_str);
-		size+=writer.Print(string->Value);
-		size+=writer.PrintChar('\r');
-		if(lng==LanguageCode::None)
-			break;
-		string++;
-		}
-	size+=writer.Print("\0");
-	return size;
+	if(str->Language==LanguageCode::None)
+		break;
+	if(str->Language==lng)
+		return str->Value;
+	str++;
 	}
-auto lng_str=LanguageCodeToString(LanguageCode::None);
-size+=writer.Print(lng_str);
-size+=writer.Print(m_Value);
-size+=writer.Print("\r\0");
+return nullptr;
+}
+
+SIZE_T Sentence::WriteToStream(OutputStream* stream)const
+{
+StreamWriter writer(stream);
+SIZE_T size=0;
+for(auto it: m_Strings)
+	{
+	auto lng_str=Language::ToStringCode(it.get_key());
+	if(!lng_str)
+		break;
+	size+=writer.Print(lng_str);
+	size+=writer.Print("\t");
+	size+=writer.Print(it.get_value());
+	size+=writer.Print("\n");
+	}
+size+=writer.Print("\0");
 return size;
 }
 

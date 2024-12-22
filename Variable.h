@@ -10,7 +10,8 @@
 //=======
 
 #include "Collections/Map.h"
-#include "Culture/Language.h"
+#include "Concurrency/SharedLock.h"
+#include "Culture/LanguageCode.h"
 #include "Storage/Streams/InputStream.h"
 #include "Storage/Streams/OutputStream.h"
 #include "StringClass.h"
@@ -52,7 +53,8 @@ public:
 	virtual BOOL FromString(Handle<String> Value, BOOL Notify=true) { return false; }
 	Handle<String> const Name;
 	virtual SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true) { return 0; }
-	virtual Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage) { return nullptr; }
+	virtual Handle<String> ToString() { return this->ToString(LanguageCode::None); }
+	virtual Handle<String> ToString(LanguageCode Language) { return nullptr; }
 	virtual SIZE_T WriteToStream(OutputStream* Stream) { return 0; }
 
 protected:

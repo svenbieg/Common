@@ -55,7 +55,7 @@ return flags;
 
 SIZE_T Flags::WriteToStream(OutputStream* stream)
 {
-auto flags=ToString();
+auto flags=Variable::ToString();
 SIZE_T size=0;
 StreamWriter writer(stream);
 size+=writer.Print(flags);

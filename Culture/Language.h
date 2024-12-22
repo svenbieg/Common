@@ -5,6 +5,14 @@
 #pragma once
 
 
+//=======
+// Using
+//=======
+
+#include "LanguageCode.h"
+#include "Variable.h"
+
+
 //===========
 // Namespace
 //===========
@@ -12,27 +20,25 @@
 namespace Culture {
 
 
-//===============
-// Language-Code
-//===============
+//==========
+// Language
+//==========
 
-enum class LanguageCode: UINT
+class Language: public TypedVariable<LanguageCode>
 {
-None,
-DE,
-EN,
-Unknown
+public:
+	// Con-/Destructors
+	Language(Handle<String> Name, LanguageCode Language);
+
+	// Common
+	static LanguageCode Current;
+	static LanguageCode FromString(LPCSTR Language);
+	static LanguageCode FromString(LPCWSTR Language);
+	static Handle<String> ToString(LanguageCode Language=Current, LanguageCode ToLanguage=Current);
+	static Handle<String> ToStringCode(LanguageCode Language=Current);
+	Handle<String> ToString()override;
+	Handle<String> ToString(LanguageCode ToLanguage);
+	Handle<String> ToStringCode();
 };
-
-LPCSTR LanguageCodeToString(LanguageCode Language);
-LanguageCode LanguageCodeFromString(LPCSTR Language);
-LanguageCode LanguageCodeFromString(LPCWSTR Language);
-
-
-//=========
-// Globals
-//=========
-
-extern LanguageCode CurrentLanguage;
 
 }

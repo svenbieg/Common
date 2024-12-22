@@ -21,6 +21,9 @@
 class Char: public TypedVariable<CHAR>
 {
 public:
+	// Using
+	using Language=Culture::Language;
+
 	// Con-/Destructors
 	Char(CHAR Value=0): TypedVariable(nullptr, Value) {}
 	Char(WCHAR Value): TypedVariable(nullptr, CharHelper::ToAnsi(Value)) {}
@@ -34,5 +37,5 @@ public:
 	inline BOOL IsDigit(UINT Base=10) { return CharHelper::IsDigit(m_Value, Base); }
 	inline BOOL IsSmall() { return CharHelper::IsSmall(m_Value); }
 	inline BOOL IsSpecial() { return CharHelper::IsSpecial(m_Value); }
-	Handle<String> ToString(LanguageCode Language=Culture::CurrentLanguage)override { return new String("%c", Get()); }
+	Handle<String> ToString(LanguageCode Language)override { return new String("%c", Get()); }
 };

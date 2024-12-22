@@ -34,7 +34,7 @@ typedef Culture::LanguageCode LNG;
 typedef struct
 {
 LNG Language;
-LPCSTR Value;
+LPCWSTR Value;
 }STRING;
 
 }}

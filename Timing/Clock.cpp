@@ -50,10 +50,10 @@ BOOL Clock::GetTime(TIMEPOINT* time)
 if(s_Now.Year==0)
 	{
 	UINT64 ticks=SystemTimer::GetTickCount();
-	CopyMemory(time, &ticks, sizeof(UINT64));
+	MemoryHelper::Copy(time, &ticks, sizeof(UINT64));
 	return false;
 	}
-CopyMemory(time, &s_Now, sizeof(TIMEPOINT));
+MemoryHelper::Copy(time, &s_Now, sizeof(TIMEPOINT));
 return true;
 }
 
@@ -71,7 +71,7 @@ if(tp->Year)
 if(s_Offset==0)
 	return false;
 UINT64 ticks=0;
-CopyMemory(&ticks, tp, sizeof(UINT64));
+MemoryHelper::Copy(&ticks, tp, sizeof(UINT64));
 UINT sec=ticks/1000;
 TimePoint::FromSeconds(tp, s_Offset+sec);
 return true;
