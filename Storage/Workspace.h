@@ -33,7 +33,7 @@ private:
 
 public:
 	// Con-/Destructors
-	Workspace(Handle<String> Name);
+	static inline Handle<Workspace> Create(Handle<String> Name) { return new Workspace(Name); }
 
 	// Common
 	BOOL Add(Handle<String> Name, Handle<Object> Object);
@@ -43,6 +43,9 @@ public:
 	Handle<Object> Get(Handle<String> Path)override;
 
 private:
+	// Con-/Destructors
+	Workspace(Handle<String> Name);
+
 	// Common
 	Handle<DirectoryList> m_Directories;
 	Handle<Storage::Virtual::Directory> m_Virtual;

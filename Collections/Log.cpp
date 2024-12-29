@@ -23,16 +23,6 @@ using namespace Storage::Streams;
 namespace Collections {
 
 
-//==================
-// Con-/Destructors
-//==================
-
-Log::Log()
-{
-Entries=new EntryList();
-}
-
-
 //========
 // Common
 //========
@@ -81,6 +71,16 @@ for(auto it=Entries->First(); it->HasCurrent(); it->MoveNext())
 	size+=entry->WriteToStream(stream);
 	}
 return size;
+}
+
+
+//==========================
+// Con-/Destructors Private
+//==========================
+
+Log::Log()
+{
+Entries=EntryList::Create();
 }
 
 

@@ -19,19 +19,6 @@
 namespace Storage {
 
 
-//==================
-// Con-/Destructors
-//==================
-
-Workspace::Workspace(Handle<String> name):
-Directory(name)
-{
-m_Directories=new DirectoryList();
-m_Virtual=new Storage::Virtual::Directory("Virtual");
-AddDirectory(m_Virtual);
-}
-
-
 //========
 // Common
 //========
@@ -60,7 +47,7 @@ while(PathHelper::IsSeparator(str[pos]))
 UINT len=PathHelper::GetComponentLength(&str[pos]);
 if(!len)
 	return nullptr;
-Handle<String> name=new String(len, &str[pos]);
+auto name=String::Create(len, &str[pos]);
 pos+=len;
 if(str[pos]==0)
 	return nullptr;
@@ -88,6 +75,19 @@ for(auto it=m_Directories->First(); it->HasCurrent(); it->MoveNext())
 		return obj;
 	}
 return nullptr;
+}
+
+
+//==========================
+// Con-/Destructors Private
+//==========================
+
+Workspace::Workspace(Handle<String> name):
+Directory(name)
+{
+m_Directories=DirectoryList::Create();
+m_Virtual=Storage::Virtual::Directory::Create("Virtual");
+AddDirectory(m_Virtual);
 }
 
 }

@@ -25,20 +25,6 @@ namespace Storage {
 		namespace Xml {
 
 
-//==================
-// Con-/Destructors
-//==================
-
-XmlNode::XmlNode(XmlNode* parent):
-XmlElement(parent),
-Value(this)
-{
-Attributes=new AttributeMap();
-Elements=new ElementList();
-Value.Changed.Add(this, &XmlNode::OnValueChanged);
-}
-
-
 //========
 // Common
 //========
@@ -108,6 +94,20 @@ return size;
 }
 
 
+//==========================
+// Con-/Destructors Private
+//==========================
+
+XmlNode::XmlNode(XmlNode* parent):
+XmlElement(parent),
+Value(this)
+{
+Attributes=AttributeMap::Create();
+Elements=ElementList::Create();
+Value.Changed.Add(this, &XmlNode::OnValueChanged);
+}
+
+
 //================
 // Common Private
 //================
@@ -124,7 +124,7 @@ if(Elements->GetCount()==1)
 		}
 	}
 Elements->Clear();
-Handle<XmlContent> content=new XmlContent(this, value);
+auto content=XmlContent::Create(this, value);
 Elements->Append(content);
 }
 
@@ -136,11 +136,11 @@ while(1)
 	Handle<String> value=reader.ReadString(&size, "<", " \t\r\n");
 	if(value)
 		{
-		Handle<XmlContent> content=new XmlContent(this, value);
+		auto content=XmlContent::Create(this, value);
 		Elements->Append(content, false);
 		continue;
 		}
-	Handle<XmlNode> child=new XmlNode(this);
+	auto child=XmlNode::Create(this);
 	size+=child->ReadTag(reader);
 	if(!child->Tag)
 		{
