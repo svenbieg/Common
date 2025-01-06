@@ -36,6 +36,11 @@ m_Directories->Append(dir);
 m_Virtual->Add(dir->GetName(), dir);
 }
 
+Handle<DirectoryIterator> Workspace::Begin()
+{
+return m_Virtual->Begin();
+}
+
 Handle<File> Workspace::CreateFile(Handle<String> path, FileCreateMode create, FileAccessMode access, FileShareMode share)
 {
 if(!path||path->IsEmpty())
@@ -58,11 +63,6 @@ auto dir=obj.As<Storage::Directory>();
 if(!dir)
 	return nullptr;
 return dir->CreateFile(&str[pos], create, access, share);
-}
-
-Handle<DirectoryIterator> Workspace::First()
-{
-return m_Virtual->First();
 }
 
 Handle<Object> Workspace::Get(Handle<String> path)

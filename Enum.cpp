@@ -25,7 +25,7 @@ using namespace Storage::Streams;
 Handle<EnumIterator> Enum::First()
 {
 auto it=new EnumIterator(this);
-it->First();
+it->Begin();
 return it;
 }
 

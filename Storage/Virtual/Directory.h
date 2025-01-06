@@ -50,8 +50,8 @@ public:
 	VOID RemoveAll();
 
 	// Storage.Directory
+	Handle<Storage::DirectoryIterator> Begin()override;
 	Handle<Storage::File> CreateFile(Handle<String> Path, FileCreateMode Create=FileCreateMode::OpenExisting, FileAccessMode Access=FileAccessMode::ReadWrite, FileShareMode Share=FileShareMode::ShareRead)override;
-	Handle<Storage::DirectoryIterator> First()override;
 	Handle<Object> Get(Handle<String> Path)override;
 
 private:

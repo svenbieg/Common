@@ -68,14 +68,14 @@ if(m_Map.clear())
 // Storage.Directory
 //===================
 
+Handle<Storage::DirectoryIterator> Directory::Begin()
+{
+return new DirectoryIterator(this);
+}
+
 Handle<Storage::File> Directory::CreateFile(Handle<String> path, FileCreateMode create, FileAccessMode access, FileShareMode share)
 {
 return nullptr;
-}
-
-Handle<Storage::DirectoryIterator> Directory::First()
-{
-return new DirectoryIterator(this);
 }
 
 Handle<Object> Directory::Get(Handle<String> path)

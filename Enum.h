@@ -138,8 +138,8 @@ public:
 	BOOL HasCurrent()const { return m_It.has_current(); }
 
 	// Navigation
-	BOOL First() { return m_It.begin(); }
-	BOOL Last() { return m_It.rbegin(); }
+	BOOL Begin() { return m_It.begin(); }
+	BOOL End() { return m_It.rbegin(); }
 	BOOL MoveNext() { return m_It.move_next(); }
 	BOOL MovePrevious() { return m_It.move_previous(); }
 	BOOL SetPosition(UINT Position) { return m_It.set_position(Position); }

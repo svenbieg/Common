@@ -38,8 +38,8 @@ public:
 	// Common
 	BOOL Add(Handle<String> Name, Handle<Object> Object);
 	VOID AddDirectory(Handle<Storage::Directory> Directory);
+	Handle<DirectoryIterator> Begin()override;
 	Handle<File> CreateFile(Handle<String> Path, FileCreateMode Create=FileCreateMode::OpenExisting, FileAccessMode Access=FileAccessMode::ReadOnly, FileShareMode Share=FileShareMode::ShareRead)override;
-	Handle<DirectoryIterator> First()override;
 	Handle<Object> Get(Handle<String> Path)override;
 
 private:
