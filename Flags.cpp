@@ -91,7 +91,7 @@ if(str=="0")
 ScopedLock lock(m_Mutex);
 auto list=StringList::Create(str);
 BOOL changed=false;
-for(auto it=list->First(); it->HasCurrent(); it->MoveNext())
+for(auto it=list->Begin(); it->HasCurrent(); it->MoveNext())
 	{
 	auto flag=it->GetCurrent();
 	auto p=flag->Begin();

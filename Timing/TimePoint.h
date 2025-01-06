@@ -144,7 +144,7 @@ namespace Timing {
 
 inline Handle<TimePoint> TimePoint::Create()
 {
-TIMEPOINT tp;
+TIMEPOINT tp={ 0 };
 return new TimePoint(nullptr, tp);
 }
 
@@ -155,7 +155,7 @@ return new TimePoint(nullptr, Value);
 
 inline Handle<TimePoint> TimePoint::Create(Handle<String> Name)
 {
-TIMEPOINT tp;
+TIMEPOINT tp={ 0 };
 return new TimePoint(Name, tp);
 }
 

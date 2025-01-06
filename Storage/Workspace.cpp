@@ -67,7 +67,7 @@ return m_Virtual->First();
 
 Handle<Object> Workspace::Get(Handle<String> path)
 {
-for(auto it=m_Directories->First(); it->HasCurrent(); it->MoveNext())
+for(auto it=m_Directories->Begin(); it->HasCurrent(); it->MoveNext())
 	{
 	auto dir=it->GetCurrent();
 	auto obj=dir->Get(path);

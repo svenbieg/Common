@@ -63,7 +63,7 @@ Changed(this);
 SIZE_T Log::WriteToStream(OutputStream* stream)
 {
 SIZE_T size=0;
-for(auto it=Entries->First(); it->HasCurrent(); it->MoveNext())
+for(auto it=Entries->Begin(); it->HasCurrent(); it->MoveNext())
 	{
 	auto entry=it->GetCurrent();
 	if(!entry->Time->IsAbsolute())

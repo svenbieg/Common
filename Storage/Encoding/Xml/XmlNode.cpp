@@ -61,7 +61,7 @@ SIZE_T size=0;
 size+=writer.PrintChar('\t', level);
 size+=writer.PrintChar('<');
 size+=writer.Print(Tag);
-for(auto it=Attributes->First(); it->HasCurrent(); it->MoveNext())
+for(auto it=Attributes->Begin(); it->HasCurrent(); it->MoveNext())
 	{
 	auto name=it->GetKey();
 	auto value=it->GetValue();
@@ -81,7 +81,7 @@ if(child_count==0)
 	return size;
 	}
 size+=writer.Print(">\r\n");
-for(auto it=Elements->First(); it->HasCurrent(); it->MoveNext())
+for(auto it=Elements->Begin(); it->HasCurrent(); it->MoveNext())
 	{
 	auto child=it->GetCurrent();
 	size+=child->WriteToStream(stream, level+1);
