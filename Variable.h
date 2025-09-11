@@ -11,13 +11,7 @@
 
 #include "Storage/Streams/InputStream.h"
 #include "Storage/Streams/OutputStream.h"
-
-
-//======================
-// Forward-Declarations
-//======================
-
-class Variable;
+#include "Event.h"
 
 
 //==========

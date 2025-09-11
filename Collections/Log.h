@@ -53,7 +53,7 @@ private:
 	Log();
 
 	// Common
-	VOID OnTimePointChanged();
+	VOID OnTimePointChanged(Variable* Sender);
 };
 
 }

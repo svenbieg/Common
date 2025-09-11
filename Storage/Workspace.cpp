@@ -9,6 +9,7 @@
 // Using
 //=======
 
+#include "PathHelper.h"
 #include "Workspace.h"
 
 
@@ -36,6 +37,11 @@ m_Directories->Append(dir);
 m_Virtual->Add(dir->GetName(), dir);
 }
 
+
+//===================
+// Storage.Directory
+//===================
+
 Handle<DirectoryIterator> Workspace::Begin()
 {
 return m_Virtual->Begin();
@@ -47,7 +53,7 @@ if(!path||path->IsEmpty())
 	return nullptr;
 auto str=path->Begin();
 UINT pos=0;
-while(PathHelper::IsSeparator(str[pos]))
+while(CharHelper::Equal(str[pos], "\\/"))
 	pos++;
 UINT len=PathHelper::GetComponentLength(&str[pos]);
 if(!len)
@@ -83,10 +89,10 @@ return nullptr;
 //==========================
 
 Workspace::Workspace(Handle<String> name):
-Directory(name)
+m_Name(name)
 {
 m_Directories=DirectoryList::Create();
-m_Virtual=Storage::Virtual::Directory::Create("Virtual");
+m_Virtual=Storage::Virtual::Directory::Create(nullptr, "Virtual");
 AddDirectory(m_Virtual);
 }
 

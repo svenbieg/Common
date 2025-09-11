@@ -80,25 +80,24 @@ return nullptr;
 
 Handle<Object> Directory::Get(Handle<String> path)
 {
-if(!path||path->IsEmpty())
+if(!path)
 	return nullptr;
 auto path_ptr=path->Begin();
-UINT pos=0;
-while(PathHelper::IsSeparator(path_ptr[pos]))
-	pos++;
-UINT uclen=PathHelper::GetComponentLength(&path_ptr[pos]);
+while(CharHelper::Equal(path_ptr[0], "\\/"))
+	path_ptr++;
+UINT uclen=PathHelper::GetComponentLength(path_ptr);
 if(!uclen)
-	return this;
-auto name=String::Create(uclen, &path_ptr[pos]);
-pos+=uclen;
+	return nullptr;
+auto name=String::Create(uclen, path_ptr);
+path_ptr+=uclen;
 auto obj=m_Map.get(name);
 if(!obj)
 	return nullptr;
-if(path_ptr[pos]==0)
+if(path_ptr[0]==0)
 	return obj;
 auto sub=obj.As<Storage::Directory>();
 if(sub)
-	return sub->Get(&path_ptr[pos]);
+	return sub->Get(path_ptr);
 return nullptr;
 }
 
@@ -107,8 +106,9 @@ return nullptr;
 // Con-/Destructors Private
 //==========================
 
-Directory::Directory(Handle<String> path):
-Storage::Directory(path)
+Directory::Directory(Directory* parent, Handle<String> name):
+m_Name(name),
+m_Parent(parent)
 {}
 
 

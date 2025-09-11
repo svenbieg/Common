@@ -38,9 +38,13 @@ public:
 	// Common
 	BOOL Add(Handle<String> Name, Handle<Object> Object);
 	VOID AddDirectory(Handle<Storage::Directory> Directory);
+
+	// Storage.Directory
 	Handle<DirectoryIterator> Begin()override;
 	Handle<File> CreateFile(Handle<String> Path, FileCreateMode Create=FileCreateMode::OpenExisting, FileAccessMode Access=FileAccessMode::ReadOnly, FileShareMode Share=FileShareMode::ShareRead)override;
 	Handle<Object> Get(Handle<String> Path)override;
+	Handle<String> GetName()override { return m_Name; }
+	Handle<Directory> GetParent()const override { return nullptr; }
 
 private:
 	// Con-/Destructors
@@ -48,6 +52,7 @@ private:
 
 	// Common
 	Handle<DirectoryList> m_Directories;
+	Handle<String> m_Name;
 	Handle<Storage::Virtual::Directory> m_Virtual;
 };
 

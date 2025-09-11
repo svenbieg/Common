@@ -11,6 +11,7 @@
 
 #include "Collections/shared_map.hpp"
 #include "Storage/Directory.h"
+#include "Event.h"
 
 
 //===========
@@ -39,7 +40,7 @@ public:
 	friend DirectoryIterator;
 
 	// Con-/Destructors
-	static inline Handle<Directory> Create(Handle<String> Path=nullptr) { return new Directory(Path); }
+	static inline Handle<Directory> Create(Directory* Parent, Handle<String> Name) { return new Directory(Parent, Name); }
 
 	// Common
 	BOOL Add(Handle<String> Name, Handle<Object> Object, BOOL Notify=true);
@@ -53,13 +54,17 @@ public:
 	Handle<Storage::DirectoryIterator> Begin()override;
 	Handle<Storage::File> CreateFile(Handle<String> Path, FileCreateMode Create=FileCreateMode::OpenExisting, FileAccessMode Access=FileAccessMode::ReadWrite, FileShareMode Share=FileShareMode::ShareRead)override;
 	Handle<Object> Get(Handle<String> Path)override;
+	Handle<String> GetName()override { return m_Name; }
+	Handle<Storage::Directory> GetParent()const override { return m_Parent; }
 
 private:
 	// Con-/Destructors
-	Directory(Handle<String> Path);
+	Directory(Directory* Parent, Handle<String> Name);
 
 	// Common
 	Collections::shared_map<Handle<String>, Handle<Object>> m_Map;
+	Handle<String> m_Name;
+	Handle<Directory> m_Parent;
 };
 
 

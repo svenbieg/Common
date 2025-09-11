@@ -88,8 +88,11 @@ Entries=EntryList::Create();
 // Common Private
 //================
 
-VOID Log::OnTimePointChanged()
+VOID Log::OnTimePointChanged(Variable* sender)
 {
+auto time=(TimePoint*)sender;
+if(time->IsAbsolute())
+	time->Changed.Remove(this);
 Changed(this);
 }
 

@@ -25,7 +25,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\LogEntry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Settings.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Culture\LanguageCode.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Sentence.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Enum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Flags.h" />
@@ -40,12 +39,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Months.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Status.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\String.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Encoding\Xml\XmlContent.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Encoding\Xml\XmlElement.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Encoding\Xml\XmlNode.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\FileSize.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Workspace.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringVariable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timing\Clock.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Timing\TimePoint.h" />
@@ -66,11 +63,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IntegerClasses.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Network\Ip\IpAddress.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Encoding\Xml\XmlContent.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Encoding\Xml\XmlNode.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\FileSize.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Timing\Clock.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Timing\TimePoint.cpp" />
