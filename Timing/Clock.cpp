@@ -30,11 +30,7 @@ namespace Timing {
 
 Clock::~Clock()
 {
-if(m_Timer)
-	{
-	m_Timer->Triggered.Remove(this);
-	m_Timer=nullptr;
-	}
+m_Timer->Triggered.Remove(this);
 s_Current=nullptr;
 }
 

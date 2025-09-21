@@ -9,7 +9,6 @@
 // Using
 //=======
 
-#include <assert.h>
 #include "Devices/Timers/SystemTimer.h"
 #include "Timer.h"
 
@@ -29,7 +28,8 @@ namespace Timing {
 
 Timer::~Timer()
 {
-Stop();
+if(m_Clock)
+	m_Clock->Tick.Remove(this);
 }
 
 
@@ -39,14 +39,14 @@ Stop();
 
 VOID Timer::Reset()
 {
-INT time=m_Interval>0? m_Interval: -m_Interval;
-m_NextTime=SystemTimer::GetTickCount()+time;
+INT interval=m_Interval;
+if(interval<0)
+	interval*=-1;
+m_NextTime=SystemTimer::GetTickCount()+interval;
 }
 
 VOID Timer::StartOnce(UINT ms)
 {
-assert(ms>=100);
-assert(ms%100==0);
 if(m_Interval!=0)
 	Stop();
 m_Interval=ms;
@@ -57,8 +57,6 @@ m_Clock->Tick.Add(this, &Timer::OnClockTick);
 
 VOID Timer::StartPeriodic(UINT ms)
 {
-assert(ms>=100);
-assert(ms%100==0);
 if(m_Interval!=0)
 	Stop();
 m_Interval=-(INT)ms;
@@ -69,12 +67,10 @@ m_Clock->Tick.Add(this, &Timer::OnClockTick);
 
 VOID Timer::Stop()
 {
-if(!m_Clock)
-	return;
+if(m_Clock)
+	m_Clock->Tick.Remove(this);
 m_Interval=0;
 m_NextTime=0;
-m_Clock->Tick.Remove(this);
-m_Clock=nullptr;
 }
 
 

@@ -19,9 +19,6 @@
     <Filter Include="Resources\Strings">
       <UniqueIdentifier>{7988abd1-982b-48fc-b64c-06b9b65b5cb3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Icons">
-      <UniqueIdentifier>{a3ba2fb0-1c62-4c0c-82af-2ad2398192f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Timing">
       <UniqueIdentifier>{e2f3aad0-adf0-45ef-88e2-794eda0c8caa}</UniqueIdentifier>
     </Filter>
@@ -67,12 +64,6 @@
       <Filter>Resources\Strings</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Language.h">
-      <Filter>Resources\Strings</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h">
-      <Filter>Resources\Icons</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\String.h">
       <Filter>Resources\Strings</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h">
