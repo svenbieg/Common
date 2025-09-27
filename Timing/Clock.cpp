@@ -11,7 +11,7 @@
 
 #include "Concurrency/DispatchedQueue.h"
 #include "Devices/Timers/SystemTimer.h"
-#include "Clock.h"
+#include "Timing/Clock.h"
 
 using namespace Concurrency;
 using namespace Culture;
@@ -76,8 +76,6 @@ s_Now=tp;
 
 BOOL Clock::Update(TIMEPOINT* tp)
 {
-if(tp->Year)
-	return false;
 if(s_Offset==0)
 	return false;
 UINT64 ticks=0;

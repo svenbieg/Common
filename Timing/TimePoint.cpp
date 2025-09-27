@@ -319,6 +319,7 @@ UINT min=tp.Minute;
 switch(lng)
 	{
 	case LNG::None:
+	case LNG::Neutral:
 	case LNG::DE:
 		return StringHelper::Print(str, size, "%02u.%02u.%u %02u:%02u", mday, mon, year, hour, min);
 	case LNG::EN:
@@ -345,6 +346,7 @@ auto str_day=Sentence::Translate(STRS_DAYS[wday-1], lng);
 switch(lng)
 	{
 	case LNG::None:
+	case LNG::Neutral:
 	case LNG::DE:
 		return StringHelper::Print(str, size, "%s, %u. %s %u %02u:%02u", str_day, mday, str_mon, year, hour, min);
 	case LNG::EN:
@@ -362,10 +364,10 @@ UINT64 ticks_now=SystemTimer::GetTickCount();
 UINT delta=(UINT)((ticks_now-ticks)/1000);
 CHAR time_span[32];
 TimeSpan::ToString(time_span, 32, delta);
-UINT len=0;
 switch(lng)
 	{
 	case LNG::None:
+	case LNG::Neutral:
 	case LNG::DE:
 		return StringHelper::Print(str, size, "vor %s", time_span);
 	case LNG::EN:

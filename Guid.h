@@ -29,7 +29,7 @@ public:
 	GLOBAL_UNIQUE_ID(DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11);
 
 	// Access
-	inline operator BOOL() { return m_Value!=NULL_VALUE; }
+	inline operator BOOL() { return MemoryHelper::Compare(m_Value, NULL_VALUE, 16)!=0; }
 
 	// Common
 	static BOOL FromString(Handle<String> Value, GLOBAL_UNIQUE_ID* Id);
@@ -37,9 +37,9 @@ public:
 	static Handle<String> ToString(GLOBAL_UNIQUE_ID const& Id);
 
 	// Comparison
-	inline BOOL operator==(nullptr_t) { return m_Value==NULL_VALUE; }
+	inline BOOL operator==(nullptr_t) { return MemoryHelper::Compare(m_Value, NULL_VALUE, 16)==0; }
 	inline BOOL operator==(GLOBAL_UNIQUE_ID const& Id) { return MemoryHelper::Compare(m_Value, Id.m_Value, 16)==0; }
-	inline BOOL operator!=(nullptr_t) { return m_Value!=NULL_VALUE; }
+	inline BOOL operator!=(nullptr_t) { return MemoryHelper::Compare(m_Value, NULL_VALUE, 16)!=0; }
 	inline BOOL operator!=(GLOBAL_UNIQUE_ID const& Id) { return MemoryHelper::Compare(m_Value, Id.m_Value, 16)!=0; }
 	inline BOOL operator>(nullptr_t) { return MemoryHelper::Compare(m_Value, NULL_VALUE, 16)>0; }
 	inline BOOL operator>(GLOBAL_UNIQUE_ID const& Id) { return MemoryHelper::Compare(m_Value, Id.m_Value, 16)>0; }
