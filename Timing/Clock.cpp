@@ -164,9 +164,9 @@ if(s_Offset)
 Second(this);
 }
 
-TIMEPOINT Clock::s_Before={ 0 };
+TIMEPOINT Clock::s_Before;
 Clock* Clock::s_Current=nullptr;
-TIMEPOINT Clock::s_Now={ 0 };
+TIMEPOINT Clock::s_Now;
 UINT64 Clock::s_Offset=0;
 
 }
