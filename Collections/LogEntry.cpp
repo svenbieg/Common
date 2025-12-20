@@ -2,7 +2,7 @@
 // LogEntry.cpp
 //==============
 
-#include "pch.h"
+#include "Collections/LogEntry.h"
 
 
 //=======
@@ -10,7 +10,6 @@
 //=======
 
 #include "Timing/Clock.h"
-#include "LogEntry.h"
 
 using namespace Timing;
 
@@ -49,6 +48,7 @@ size+=Time->WriteToStream(stream);
 size+=Message->WriteToStream(stream);
 return size;
 }
+
 
 //==========================
 // Con-/Destructors Private

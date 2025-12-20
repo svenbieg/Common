@@ -2,7 +2,7 @@
 // Settings.cpp
 //==============
 
-#include "pch.h"
+#include "Collections/Settings.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "Settings.h"
 
 using namespace Storage::Streams;
 

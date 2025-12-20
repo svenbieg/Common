@@ -12,6 +12,7 @@
 #include "Storage/Streams/InputStream.h"
 #include "Storage/Streams/OutputStream.h"
 #include "Event.h"
+#include "StringClass.h"
 
 
 //==========
@@ -36,5 +37,5 @@ public:
 
 protected:
 	// Con-/Destructors
-	Variable() {}
+	Variable()=default;
 };

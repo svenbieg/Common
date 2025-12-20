@@ -2,13 +2,6 @@
 // IntegerClasses.cpp
 //====================
 
-#include "pch.h"
-
-
-//=======
-// Using
-//=======
-
 #include "IntegerClasses.h"
 
 

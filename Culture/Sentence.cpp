@@ -2,7 +2,7 @@
 // Sentence.cpp
 //==============
 
-#include "pch.h"
+#include "Culture/Sentence.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "Sentence.h"
 
 using namespace Resources::Strings;
 using namespace Storage::Streams;

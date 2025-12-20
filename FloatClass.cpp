@@ -2,13 +2,6 @@
 // FloatClass.cpp
 //================
 
-#include "pch.h"
-
-
-//=======
-// Using
-//=======
-
 #include "FloatClass.h"
 
 

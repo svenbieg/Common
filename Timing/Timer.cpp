@@ -2,7 +2,7 @@
 // Timer.cpp
 //===========
 
-#include "pch.h"
+#include "Timing/Timer.h"
 
 
 //=======
@@ -10,7 +10,6 @@
 //=======
 
 #include "Devices/Timers/SystemTimer.h"
-#include "Timer.h"
 
 using namespace Devices::Timers;
 

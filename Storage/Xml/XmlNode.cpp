@@ -2,7 +2,7 @@
 // XmlNode.cpp
 //=============
 
-#include "pch.h"
+#include "Storage/Xml/XmlNode.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "Storage/Xml/XmlNode.h"
 
 using namespace Concurrency;
 using namespace Storage::Streams;

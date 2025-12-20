@@ -2,7 +2,7 @@
 // Enum.cpp
 //==========
 
-#include "pch.h"
+#include "Enum.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "Enum.h"
 
 using namespace Culture;
 using namespace Storage::Streams;

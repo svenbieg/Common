@@ -2,16 +2,15 @@
 // Language.cpp
 //==============
 
-#include "pch.h"
+#include "Culture/Language.h"
 
 
 //=======
 // Using
 //=======
 
+#include "Culture/Sentence.h"
 #include "Resources/Strings/Language.h"
-#include "Language.h"
-#include "Sentence.h"
 
 using namespace Resources::Strings;
 

@@ -2,7 +2,7 @@
 // TimePoint.cpp
 //===============
 
-#include "pch.h"
+#include "Timing/TimePoint.h"
 
 
 //=======
@@ -13,8 +13,7 @@
 #include "Devices/Timers/SystemTimer.h"
 #include "Resources/Strings/Days.h"
 #include "Resources/Strings/Months.h"
-#include "Clock.h"
-#include "TimePoint.h"
+#include "Timing/Clock.h"
 
 using namespace Culture;
 using namespace Devices::Timers;

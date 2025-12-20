@@ -2,7 +2,7 @@
 // StringVariable.cpp
 //====================
 
-#include "pch.h"
+#include "StringVariable.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "StringVariable.h"
 
 using namespace Storage::Streams;
 

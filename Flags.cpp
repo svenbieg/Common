@@ -2,7 +2,7 @@
 // Flags.cpp
 //===========
 
-#include "pch.h"
+#include "Flags.h"
 
 
 //=======
@@ -12,7 +12,6 @@
 #include "Collections/StringList.h"
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "Flags.h"
 
 using namespace Collections;
 using namespace Storage::Streams;

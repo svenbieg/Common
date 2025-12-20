@@ -10,7 +10,7 @@
 //=======
 
 #include "Culture/LanguageCode.h"
-#include "TimeSpan.h"
+#include "Timing/TimeSpan.h"
 
 
 //===========
@@ -35,7 +35,7 @@ class TIMEPOINT
 {
 public:
 	// Con-/Destructors
-	TIMEPOINT(): Value(0) {}
+	TIMEPOINT()=default;
 	TIMEPOINT(UINT64 Value): Value(Value) {}
 	TIMEPOINT(TIMEPOINT const& Value): Value(Value.Value) {}
 
@@ -63,7 +63,7 @@ public:
 			BYTE Month;
 			WORD Year;
 			};
-		UINT64 Value;
+		UINT64 Value=0;
 		};
 };
 

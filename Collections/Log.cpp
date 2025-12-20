@@ -2,7 +2,7 @@
 // Log.cpp
 //=========
 
-#include "pch.h"
+#include "Collections/Log.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
-#include "Log.h"
 
 using namespace Storage::Streams;
 

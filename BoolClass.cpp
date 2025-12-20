@@ -2,7 +2,7 @@
 // BoolClass.cpp
 //===============
 
-#include "pch.h"
+#include "BoolClass.h"
 
 
 //=======
@@ -10,7 +10,6 @@
 //=======
 
 #include "Resources/Strings/Bool.h"
-#include "BoolClass.h"
 
 using namespace Resources::Strings;
 

@@ -2,7 +2,7 @@
 // Clock.cpp
 //===========
 
-#include "pch.h"
+#include "Timing/Clock.h"
 
 
 //=======
@@ -11,7 +11,6 @@
 
 #include "Concurrency/DispatchedQueue.h"
 #include "Devices/Timers/SystemTimer.h"
-#include "Timing/Clock.h"
 
 using namespace Concurrency;
 using namespace Culture;
