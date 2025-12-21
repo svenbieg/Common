@@ -34,7 +34,7 @@ if(size>1024)
 return String::Create("%u Bytes", (UINT)size);
 }
 
-SIZE_T FileSize::WriteToStream(OutputStream* Stream)
+SIZE_T FileSize::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(FILE_SIZE);
@@ -47,7 +47,7 @@ return Stream->Write(&value, sizeof(FILE_SIZE));
 // Modification
 //==============
 
-SIZE_T FileSize::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T FileSize::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(FILE_SIZE);

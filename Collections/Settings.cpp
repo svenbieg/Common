@@ -51,7 +51,7 @@ return true;
 }
 
 
-SIZE_T Settings::ReadFromStream(InputStream* stream)
+SIZE_T Settings::ReadFromStream(IInputStream* stream)
 {
 if(!stream)
 	return 0;
@@ -77,7 +77,7 @@ while(1)
 return size;
 }
 
-SIZE_T Settings::WriteToStream(OutputStream* stream)
+SIZE_T Settings::WriteToStream(IOutputStream* stream)
 {
 SIZE_T size=0;
 for(auto item: m_Settings)
@@ -98,7 +98,7 @@ VOID Settings::OnVariableChanged()
 Changed(this);
 }
 
-SIZE_T Settings::WriteVariable(OutputStream* stream, Variable* var)
+SIZE_T Settings::WriteVariable(IOutputStream* stream, Variable* var)
 {
 StreamWriter writer(nullptr);
 UINT entry_size=0;

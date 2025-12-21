@@ -16,7 +16,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T Int32::WriteToStream(OutputStream* Stream)
+SIZE_T Int32::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(INT);
@@ -52,7 +52,7 @@ if(value_ptr)
 return true;
 }
 
-SIZE_T Int32::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Int32::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(INT);
@@ -85,7 +85,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T Int64::WriteToStream(OutputStream* Stream)
+SIZE_T Int64::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(INT64);
@@ -121,7 +121,7 @@ if(value_ptr)
 return true;
 }
 
-SIZE_T Int64::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Int64::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(INT64);

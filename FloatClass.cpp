@@ -16,7 +16,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T Float::WriteToStream(OutputStream* Stream)
+SIZE_T Float::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(FLOAT);
@@ -39,7 +39,7 @@ if(value->Scan("%f", &f)!=1)
 return Set(f, notify);
 }
 
-SIZE_T Float::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Float::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(FLOAT);

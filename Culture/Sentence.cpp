@@ -109,7 +109,7 @@ for(auto it: sentence1->m_Strings)
 return -1;
 }
 
-SIZE_T Sentence::ReadFromStream(InputStream* stream)
+SIZE_T Sentence::ReadFromStream(IInputStream* stream)
 {
 StreamReader reader(stream);
 SIZE_T size=0;
@@ -161,7 +161,7 @@ while(str)
 return nullptr;
 }
 
-SIZE_T Sentence::WriteToStream(OutputStream* stream)const
+SIZE_T Sentence::WriteToStream(IOutputStream* stream)const
 {
 StreamWriter writer(stream);
 SIZE_T size=0;

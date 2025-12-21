@@ -25,7 +25,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T Bool::WriteToStream(OutputStream* Stream)
+SIZE_T Bool::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(BOOL);
@@ -74,7 +74,7 @@ for(UINT u=0; u<TypeHelper::ArraySize(STR_FALSE); u++)
 return false;
 }
 
-SIZE_T Bool::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Bool::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(BOOL);

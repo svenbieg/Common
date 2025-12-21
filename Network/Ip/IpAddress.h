@@ -54,12 +54,12 @@ public:
 	Event<Variable, IP_ADDR&> Reading;
 	Handle<String> ToString(LanguageCode Language=LanguageCode::None)override;
 	static Handle<String> ToString(IP_ADDR Address);
-	SIZE_T WriteToStream(OutputStream* Stream)override;
+	SIZE_T WriteToStream(IOutputStream* Stream)override;
 
 	// Modification
 	BOOL FromString(Handle<String> Address, BOOL Notify=true)override;
 	static BOOL FromString(Handle<String> Address, IP_ADDR* Ip);
-	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(IP_ADDR Value, BOOL Notify=true);
 
 	// Common

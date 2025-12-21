@@ -25,7 +25,7 @@ namespace Collections {
 // Common
 //========
 
-SIZE_T LogEntry::ReadFromStream(InputStream* stream)
+SIZE_T LogEntry::ReadFromStream(IInputStream* stream)
 {
 if(!stream)
 	return 0;
@@ -39,7 +39,7 @@ size+=Message->ReadFromStream(stream);
 return size;
 }
 
-SIZE_T LogEntry::WriteToStream(OutputStream* stream)
+SIZE_T LogEntry::WriteToStream(IOutputStream* stream)
 {
 if(!Message||!Time)
 	return 0;

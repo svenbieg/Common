@@ -10,8 +10,7 @@
 //=======
 
 #include "Collections/map.hpp"
-#include "Storage/Streams/InputStream.h"
-#include "Storage/Streams/OutputStream.h"
+#include "Storage/Streams/Stream.h"
 #include "Storage/Buffer.h"
 #include "Variable.h"
 
@@ -31,8 +30,8 @@ class Settings: public Object
 {
 public:
 	// Using
-	using InputStream=Storage::Streams::InputStream;
-	using OutputStream=Storage::Streams::OutputStream;
+	using IInputStream=Storage::Streams::IInputStream;
+	using IOutputStream=Storage::Streams::IOutputStream;
 	using SettingsMap=Collections::map<Handle<String>, Handle<Variable>>;
 
 	// Con-/Destructors
@@ -42,8 +41,8 @@ public:
 	// Common
 	BOOL Add(Handle<Variable> Variable);
 	Event<Settings> Changed;
-	SIZE_T ReadFromStream(InputStream* Stream);
-	SIZE_T WriteToStream(OutputStream* Stream);
+	SIZE_T ReadFromStream(IInputStream* Stream);
+	SIZE_T WriteToStream(IOutputStream* Stream);
 
 private:
 	// Con-/Destructors
@@ -51,7 +50,7 @@ private:
 
 	// Common
 	VOID OnVariableChanged();
-	SIZE_T WriteVariable(OutputStream* Stream, Variable* Variable);
+	SIZE_T WriteVariable(IOutputStream* Stream, Variable* Variable);
 	SettingsMap m_Settings;
 };
 

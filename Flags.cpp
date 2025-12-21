@@ -36,7 +36,7 @@ for(auto it=m_Flags.cbegin(); it.has_current(); it.move_next())
 return flags;
 }
 
-SIZE_T Flags::WriteToStream(OutputStream* stream)
+SIZE_T Flags::WriteToStream(IOutputStream* stream)
 {
 auto flags=ToString();
 SIZE_T size=0;
@@ -107,7 +107,7 @@ if(changed&&notify)
 return true;
 }
 
-SIZE_T Flags::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Flags::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 SIZE_T size=0;
 StreamReader reader(stream);

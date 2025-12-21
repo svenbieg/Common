@@ -10,8 +10,7 @@
 //=======
 
 #include "Culture/Sentence.h"
-#include "Storage/Streams/InputStream.h"
-#include "Storage/Streams/OutputStream.h"
+#include "Storage/Streams/Stream.h"
 #include "Timing/TimePoint.h"
 
 
@@ -40,14 +39,14 @@ public:
 	friend Log;
 
 	// Using
-	using InputStream=Storage::Streams::InputStream;
-	using OutputStream=Storage::Streams::OutputStream;
+	using IInputStream=Storage::Streams::IInputStream;
+	using IOutputStream=Storage::Streams::IOutputStream;
 	using Sentence=Culture::Sentence;
 	using TimePoint=Timing::TimePoint;
 
 	// Common
-	SIZE_T ReadFromStream(InputStream* Stream);
-	SIZE_T WriteToStream(OutputStream* Stream);
+	SIZE_T ReadFromStream(IInputStream* Stream);
+	SIZE_T WriteToStream(IOutputStream* Stream);
 	Handle<Sentence> Message;
 	Handle<TimePoint> Time;
 

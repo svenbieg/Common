@@ -152,7 +152,7 @@ switch(fmt)
 return 0;
 }
 
-SIZE_T TimePoint::WriteToStream(OutputStream* stream)
+SIZE_T TimePoint::WriteToStream(IOutputStream* stream)
 {
 if(!stream)
 	return sizeof(TIMEPOINT);
@@ -250,7 +250,7 @@ tp->Year=(WORD)year;
 return true;
 }
 
-SIZE_T TimePoint::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T TimePoint::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(TIMEPOINT);

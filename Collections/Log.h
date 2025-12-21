@@ -10,8 +10,7 @@
 //=======
 
 #include "Collections/List.h"
-#include "Storage/Streams/InputStream.h"
-#include "Storage/Streams/OutputStream.h"
+#include "Storage/Streams/Stream.h"
 #include "LogEntry.h"
 
 
@@ -31,8 +30,8 @@ class Log: public Object
 public:
 	// Using
 	using EntryList=List<Handle<LogEntry>>;
-	using InputStream=Storage::Streams::InputStream;
-	using OutputStream=Storage::Streams::OutputStream;
+	using IInputStream=Storage::Streams::IInputStream;
+	using IOutputStream=Storage::Streams::IOutputStream;
 	using Sentence=Culture::Sentence;
 	using TimePoint=Timing::TimePoint;
 
@@ -42,10 +41,10 @@ public:
 	// Common
 	VOID Clear();
 	Handle<EntryList> Entries;
-	SIZE_T ReadFromStream(InputStream* Stream);
+	SIZE_T ReadFromStream(IInputStream* Stream);
 	VOID Write(Handle<Sentence> Message) { Write(nullptr, Message); }
 	VOID Write(Handle<TimePoint> TimePoint, Handle<Sentence> Message);
-	SIZE_T WriteToStream(OutputStream* Stream);
+	SIZE_T WriteToStream(IOutputStream* Stream);
 	Event<Log> Changed;
 
 private:

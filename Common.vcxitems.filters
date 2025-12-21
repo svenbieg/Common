@@ -159,5 +159,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.cpp">
       <Filter>Storage\Xml</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CharClass.cpp" />
   </ItemGroup>
 </Project>

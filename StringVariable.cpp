@@ -26,7 +26,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T StringVariable::WriteToStream(OutputStream* stream)
+SIZE_T StringVariable::WriteToStream(IOutputStream* stream)
 {
 auto value=Get();
 SIZE_T size=0;
@@ -41,7 +41,7 @@ return size;
 // Modification
 //==============
 
-SIZE_T StringVariable::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T StringVariable::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return 0;

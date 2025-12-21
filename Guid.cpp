@@ -74,7 +74,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T Guid::WriteToStream(OutputStream* Stream)
+SIZE_T Guid::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(GLOBAL_UNIQUE_ID);
@@ -95,7 +95,7 @@ if(!GLOBAL_UNIQUE_ID::FromString(value, &id))
 return Set(id, notify);
 }
 
-SIZE_T Guid::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Guid::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(GLOBAL_UNIQUE_ID);

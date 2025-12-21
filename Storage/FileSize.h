@@ -43,10 +43,10 @@ public:
 	Event<Variable, FILE_SIZE&> Reading;
 	inline Handle<String> ToString(LanguageCode Language=LanguageCode::None)override { return ToString(Get()); }
 	static Handle<String> ToString(FILE_SIZE Size);
-	SIZE_T WriteToStream(OutputStream* Stream)override;
+	SIZE_T WriteToStream(IOutputStream* Stream)override;
 
 	// Modification
-	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(FILE_SIZE Value, BOOL Notify=true);
 
 private:

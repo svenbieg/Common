@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CharClass.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\LogEntry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Settings.cpp" />

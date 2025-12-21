@@ -29,12 +29,12 @@ public:
 	inline Handle<String> GetName()const override { return m_Name; }
 	Event<Variable, BOOL&> Reading;
 	inline Handle<String> ToString(LanguageCode Language)override { return String::Create("%i", (INT)Get()); }
-	SIZE_T WriteToStream(OutputStream* Stream)override;
+	SIZE_T WriteToStream(IOutputStream* Stream)override;
 
 	// Modification
 	BOOL FromString(Handle<String> String, BOOL Notify=true)override;
 	static BOOL FromString(Handle<String> String, BOOL* Value);
-	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(BOOL Value, BOOL Notify=true);
 
 private:

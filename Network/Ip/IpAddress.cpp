@@ -39,7 +39,7 @@ UINT a3=ptr[3];
 return String::Create("%u.%u.%u.%u", a0, a1, a2, a3);
 }
 
-SIZE_T IpAddress::WriteToStream(OutputStream* Stream)
+SIZE_T IpAddress::WriteToStream(IOutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(IP_ADDR);
@@ -78,7 +78,7 @@ ptr[3]=(BYTE)a3;
 return true;
 }
 
-SIZE_T IpAddress::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T IpAddress::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(IP_ADDR);

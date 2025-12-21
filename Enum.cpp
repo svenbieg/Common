@@ -33,7 +33,7 @@ assert(m_Value);
 return m_Value->Begin(lng);
 }
 
-SIZE_T Enum::WriteToStream(OutputStream* stream)
+SIZE_T Enum::WriteToStream(IOutputStream* stream)
 {
 SIZE_T size=0;
 StreamWriter writer(stream);
@@ -67,7 +67,7 @@ for(auto it=m_Values.cbegin(); it.has_current(); it.move_next())
 return false;
 }
 
-SIZE_T Enum::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T Enum::ReadFromStream(IInputStream* stream, BOOL notify)
 {
 SIZE_T size=0;
 StreamReader reader(stream);

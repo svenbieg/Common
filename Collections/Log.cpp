@@ -32,7 +32,7 @@ Entries->Clear();
 Changed(this);
 }
 
-SIZE_T Log::ReadFromStream(InputStream* stream)
+SIZE_T Log::ReadFromStream(IInputStream* stream)
 {
 if(!stream)
 	return 0;
@@ -59,7 +59,7 @@ Entries->Append(entry);
 Changed(this);
 }
 
-SIZE_T Log::WriteToStream(OutputStream* stream)
+SIZE_T Log::WriteToStream(IOutputStream* stream)
 {
 SIZE_T size=0;
 for(auto it=Entries->Begin(); it->HasCurrent(); it->MoveNext())

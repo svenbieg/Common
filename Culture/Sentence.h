@@ -12,8 +12,7 @@
 #include "Collections/map.hpp"
 #include "Culture/Language.h"
 #include "Resources/Strings/String.h"
-#include "Storage/Streams/InputStream.h"
-#include "Storage/Streams/OutputStream.h"
+#include "Storage/Streams/Stream.h"
 #include "StringClass.h"
 
 
@@ -35,8 +34,8 @@ public:
 	friend class Handle<Sentence>;
 
 	// Using
-	using InputStream=Storage::Streams::InputStream;
-	using OutputStream=Storage::Streams::OutputStream;
+	using IInputStream=Storage::Streams::IInputStream;
+	using IOutputStream=Storage::Streams::IOutputStream;
 	using STRING=Resources::Strings::STRING;
 
 	// Con-/Destructors
@@ -53,10 +52,10 @@ public:
 	INT Compare(STRING const* Value)const;
 	static INT Compare(STRING const* String, LPCTSTR Value);
 	static INT Compare(Sentence const* Sentence1, Sentence const* Sentence2);
-	SIZE_T ReadFromStream(InputStream* Stream);
+	SIZE_T ReadFromStream(IInputStream* Stream);
 	Handle<String> ToString(LanguageCode Language=LanguageCode::None)override;
 	static LPCWSTR Translate(STRING const* Value, LanguageCode Language=Language::Current);
-	SIZE_T WriteToStream(OutputStream* Stream)const;
+	SIZE_T WriteToStream(IOutputStream* Stream)const;
 
 private:
 	// Con-/Destructors
