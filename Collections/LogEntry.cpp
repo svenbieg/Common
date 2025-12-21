@@ -2,7 +2,7 @@
 // LogEntry.cpp
 //==============
 
-#include "Collections/LogEntry.h"
+#include "LogEntry.h"
 
 
 //=======

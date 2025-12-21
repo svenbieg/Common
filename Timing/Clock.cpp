@@ -2,7 +2,7 @@
 // Clock.cpp
 //===========
 
-#include "Timing/Clock.h"
+#include "Clock.h"
 
 
 //=======

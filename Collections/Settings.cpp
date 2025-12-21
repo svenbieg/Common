@@ -2,7 +2,7 @@
 // Settings.cpp
 //==============
 
-#include "Collections/Settings.h"
+#include "Settings.h"
 
 
 //=======

@@ -2,7 +2,7 @@
 // XmlNode.cpp
 //=============
 
-#include "Storage/Xml/XmlNode.h"
+#include "XmlNode.h"
 
 
 //=======

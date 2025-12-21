@@ -2,7 +2,7 @@
 // Sentence.cpp
 //==============
 
-#include "Culture/Sentence.h"
+#include "Sentence.h"
 
 
 //=======

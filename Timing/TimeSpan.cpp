@@ -2,7 +2,7 @@
 // TimeSpan.cpp
 //==============
 
-#include "Timing/TimeSpan.h"
+#include "TimeSpan.h"
 
 
 //===========
