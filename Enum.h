@@ -42,12 +42,12 @@ public:
 	inline Handle<Sentence> Get()const { return m_Value; }
 	inline Handle<String> GetName()const override { return m_Name; }
 	Handle<String> ToString(LanguageCode Language)override;
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
 	VOID Add(Handle<Sentence> Value);
 	BOOL FromString(Handle<String> Value, BOOL Notify=true)override;
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(Handle<Sentence> Value, BOOL Notify=true);
 
 private:

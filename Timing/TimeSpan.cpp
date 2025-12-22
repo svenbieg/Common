@@ -47,7 +47,7 @@ if(mins>0)
 return StringHelper::Print(str, size, "%us", sec);
 }
 
-SIZE_T TimeSpan::WriteToStream(IOutputStream* stream)
+SIZE_T TimeSpan::WriteToStream(OutputStream* stream)
 {
 if(!stream)
 	return sizeof(UINT);
@@ -61,7 +61,7 @@ return stream->Write(&value, sizeof(UINT));
 // Modification
 //==============
 
-SIZE_T TimeSpan::ReadFromStream(IInputStream* stream, BOOL notify)
+SIZE_T TimeSpan::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(UINT);

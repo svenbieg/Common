@@ -29,11 +29,11 @@ public:
 	inline Handle<String> GetName()const override { return m_Name; }
 	Event<Float, FLOAT&> Reading;
 	inline Handle<String> ToString(LanguageCode Language)override { return String::Create("%.2f", Get()); }
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
 	BOOL FromString(Handle<String> Value, BOOL Notify=true)override;
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(FLOAT Value, BOOL Notify=true);
 
 private:

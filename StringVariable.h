@@ -32,11 +32,11 @@ public:
 	inline Handle<String> GetName()const override { return m_Name; }
 	Event<Variable, Handle<String>&> Reading;
 	Handle<String> ToString(LanguageCode Language)override { return Get(); }
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
 	inline BOOL FromString(Handle<String> Value, BOOL Notify=true)override { return Set(Value, Notify); }
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify)override;
 	BOOL Set(Handle<String> Value, BOOL Notify=true);
 
 private:

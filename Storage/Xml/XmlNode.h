@@ -40,8 +40,8 @@ class XmlNode: public Object
 {
 public:
 	// Using
-	using IInputStream=Storage::Streams::IInputStream;
-	using IOutputStream=Storage::Streams::IOutputStream;
+	using InputStream=Storage::Streams::InputStream;
+	using OutputStream=Storage::Streams::OutputStream;
 
 	// Friends
 	friend XmlNodeAttributeIterator;
@@ -66,7 +66,7 @@ public:
 	inline Handle<String> GetTag()const { return m_Tag; }
 	inline Handle<String> GetValue()const { return m_Value; }
 	inline BOOL HasAttribute(Handle<String> Name)const { return m_Attributes.contains(Name); }
-	SIZE_T ReadFromStream(IInputStream* Stream);
+	SIZE_T ReadFromStream(InputStream* Stream);
 	BOOL SetAttribute(Handle<String> Name, INT Value, BOOL Notify=true);
 	BOOL SetAttribute(Handle<String> Name, UINT Value, BOOL Notify=true);
 	BOOL SetAttribute(Handle<String> Name, UINT64 Value, BOOL Notify=true);
@@ -74,7 +74,7 @@ public:
 	BOOL SetName(Handle<String> Name, BOOL Notify=true);
 	BOOL SetTag(Handle<String> Tag, BOOL Notify=true);
 	BOOL SetValue(Handle<String> Value, BOOL Notify=true);
-	SIZE_T WriteToStream(IOutputStream* Stream, INT Level=-1);
+	SIZE_T WriteToStream(OutputStream* Stream, INT Level=-1);
 
 protected:
 	// Con-/Destructors

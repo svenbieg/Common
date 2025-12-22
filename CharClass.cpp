@@ -26,7 +26,7 @@ Reading(this, value);
 return value;
 }
 
-SIZE_T Char::WriteToStream(IOutputStream* stream)
+SIZE_T Char::WriteToStream(OutputStream* stream)
 {
 WCHAR value=Get();
 StreamWriter writer(stream);
@@ -38,7 +38,7 @@ return writer.PrintChar(value);
 // Modification
 //==============
 
-SIZE_T Char::ReadFromStream(IInputStream* stream, BOOL notify)
+SIZE_T Char::ReadFromStream(InputStream* stream, BOOL notify)
 {
 StreamReader reader(stream);
 WCHAR value=0;

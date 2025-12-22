@@ -35,10 +35,10 @@ public:
 	inline BOOL IsSpecial() { return CharHelper::IsSpecial(Get()); }
 	Event<Variable, WCHAR&> Reading;
 	Handle<String> ToString(LanguageCode Language)override { return String::Create("%c", Get()); }
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	VOID Set(WCHAR Value, BOOL Notify=true);
 
 private:

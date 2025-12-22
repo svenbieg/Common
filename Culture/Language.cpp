@@ -73,7 +73,7 @@ Handle<String> Language::ToStringCode(LanguageCode lng)
 return Sentence::Translate(STR_LANGUAGE_CODE, lng);
 }
 
-SIZE_T Language::WriteToStream(IOutputStream* Stream)
+SIZE_T Language::WriteToStream(OutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(LanguageCode);
@@ -96,7 +96,7 @@ LanguageCode Language::FromString(LPCWSTR lng)
 return LanguageFromString(lng);
 }
 
-SIZE_T Language::ReadFromStream(IInputStream* stream, BOOL notify)
+SIZE_T Language::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(LanguageCode);

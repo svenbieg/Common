@@ -39,14 +39,14 @@ public:
 	friend Log;
 
 	// Using
-	using IInputStream=Storage::Streams::IInputStream;
-	using IOutputStream=Storage::Streams::IOutputStream;
+	using InputStream=Storage::Streams::InputStream;
+	using OutputStream=Storage::Streams::OutputStream;
 	using Sentence=Culture::Sentence;
 	using TimePoint=Timing::TimePoint;
 
 	// Common
-	SIZE_T ReadFromStream(IInputStream* Stream);
-	SIZE_T WriteToStream(IOutputStream* Stream);
+	SIZE_T ReadFromStream(InputStream* Stream);
+	SIZE_T WriteToStream(OutputStream* Stream);
 	Handle<Sentence> Message;
 	Handle<TimePoint> Time;
 

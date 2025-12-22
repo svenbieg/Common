@@ -38,10 +38,10 @@ public:
 	inline Handle<String> ToString(LanguageCode Language=LanguageCode::None)override { return ToString(Get()); }
 	static Handle<String> ToString(UINT Seconds);
 	static UINT ToString(LPSTR Buffer, UINT Size, UINT Seconds);
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(UINT Seconds, BOOL Notify=true);
 
 private:

@@ -168,7 +168,7 @@ m_Size=size;
 return m_Size;
 }
 
-SIZE_T XmlNode::ReadFromStream(IInputStream* stream)
+SIZE_T XmlNode::ReadFromStream(InputStream* stream)
 {
 WriteLock lock(m_Mutex);
 m_Attributes.clear();
@@ -350,7 +350,7 @@ Changed(this);
 return true;
 }
 
-SIZE_T XmlNode::WriteToStream(IOutputStream* stream, INT level)
+SIZE_T XmlNode::WriteToStream(OutputStream* stream, INT level)
 {
 ReadLock lock(m_Mutex);
 if(!m_Tag)

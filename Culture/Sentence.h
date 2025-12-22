@@ -34,8 +34,8 @@ public:
 	friend class Handle<Sentence>;
 
 	// Using
-	using IInputStream=Storage::Streams::IInputStream;
-	using IOutputStream=Storage::Streams::IOutputStream;
+	using InputStream=Storage::Streams::InputStream;
+	using OutputStream=Storage::Streams::OutputStream;
 	using STRING=Resources::Strings::STRING;
 
 	// Con-/Destructors
@@ -52,10 +52,10 @@ public:
 	INT Compare(STRING const* Value)const;
 	static INT Compare(STRING const* String, LPCTSTR Value);
 	static INT Compare(Sentence const* Sentence1, Sentence const* Sentence2);
-	SIZE_T ReadFromStream(IInputStream* Stream);
+	SIZE_T ReadFromStream(InputStream* Stream);
 	Handle<String> ToString(LanguageCode Language=LanguageCode::None)override;
 	static LPCWSTR Translate(STRING const* Value, LanguageCode Language=Language::Current);
-	SIZE_T WriteToStream(IOutputStream* Stream)const;
+	SIZE_T WriteToStream(OutputStream* Stream)const;
 
 private:
 	// Con-/Destructors

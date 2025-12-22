@@ -29,12 +29,12 @@ public:
 	inline Handle<String> GetName()const override { return m_Name; }
 	Event<Variable, INT&> Reading;
 	inline Handle<String> ToString(LanguageCode Language)override { return String::Create("%i", Get()); }
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
 	BOOL FromString(Handle<String> String, BOOL Notify=true)override;
 	static BOOL FromString(Handle<String> String, INT* Value);
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(INT Value, BOOL Notify=true);
 
 private:
@@ -144,12 +144,12 @@ public:
 	inline Handle<String> GetName()const override { return m_Name; }
 	Event<Variable, INT64&> Reading;
 	inline Handle<String> ToString(LanguageCode Language)override { return String::Create("%i", Get()); }
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
 	BOOL FromString(Handle<String> String, BOOL Notify=true)override;
 	static BOOL FromString(Handle<String> String, INT64* Value);
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(INT64 Value, BOOL Notify=true);
 
 private:

@@ -45,13 +45,13 @@ public:
 	static Handle<String> ToString(LanguageCode Language, LanguageCode ToLanguage=Current);
 	inline Handle<String> ToStringCode() { return ToStringCode(Get()); }
 	static Handle<String> ToStringCode(LanguageCode Language);
-	SIZE_T WriteToStream(IOutputStream* Stream)override;
+	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Common
 	static LanguageCode FromString(LPCSTR Value);
 	static LanguageCode FromString(LPCWSTR Value);
 	static inline LanguageCode FromString(Handle<String> Value) { return FromString(Value? Value->Begin(): nullptr); }
-	SIZE_T ReadFromStream(IInputStream* Stream, BOOL Notify=true)override;
+	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
 	BOOL Set(LanguageCode Value, BOOL Notify=true);
 
 private:
