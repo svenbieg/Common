@@ -22,12 +22,6 @@
     <Filter Include="Timing">
       <UniqueIdentifier>{e2f3aad0-adf0-45ef-88e2-794eda0c8caa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Network">
-      <UniqueIdentifier>{6f15d56b-37f7-4ab7-a2a4-6126dd17d6cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Network\Ip">
-      <UniqueIdentifier>{24f7ae7c-bd23-4792-b954-7234aa85c888}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Storage\Xml">
       <UniqueIdentifier>{5ef60b0e-9a45-42e7-a7ee-5b7b424ec5e6}</UniqueIdentifier>
     </Filter>
@@ -96,9 +90,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Bool.h">
       <Filter>Resources\Strings</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Ip\IpAddress.h">
-      <Filter>Network\Ip</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.h">
       <Filter>Storage\Xml</Filter>
     </ClInclude>
@@ -150,9 +141,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Sentence.cpp">
       <Filter>Culture</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Ip\IpAddress.cpp">
-      <Filter>Network\Ip</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FloatClass.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IntegerClasses.cpp" />

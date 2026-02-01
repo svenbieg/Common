@@ -27,7 +27,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FloatClass.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Guid.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IntegerClasses.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Network\Ip\IpAddress.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Bool.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Days.h" />
@@ -59,7 +58,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FloatClass.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IntegerClasses.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Network\Ip\IpAddress.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\FileSize.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp" />
