@@ -9,6 +9,8 @@
 // Using
 //=======
 
+#include "Concurrency/ReadLock.h"
+#include "Concurrency/WriteLock.h"
 #include "Storage/Streams/StreamReader.h"
 #include "Storage/Streams/StreamWriter.h"
 
