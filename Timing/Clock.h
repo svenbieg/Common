@@ -43,18 +43,18 @@ public:
 	static inline UINT GetMinute() { return s_Now.Minute; }
 	static inline UINT GetMonth() { return s_Now.Month; }
 	static inline UINT GetSecond() { return s_Now.Second; }
-	static inline BOOL GetTime(TIMEPOINT* Time);
+	static inline BOOL GetTime(TIME_POINT* Time);
 	static inline UINT GetYear() { return s_Now.Year; }
 	Event<Clock> Hour;
 	static inline BOOL IsSet() { return s_Now.Year!=0; }
 	Event<Clock> Minute;
 	Event<Clock> Month;
-	static TIMEPOINT const& Now();
+	static TIME_POINT const& Now();
 	Event<Clock> Second;
-	VOID SetTime(TIMEPOINT const& Time);
+	VOID SetTime(TIME_POINT const& Time);
 	Event<Clock> Tick;
 	Event<Clock> TimeSet;
-	static BOOL Update(TIMEPOINT* TimePoint);
+	static BOOL Update(TIME_POINT* TimePoint);
 	Event<Clock> Year;
 
 private:
@@ -72,9 +72,9 @@ private:
 	VOID OnTick();
 	UINT m_Ticks;
 	Handle<SystemTimer> m_Timer;
-	static TIMEPOINT s_Before;
+	static TIME_POINT s_Before;
 	static Clock* s_Current;
-	static TIMEPOINT s_Now;
+	static TIME_POINT s_Now;
 	static UINT64 s_Offset;
 };
 

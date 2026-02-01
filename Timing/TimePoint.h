@@ -31,24 +31,24 @@ class Clock;
 // Struct
 //========
 
-class TIMEPOINT
+class TIME_POINT
 {
 public:
 	// Con-/Destructors
-	TIMEPOINT()=default;
-	TIMEPOINT(UINT64 Value): Value(Value) {}
-	TIMEPOINT(TIMEPOINT const& Value): Value(Value.Value) {}
+	TIME_POINT()=default;
+	TIME_POINT(UINT64 Value): Value(Value) {}
+	TIME_POINT(TIME_POINT const& Value): Value(Value.Value) {}
 
 	// Access
 	inline operator BOOL() { return Value!=0; }
 
 	// Comparison
-	inline BOOL operator==(TIMEPOINT const& Value) { return this->Value==Value.Value; }
-	inline BOOL operator!=(TIMEPOINT const& Value) { return this->Value!=Value.Value; }
-	inline BOOL operator>(TIMEPOINT const& Value) { return this->Value>Value.Value; }
-	inline BOOL operator>=(TIMEPOINT const& Value) { return this->Value>=Value.Value; }
-	inline BOOL operator<(TIMEPOINT const& Value) { return this->Value<Value.Value; }
-	inline BOOL operator<=(TIMEPOINT const& Value) { return this->Value<=Value.Value; }
+	inline BOOL operator==(TIME_POINT const& Value) { return this->Value==Value.Value; }
+	inline BOOL operator!=(TIME_POINT const& Value) { return this->Value!=Value.Value; }
+	inline BOOL operator>(TIME_POINT const& Value) { return this->Value>Value.Value; }
+	inline BOOL operator>=(TIME_POINT const& Value) { return this->Value>=Value.Value; }
+	inline BOOL operator<(TIME_POINT const& Value) { return this->Value<Value.Value; }
+	inline BOOL operator<=(TIME_POINT const& Value) { return this->Value<=Value.Value; }
 
 	// Common
 	union
@@ -89,49 +89,49 @@ class TimePoint: public Variable
 public:
 	// Con-/Destructors
 	static Handle<TimePoint> Create();
-	static Handle<TimePoint> Create(TIMEPOINT const& TimePoint);
+	static Handle<TimePoint> Create(TIME_POINT const& TimePoint);
 	static Handle<TimePoint> Create(Handle<String> Name);
-	static Handle<TimePoint> Create(Handle<String> Name, TIMEPOINT const& TimePoint);
+	static Handle<TimePoint> Create(Handle<String> Name, TIME_POINT const& TimePoint);
 
 	// Access
-	TIMEPOINT Get();
-	static inline TIMEPOINT Get(TimePoint* Value) { return Value? Value->Get(): TIMEPOINT(); }
+	TIME_POINT Get();
+	static inline TIME_POINT Get(TimePoint* Value) { return Value? Value->Get(): TIME_POINT(); }
 	static UINT GetDayOfWeek(LPCSTR String);
-	static UINT GetDayOfYear(TIMEPOINT const& TimePoint);
+	static UINT GetDayOfYear(TIME_POINT const& TimePoint);
 	inline Handle<String> GetName()const override { return m_Name; }
 	static UINT GetMonth(LPCSTR String);
 	inline BOOL IsAbsolute() { return Get().Year!=0; }
-	Event<TimePoint, TIMEPOINT&> Reading;
+	Event<TimePoint, TIME_POINT&> Reading;
 	inline UINT64 ToSeconds() { return ToSeconds(Get()); }
-	static UINT64 ToSeconds(TIMEPOINT const& TimePoint);
+	static UINT64 ToSeconds(TIME_POINT const& TimePoint);
 	Handle<String> ToString(LanguageCode Language=LanguageCode::None)override;
 	Handle<String> ToString(TimeFormat Format, LanguageCode Language=LanguageCode::None);
-	static Handle<String> ToString(TIMEPOINT const& TimePoint, TimeFormat Format, LanguageCode Language=LanguageCode::None);
-	static UINT ToString(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, TimeFormat Format, LanguageCode Language=LanguageCode::None);
+	static Handle<String> ToString(TIME_POINT const& TimePoint, TimeFormat Format, LanguageCode Language=LanguageCode::None);
+	static UINT ToString(TIME_POINT const& TimePoint, LPSTR Buffer, UINT Size, TimeFormat Format, LanguageCode Language=LanguageCode::None);
 	SIZE_T WriteToStream(OutputStream* Stream)override;
 
 	// Modification
 	VOID Clear(BOOL Notify=true);
-	static VOID FromSeconds(TIMEPOINT* TimePoint, UINT64 Seconds);
-	static BOOL FromTimeStamp(TIMEPOINT* TimePoint, LPCSTR TimeStamp);
+	static VOID FromSeconds(TIME_POINT* TimePoint, UINT64 Seconds);
+	static BOOL FromTimeStamp(TIME_POINT* TimePoint, LPCSTR TimeStamp);
 	SIZE_T ReadFromStream(InputStream* Stream, BOOL Notify=true)override;
-	BOOL Set(TIMEPOINT const& TimePoint, BOOL Notify=true);
+	BOOL Set(TIME_POINT const& TimePoint, BOOL Notify=true);
 
 private:
 	// Con-/Destructors
-	TimePoint(Handle<String> Name, TIMEPOINT const& Value);
+	TimePoint(Handle<String> Name, TIME_POINT const& Value);
 
 	// Common
-	UINT64 GetTickCount(TIMEPOINT const& TimePoint);
+	UINT64 GetTickCount(TIME_POINT const& TimePoint);
 	VOID OnClockSecond(Clock* Clock);
-	static UINT ToStringDateTime(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
-	static UINT ToStringFull(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
+	static UINT ToStringDateTime(TIME_POINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
+	static UINT ToStringFull(TIME_POINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
 	static UINT ToStringRelative(UINT64 TickCount, LPSTR Buffer, UINT Size, TimeFormat Format, LanguageCode Language);
-	static UINT ToStringTime(TIMEPOINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
+	static UINT ToStringTime(TIME_POINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
 	VOID UpdateClock();
 	Handle<Clock> m_Clock;
 	Handle<String> m_Name;
-	TIMEPOINT m_Value;
+	TIME_POINT m_Value;
 };
 
 }
@@ -150,7 +150,7 @@ public:
 
 	// Using
 	using TimePoint=Timing::TimePoint;
-	using TIMEPOINT=Timing::TIMEPOINT;
+	using TIME_POINT=Timing::TIME_POINT;
 
 	// Con-/Destructors
 	inline Handle(): m_Object(nullptr) {}
@@ -168,28 +168,28 @@ public:
 	// Comparison
 	inline BOOL operator==(nullptr_t)const { return TimePoint::Get(m_Object).Value==0; }
 	inline BOOL operator==(TimePoint* Value)const { return TimePoint::Get(m_Object)==TimePoint::Get(Value); }
-	inline BOOL operator==(TIMEPOINT const& Value)const { return TimePoint::Get(m_Object)==Value; }
+	inline BOOL operator==(TIME_POINT const& Value)const { return TimePoint::Get(m_Object)==Value; }
 	inline BOOL operator!=(nullptr_t)const { return TimePoint::Get(m_Object).Value!=0; }
 	inline BOOL operator!=(TimePoint* Value)const { return TimePoint::Get(m_Object)!=TimePoint::Get(Value); }
-	inline BOOL operator!=(TIMEPOINT const& Value)const { return TimePoint::Get(m_Object)!=Value; }
+	inline BOOL operator!=(TIME_POINT const& Value)const { return TimePoint::Get(m_Object)!=Value; }
 	inline BOOL operator>(nullptr_t)const { return TimePoint::Get(m_Object).Value>0; }
 	inline BOOL operator>(TimePoint* Value)const { return TimePoint::Get(m_Object)>TimePoint::Get(Value); }
-	inline BOOL operator>(TIMEPOINT const& Value)const { return TimePoint::Get(m_Object)>Value; }
+	inline BOOL operator>(TIME_POINT const& Value)const { return TimePoint::Get(m_Object)>Value; }
 	inline BOOL operator>=(nullptr_t)const { return TimePoint::Get(m_Object).Value>=0; }
 	inline BOOL operator>=(TimePoint* Value)const { return TimePoint::Get(m_Object)>=TimePoint::Get(Value); }
-	inline BOOL operator>=(TIMEPOINT const& Value)const { return TimePoint::Get(m_Object)>=Value; }
+	inline BOOL operator>=(TIME_POINT const& Value)const { return TimePoint::Get(m_Object)>=Value; }
 	inline BOOL operator<(nullptr_t)const { return false; }
 	inline BOOL operator<(TimePoint* Value)const { return TimePoint::Get(m_Object)<TimePoint::Get(Value); }
-	inline BOOL operator<(TIMEPOINT const& Value)const { return TimePoint::Get(m_Object)<Value; }
+	inline BOOL operator<(TIME_POINT const& Value)const { return TimePoint::Get(m_Object)<Value; }
 	inline BOOL operator<=(nullptr_t)const { return TimePoint::Get(m_Object).Value<=0; }
 	inline BOOL operator<=(TimePoint* Value)const { return TimePoint::Get(m_Object)<=TimePoint::Get(Value); }
-	inline BOOL operator<=(TIMEPOINT const& Value)const { return TimePoint::Get(m_Object)<=Value; }
+	inline BOOL operator<=(TIME_POINT const& Value)const { return TimePoint::Get(m_Object)<=Value; }
 
 	// Assignment
 	inline Handle& operator=(nullptr_t) { Handle<Object>::Clear(&m_Object); return *this; }
 	inline Handle& operator=(TimePoint* Copy) { Handle<Object>::Set(&m_Object, Copy); return *this; }
 	inline Handle& operator=(Handle const& Copy) { return operator=(Copy.m_Object); }
-	Handle& operator=(TIMEPOINT const& Value)
+	Handle& operator=(TIME_POINT const& Value)
 		{
 		if(!m_Object)
 			{
@@ -214,22 +214,22 @@ namespace Timing {
 
 inline Handle<TimePoint> TimePoint::Create()
 {
-TIMEPOINT tp={ 0 };
+TIME_POINT tp={ 0 };
 return new TimePoint(nullptr, tp);
 }
 
-inline Handle<TimePoint> TimePoint::Create(TIMEPOINT const& Value)
+inline Handle<TimePoint> TimePoint::Create(TIME_POINT const& Value)
 {
 return new TimePoint(nullptr, Value);
 }
 
 inline Handle<TimePoint> TimePoint::Create(Handle<String> Name)
 {
-TIMEPOINT tp={ 0 };
+TIME_POINT tp={ 0 };
 return new TimePoint(Name, tp);
 }
 
-inline Handle<TimePoint> TimePoint::Create(Handle<String> Name, TIMEPOINT const& Value)
+inline Handle<TimePoint> TimePoint::Create(Handle<String> Name, TIME_POINT const& Value)
 {
 return new TimePoint(Name, Value);
 }

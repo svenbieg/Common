@@ -31,7 +31,7 @@ namespace Timing {
 // Globals
 //=========
 
-constexpr WORD DaysInMonth[4][12]=
+const WORD DaysInMonth[4][12]=
 	{
 	{ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 },
 	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 },
@@ -39,18 +39,18 @@ constexpr WORD DaysInMonth[4][12]=
 	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 }
 	};
 
-constexpr UINT SecondsPerDay=86'400;
-constexpr UINT SecondsPerHour=3'600;
-constexpr UINT SecondsPerMinute=60;
+const UINT SecondsPerDay=86'400;
+const UINT SecondsPerHour=3'600;
+const UINT SecondsPerMinute=60;
 
 
 //========
 // Access
 //========
 
-TIMEPOINT TimePoint::Get()
+TIME_POINT TimePoint::Get()
 {
-TIMEPOINT tp=m_Value;
+TIME_POINT tp=m_Value;
 Reading(this, tp);
 return tp;
 }
@@ -67,7 +67,7 @@ for(UINT u=0; u<7; u++)
 return 0;
 }
 
-UINT TimePoint::GetDayOfYear(TIMEPOINT const& tp)
+UINT TimePoint::GetDayOfYear(TIME_POINT const& tp)
 {
 if(tp.Year==0)
 	return 0;
@@ -88,14 +88,14 @@ for(UINT u=0; u<12; u++)
 return 0;
 }
 
-UINT64 TimePoint::ToSeconds(TIMEPOINT const& tp)
+UINT64 TimePoint::ToSeconds(TIME_POINT const& tp)
 {
 if(tp.Year==0)
 	return 0;
 UINT year4=tp.Year%4;
 UINT year=tp.Year-year4;
 UINT days=year*365+year/4;
-constexpr WORD days_per_year[]={ 0, 366, 365, 365 };
+const WORD days_per_year[]={ 0, 366, 365, 365 };
 days+=days_per_year[year4];
 days+=DaysInMonth[year4][tp.Month-1];
 UINT64 sec=days*24*60*60;
@@ -119,14 +119,14 @@ ToString(m_Value, str, 64, fmt, lng);
 return str;
 }
 
-Handle<String> TimePoint::ToString(TIMEPOINT const& tp, TimeFormat fmt, LanguageCode lng)
+Handle<String> TimePoint::ToString(TIME_POINT const& tp, TimeFormat fmt, LanguageCode lng)
 {
 CHAR str[64];
 ToString(tp, str, 64, fmt, lng);
 return str;
 }
 
-UINT TimePoint::ToString(TIMEPOINT const& tp, LPSTR str, UINT size, TimeFormat fmt, LanguageCode lng)
+UINT TimePoint::ToString(TIME_POINT const& tp, LPSTR str, UINT size, TimeFormat fmt, LanguageCode lng)
 {
 if(!str||!size)
 	return 0;
@@ -155,12 +155,12 @@ return 0;
 SIZE_T TimePoint::WriteToStream(OutputStream* stream)
 {
 if(!stream)
-	return sizeof(TIMEPOINT);
-TIMEPOINT tp(m_Value);
+	return sizeof(TIME_POINT);
+TIME_POINT tp(m_Value);
 Reading(this, tp);
 if(tp.Year==0)
-	MemoryHelper::Fill(&tp, sizeof(TIMEPOINT), 0);
-return stream->Write(&tp, sizeof(TIMEPOINT));
+	MemoryHelper::Fill(&tp, sizeof(TIME_POINT), 0);
+return stream->Write(&tp, sizeof(TIME_POINT));
 }
 
 
@@ -170,17 +170,17 @@ return stream->Write(&tp, sizeof(TIMEPOINT));
 
 VOID TimePoint::Clear(BOOL notify)
 {
-TIMEPOINT tp={ 0 };
+TIME_POINT tp={ 0 };
 Set(tp, notify);
 }
 
-VOID TimePoint::FromSeconds(TIMEPOINT* tp, UINT64 seconds)
+VOID TimePoint::FromSeconds(TIME_POINT* tp, UINT64 seconds)
 {
-constexpr UINT sec_per_year4=126'230'400;
+const UINT sec_per_year4=126'230'400;
 UINT year4=(UINT)(seconds/sec_per_year4);
 seconds-=year4*sec_per_year4;
 UINT year=year4*4;
-constexpr UINT sec_per_year[4]={ 31'622'400, 31'536'000, 31'536'000, 31'536'000 };
+const UINT sec_per_year[4]={ 31'622'400, 31'536'000, 31'536'000, 31'536'000 };
 for(year4=0; seconds>=sec_per_year[year4]; year4++)
 	seconds-=sec_per_year[year4];
 year+=year4;
@@ -190,7 +190,7 @@ BYTE hour=(BYTE)(seconds/SecondsPerHour);
 seconds-=hour*SecondsPerHour;
 BYTE min=(BYTE)(seconds/SecondsPerMinute);
 BYTE sec=(BYTE)(seconds%SecondsPerMinute);
-constexpr BYTE days_per_month[4][12]=
+const BYTE days_per_month[4][12]=
 	{
 	{ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
 	{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
@@ -201,7 +201,7 @@ UINT day=day_of_year;
 UINT month=0;
 for(; day>=days_per_month[year4][month]; month++)
 	day-=days_per_month[year4][month];
-constexpr BYTE days_of_week[28]=
+const BYTE days_of_week[28]=
 	{
 	0, 2, 3, 4,
 	5, 7, 8, 9,
@@ -222,7 +222,7 @@ tp->Second=sec;
 tp->Year=year;
 }
 
-BOOL TimePoint::FromTimeStamp(TIMEPOINT* tp, LPCSTR str)
+BOOL TimePoint::FromTimeStamp(TIME_POINT* tp, LPCSTR str)
 {
 CHAR day_str[4];
 CHAR mon_str[4];
@@ -253,15 +253,15 @@ return true;
 SIZE_T TimePoint::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
-	return sizeof(TIMEPOINT);
-TIMEPOINT value;
-SIZE_T size=stream->Read(&value, sizeof(TIMEPOINT));
-if(size==sizeof(TIMEPOINT))
+	return sizeof(TIME_POINT);
+TIME_POINT value;
+SIZE_T size=stream->Read(&value, sizeof(TIME_POINT));
+if(size==sizeof(TIME_POINT))
 	Set(value, notify);
 return size;
 }
 
-BOOL TimePoint::Set(TIMEPOINT const& value, BOOL notify)
+BOOL TimePoint::Set(TIME_POINT const& value, BOOL notify)
 {
 if(m_Value==value)
 	return false;
@@ -276,7 +276,7 @@ return true;
 // Con-/Destructors Private
 //==========================
 
-TimePoint::TimePoint(Handle<String> name, TIMEPOINT const& value):
+TimePoint::TimePoint(Handle<String> name, TIME_POINT const& value):
 m_Name(name),
 m_Value(value)
 {
@@ -288,7 +288,7 @@ UpdateClock();
 // Common Private
 //================
 
-UINT64 TimePoint::GetTickCount(TIMEPOINT const& tp)
+UINT64 TimePoint::GetTickCount(TIME_POINT const& tp)
 {
 if(tp.Year!=0)
 	return 0;
@@ -305,7 +305,7 @@ clock->Second.Remove(this);
 Changed(this);
 }
 
-UINT TimePoint::ToStringDateTime(TIMEPOINT const& tp, LPSTR str, UINT size, LanguageCode lng)
+UINT TimePoint::ToStringDateTime(TIME_POINT const& tp, LPSTR str, UINT size, LanguageCode lng)
 {
 if(!str||!size)
 	return 0;
@@ -327,7 +327,7 @@ switch(lng)
 return 0;
 }
 
-UINT TimePoint::ToStringFull(TIMEPOINT const& tp, LPSTR str, UINT size, LanguageCode lng)
+UINT TimePoint::ToStringFull(TIME_POINT const& tp, LPSTR str, UINT size, LanguageCode lng)
 {
 if(!str||!size)
 	return 0;
@@ -375,7 +375,7 @@ switch(lng)
 return 0;
 }
 
-UINT TimePoint::ToStringTime(TIMEPOINT const& tp, LPSTR str, UINT size, LanguageCode lng)
+UINT TimePoint::ToStringTime(TIME_POINT const& tp, LPSTR str, UINT size, LanguageCode lng)
 {
 UINT hour=tp.Hour;
 UINT min=tp.Minute;

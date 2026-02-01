@@ -45,7 +45,7 @@ return s_Current;
 // Common
 //========
 
-BOOL Clock::GetTime(TIMEPOINT* time)
+BOOL Clock::GetTime(TIME_POINT* time)
 {
 if(s_Now.Year==0)
 	{
@@ -53,18 +53,18 @@ if(s_Now.Year==0)
 	MemoryHelper::Copy(time, &ticks, sizeof(UINT64));
 	return false;
 	}
-MemoryHelper::Copy(time, &s_Now, sizeof(TIMEPOINT));
+MemoryHelper::Copy(time, &s_Now, sizeof(TIME_POINT));
 return true;
 }
 
-TIMEPOINT const& Clock::Now()
+TIME_POINT const& Clock::Now()
 {
 if(s_Now.Year==0)
 	GetTime(&s_Now);
 return s_Now;
 }
 
-VOID Clock::SetTime(TIMEPOINT const& tp)
+VOID Clock::SetTime(TIME_POINT const& tp)
 {
 UINT64 now=SystemTimer::GetTickCount()/1000;
 UINT64 secs=TimePoint::ToSeconds(tp);
@@ -73,7 +73,7 @@ s_Before=s_Now;
 s_Now=tp;
 }
 
-BOOL Clock::Update(TIMEPOINT* tp)
+BOOL Clock::Update(TIME_POINT* tp)
 {
 if(s_Offset==0)
 	return false;
@@ -163,9 +163,9 @@ if(s_Offset)
 Second(this);
 }
 
-TIMEPOINT Clock::s_Before;
+TIME_POINT Clock::s_Before;
 Clock* Clock::s_Current=nullptr;
-TIMEPOINT Clock::s_Now;
+TIME_POINT Clock::s_Now;
 UINT64 Clock::s_Offset=0;
 
 }
