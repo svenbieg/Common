@@ -16,14 +16,7 @@ namespace Storage {
 // Access
 //========
 
-FILE_SIZE FileSize::Get()
-{
-FILE_SIZE value=m_Value;
-Reading(this, value);
-return value;
-}
-
-Handle<String> FileSize::ToString(FILE_SIZE size)
+Handle<String> FileSize::ToString(UINT64 size)
 {
 if(size>1024*1024*1024)
 	return String::Create("%.2f GB", ((FLOAT)(size/1024/1024))/1024.f);
@@ -37,9 +30,8 @@ return String::Create("%u Bytes", (UINT)size);
 SIZE_T FileSize::WriteToStream(OutputStream* Stream)
 {
 if(!Stream)
-	return sizeof(FILE_SIZE);
-FILE_SIZE value=Get();
-return Stream->Write(&value, sizeof(FILE_SIZE));
+	return sizeof(UINT64);
+return Stream->Write(&m_Value, sizeof(UINT64));
 }
 
 
@@ -50,15 +42,15 @@ return Stream->Write(&value, sizeof(FILE_SIZE));
 SIZE_T FileSize::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
-	return sizeof(FILE_SIZE);
-FILE_SIZE value;
-SIZE_T size=stream->Read(&value, sizeof(FILE_SIZE));
-if(size==sizeof(FILE_SIZE))
+	return 0;
+UINT64 value=0;
+SIZE_T size=stream->Read(&value, sizeof(UINT64));
+if(size==sizeof(UINT64))
 	Set(value, notify);
 return size;
 }
 
-BOOL FileSize::Set(FILE_SIZE value, BOOL notify)
+BOOL FileSize::Set(UINT64 value, BOOL notify)
 {
 if(m_Value==value)
 	return false;
