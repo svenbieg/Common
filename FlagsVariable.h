@@ -1,6 +1,6 @@
-//=========
-// Flags.h
-//=========
+//=================
+// FlagsVariable.h
+//=================
 
 #pragma once
 
@@ -13,15 +13,15 @@
 #include "Variable.h"
 
 
-//=======
-// Flags
-//=======
+//================
+// Flags-Variable
+//================
 
-class Flags: public Variable
+class FlagsVariable: public Variable
 {
 public:
 	// Con-/Destructors
-	static inline Handle<Flags> Create(Handle<String> Name) { return new Flags(Name); }
+	static inline Handle<FlagsVariable> Create(Handle<String> Name) { return new FlagsVariable(Name); }
 
 	// Access
 	inline BOOL Get(Handle<String> Flag) { return m_Flags.contains(Flag); }
@@ -38,7 +38,7 @@ public:
 
 private:
 	// Con-/Destructors
-	Flags(Handle<String> Name): m_Name(Name) {}
+	FlagsVariable(Handle<String> Name): m_Name(Name) {}
 
 	// Common
 	Collections::index<Handle<String>> m_Flags;

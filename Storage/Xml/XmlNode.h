@@ -11,7 +11,7 @@
 
 #include "Collections/list.hpp"
 #include "Collections/map.hpp"
-#include "Concurrency/Task.h"
+#include "Concurrency/Scheduler.h"
 #include "Storage/Streams/Stream.h"
 #include "Event.h"
 

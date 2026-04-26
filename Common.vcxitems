@@ -15,18 +15,18 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)BoolClass.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)CharClass.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoolVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CharVariable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Log.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\LogEntry.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collections\Settings.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Language.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Culture\Sentence.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Enum.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Flags.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FloatClass.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Guid.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)IntegerClasses.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnumVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FlagsVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FloatVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GuidVariable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IntegerVariable.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Bool.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Days.h" />
@@ -46,18 +46,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Variable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)BoolClass.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)CharClass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoolVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CharVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Log.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\LogEntry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collections\Settings.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Language.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Culture\Sentence.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Enum.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Flags.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FloatClass.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Guid.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)IntegerClasses.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnumVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FlagsVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FloatVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GuidVariable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IntegerVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\FileSize.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Virtual\Directory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Workspace.cpp" />

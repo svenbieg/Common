@@ -1,6 +1,6 @@
-//========
-// Guid.h
-//========
+//================
+// GuidVariable.h
+//================
 
 #pragma once
 
@@ -56,25 +56,25 @@ private:
 };
 
 
-//==========
-// Variable
-//==========
+//===============
+// GUID-Variable
+//===============
 
-class Guid: public Variable
+class GuidVariable: public Variable
 {
 public:
 	// Con-/Destructors
-	static Handle<Guid> Create();
-	static Handle<Guid> Create(GLOBAL_UNIQUE_ID const& Value);
-	static Handle<Guid> Create(DWORD Data1, WORD Data2, WORD Data3, QWORD Data4);
-	static Handle<Guid> Create(DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11);
-	static Handle<Guid> Create(Handle<String> Name);
-	static Handle<Guid> Create(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value);
-	static Handle<Guid> Create(Handle<String> Name, DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11);
+	static Handle<GuidVariable> Create();
+	static Handle<GuidVariable> Create(GLOBAL_UNIQUE_ID const& Value);
+	static Handle<GuidVariable> Create(DWORD Data1, WORD Data2, WORD Data3, QWORD Data4);
+	static Handle<GuidVariable> Create(DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11);
+	static Handle<GuidVariable> Create(Handle<String> Name);
+	static Handle<GuidVariable> Create(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value);
+	static Handle<GuidVariable> Create(Handle<String> Name, DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11);
 
 	// Access
 	GLOBAL_UNIQUE_ID Get();
-	static inline GLOBAL_UNIQUE_ID Get(Guid* Value) { return Value? Value->Get(): GLOBAL_UNIQUE_ID(); }
+	static inline GLOBAL_UNIQUE_ID Get(GuidVariable* Value) { return Value? Value->Get(): GLOBAL_UNIQUE_ID(); }
 	inline Handle<String> GetName()const override { return m_Name; }
 	Event<Variable, GLOBAL_UNIQUE_ID&> Reading;
 	inline Handle<String> ToString(LanguageCode Language=LanguageCode::None)override { return m_Value.ToString(); }
@@ -87,7 +87,7 @@ public:
 
 private:
 	// Con-/Destructors
-	Guid(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value): m_Name(Name), m_Value(Value) {}
+	GuidVariable(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value): m_Name(Name), m_Value(Value) {}
 
 	// Common
 	Handle<String> m_Name;
@@ -100,7 +100,7 @@ private:
 //========
 
 template <>
-class Handle<Guid>
+class Handle<GuidVariable>
 {
 public:
 	// Friends
@@ -109,45 +109,45 @@ public:
 	// Con-/Destructors
 	inline Handle(): m_Object(nullptr) {}
 	inline Handle(nullptr_t): m_Object(nullptr) {}
-	inline Handle(Guid* Copy) { Handle<Object>::Create(&m_Object, Copy); }
+	inline Handle(GuidVariable* Copy) { Handle<Object>::Create(&m_Object, Copy); }
 	inline Handle(Handle const& Copy): Handle(Copy.m_Object) {}
 	inline Handle(Handle&& Move)noexcept: m_Object(Move.m_Object) { Move.m_Object=nullptr; }
 	inline ~Handle() { Handle<Object>::Clear(&m_Object); }
 
 	// Access
 	inline operator BOOL()const { return m_Object&&m_Object->Get(); }
-	inline operator Guid*()const { return m_Object; }
-	inline Guid* operator->()const { return m_Object; }
+	inline operator GuidVariable*()const { return m_Object; }
+	inline GuidVariable* operator->()const { return m_Object; }
 
 	// Comparison
-	inline BOOL operator==(nullptr_t)const { return Guid::Get(m_Object)==nullptr; }
-	inline BOOL operator==(Guid* Value)const { return Guid::Get(m_Object)==Guid::Get(Value); }
-	inline BOOL operator==(GLOBAL_UNIQUE_ID const& Value)const { return Guid::Get(m_Object)==Value; }
-	inline BOOL operator!=(nullptr_t)const { return Guid::Get(m_Object)!=nullptr; }
-	inline BOOL operator!=(Guid* Value)const { return Guid::Get(m_Object)!=Guid::Get(Value); }
-	inline BOOL operator!=(GLOBAL_UNIQUE_ID const& Value)const { return Guid::Get(m_Object)!=Value; }
-	inline BOOL operator>(nullptr_t)const { return Guid::Get(m_Object)>nullptr; }
-	inline BOOL operator>(Guid* Value)const { return Guid::Get(m_Object)>Guid::Get(Value); }
-	inline BOOL operator>(GLOBAL_UNIQUE_ID const& Value)const { return Guid::Get(m_Object)>Value; }
+	inline BOOL operator==(nullptr_t)const { return GuidVariable::Get(m_Object)==nullptr; }
+	inline BOOL operator==(GuidVariable* Value)const { return GuidVariable::Get(m_Object)==GuidVariable::Get(Value); }
+	inline BOOL operator==(GLOBAL_UNIQUE_ID const& Value)const { return GuidVariable::Get(m_Object)==Value; }
+	inline BOOL operator!=(nullptr_t)const { return GuidVariable::Get(m_Object)!=nullptr; }
+	inline BOOL operator!=(GuidVariable* Value)const { return GuidVariable::Get(m_Object)!=GuidVariable::Get(Value); }
+	inline BOOL operator!=(GLOBAL_UNIQUE_ID const& Value)const { return GuidVariable::Get(m_Object)!=Value; }
+	inline BOOL operator>(nullptr_t)const { return GuidVariable::Get(m_Object)>nullptr; }
+	inline BOOL operator>(GuidVariable* Value)const { return GuidVariable::Get(m_Object)>GuidVariable::Get(Value); }
+	inline BOOL operator>(GLOBAL_UNIQUE_ID const& Value)const { return GuidVariable::Get(m_Object)>Value; }
 	inline BOOL operator>=(nullptr_t)const { return true; }
-	inline BOOL operator>=(Guid* Value)const { return Guid::Get(m_Object)>=Guid::Get(Value); }
-	inline BOOL operator>=(GLOBAL_UNIQUE_ID const& Value)const { return Guid::Get(m_Object)>=Value; }
+	inline BOOL operator>=(GuidVariable* Value)const { return GuidVariable::Get(m_Object)>=GuidVariable::Get(Value); }
+	inline BOOL operator>=(GLOBAL_UNIQUE_ID const& Value)const { return GuidVariable::Get(m_Object)>=Value; }
 	inline BOOL operator<(nullptr_t)const { return false; }
-	inline BOOL operator<(Guid* Value)const { return Guid::Get(m_Object)<Guid::Get(Value); }
-	inline BOOL operator<(GLOBAL_UNIQUE_ID const& Value)const { return Guid::Get(m_Object)<Value; }
-	inline BOOL operator<=(nullptr_t)const { return Guid::Get(m_Object)<=nullptr; }
-	inline BOOL operator<=(Guid* Value)const { return Guid::Get(m_Object)<=Guid::Get(Value); }
-	inline BOOL operator<=(GLOBAL_UNIQUE_ID const& Value)const { return Guid::Get(m_Object)<=Value; }
+	inline BOOL operator<(GuidVariable* Value)const { return GuidVariable::Get(m_Object)<GuidVariable::Get(Value); }
+	inline BOOL operator<(GLOBAL_UNIQUE_ID const& Value)const { return GuidVariable::Get(m_Object)<Value; }
+	inline BOOL operator<=(nullptr_t)const { return GuidVariable::Get(m_Object)<=nullptr; }
+	inline BOOL operator<=(GuidVariable* Value)const { return GuidVariable::Get(m_Object)<=GuidVariable::Get(Value); }
+	inline BOOL operator<=(GLOBAL_UNIQUE_ID const& Value)const { return GuidVariable::Get(m_Object)<=Value; }
 
 	// Assignment
 	inline Handle& operator=(nullptr_t) { Handle<Object>::Clear(&m_Object); return *this; }
-	inline Handle& operator=(Guid* Copy) { Handle<Object>::Set(&m_Object, Copy); return *this; }
+	inline Handle& operator=(GuidVariable* Copy) { Handle<Object>::Set(&m_Object, Copy); return *this; }
 	inline Handle& operator=(Handle const& Copy) { return operator=(Copy.m_Object); }
 	Handle& operator=(GLOBAL_UNIQUE_ID const& Value)
 		{
 		if(!m_Object)
 			{
-			auto value=Guid::Create(Value);
+			auto value=GuidVariable::Create(Value);
 			return operator=(value);
 			}
 		m_Object->Set(Value);
@@ -156,7 +156,7 @@ public:
 
 private:
 	// Common
-	Guid* m_Object;
+	GuidVariable* m_Object;
 };
 
 
@@ -164,42 +164,42 @@ private:
 // Con-/Destructors
 //==================
 
-inline Handle<Guid> Guid::Create()
+inline Handle<GuidVariable> GuidVariable::Create()
 {
 GLOBAL_UNIQUE_ID guid;
-return new Guid(nullptr, guid);
+return new GuidVariable(nullptr, guid);
 }
 
-inline Handle<Guid> Guid::Create(GLOBAL_UNIQUE_ID const& Value)
+inline Handle<GuidVariable> GuidVariable::Create(GLOBAL_UNIQUE_ID const& Value)
 {
-return new Guid(nullptr, Value);
+return new GuidVariable(nullptr, Value);
 }
 
-inline Handle<Guid> Guid::Create(DWORD Data1, WORD Data2, WORD Data3, QWORD Data4)
+inline Handle<GuidVariable> GuidVariable::Create(DWORD Data1, WORD Data2, WORD Data3, QWORD Data4)
 {
 GLOBAL_UNIQUE_ID guid(Data1, Data2, Data3, Data4);
-return new Guid(nullptr, guid);
+return new GuidVariable(nullptr, guid);
 }
 
-inline Handle<Guid> Guid::Create(DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11)
+inline Handle<GuidVariable> GuidVariable::Create(DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11)
 {
 GLOBAL_UNIQUE_ID guid(Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11);
-return new Guid(nullptr, guid);
+return new GuidVariable(nullptr, guid);
 }
 
-inline Handle<Guid> Guid::Create(Handle<String> Name)
+inline Handle<GuidVariable> GuidVariable::Create(Handle<String> Name)
 {
 GLOBAL_UNIQUE_ID guid;
-return new Guid(Name, guid);
+return new GuidVariable(Name, guid);
 }
 
-inline Handle<Guid> Guid::Create(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value)
+inline Handle<GuidVariable> GuidVariable::Create(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value)
 {
-return new Guid(Name, Value);
+return new GuidVariable(Name, Value);
 }
 
-inline Handle<Guid> Guid::Create(Handle<String> Name, DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11)
+inline Handle<GuidVariable> GuidVariable::Create(Handle<String> Name, DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11)
 {
 GLOBAL_UNIQUE_ID guid(Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11);
-return new Guid(Name, guid);
+return new GuidVariable(Name, guid);
 }

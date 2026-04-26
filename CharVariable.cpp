@@ -1,8 +1,8 @@
-//===============
-// CharClass.cpp
-//===============
+//==================
+// CharVariable.cpp
+//==================
 
-#include "CharClass.h"
+#include "CharVariable.h"
 
 
 //=======
@@ -19,14 +19,14 @@ using namespace Storage::Streams;
 // Access
 //========
 
-WCHAR Char::Get()
+WCHAR CharVariable::Get()
 {
 WCHAR value=m_Value;
 Reading(this, value);
 return value;
 }
 
-SIZE_T Char::WriteToStream(OutputStream* stream)
+SIZE_T CharVariable::WriteToStream(OutputStream* stream)
 {
 WCHAR value=Get();
 StreamWriter writer(stream);
@@ -38,7 +38,7 @@ return writer.PrintChar(value);
 // Modification
 //==============
 
-SIZE_T Char::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T CharVariable::ReadFromStream(InputStream* stream, BOOL notify)
 {
 StreamReader reader(stream);
 WCHAR value=0;
@@ -48,7 +48,7 @@ if(size)
 return size;
 }
 
-VOID Char::Set(WCHAR value, BOOL notify)
+VOID CharVariable::Set(WCHAR value, BOOL notify)
 {
 if(m_Value==value)
 	return;
@@ -62,12 +62,12 @@ if(notify)
 // Con-/Destructors Private
 //==========================
 
-Char::Char(Handle<String> name, CHAR value):
+CharVariable::CharVariable(Handle<String> name, CHAR value):
 m_Name(name),
 m_Value(CharHelper::ToUnicode(value))
 {}
 
-Char::Char(Handle<String> name, WCHAR value):
+CharVariable::CharVariable(Handle<String> name, WCHAR value):
 m_Name(name),
 m_Value(value)
 {}

@@ -1,8 +1,8 @@
-//==========
-// Guid.cpp
-//==========
+//==================
+// GuidVariable.cpp
+//==================
 
-#include "Guid.h"
+#include "GuidVariable.h"
 
 
 //========
@@ -67,14 +67,14 @@ return buf;
 // Access
 //========
 
-GLOBAL_UNIQUE_ID Guid::Get()
+GLOBAL_UNIQUE_ID GuidVariable::Get()
 {
 GLOBAL_UNIQUE_ID value=m_Value;
 Reading(this, value);
 return value;
 }
 
-SIZE_T Guid::WriteToStream(OutputStream* Stream)
+SIZE_T GuidVariable::WriteToStream(OutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(GLOBAL_UNIQUE_ID);
@@ -87,7 +87,7 @@ return Stream->Write(&value, sizeof(GLOBAL_UNIQUE_ID));
 // Modification
 //==============
 
-BOOL Guid::FromString(Handle<String> value, BOOL notify)
+BOOL GuidVariable::FromString(Handle<String> value, BOOL notify)
 {
 GLOBAL_UNIQUE_ID id;
 if(!GLOBAL_UNIQUE_ID::FromString(value, &id))
@@ -95,7 +95,7 @@ if(!GLOBAL_UNIQUE_ID::FromString(value, &id))
 return Set(id, notify);
 }
 
-SIZE_T Guid::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T GuidVariable::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(GLOBAL_UNIQUE_ID);
@@ -106,7 +106,7 @@ if(size==sizeof(GLOBAL_UNIQUE_ID))
 return size;
 }
 
-BOOL Guid::Set(GLOBAL_UNIQUE_ID const& value, BOOL notify)
+BOOL GuidVariable::Set(GLOBAL_UNIQUE_ID const& value, BOOL notify)
 {
 if(m_Value==value)
 	return false;

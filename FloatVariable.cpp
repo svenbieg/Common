@@ -1,22 +1,22 @@
-//================
-// FloatClass.cpp
-//================
+//===================
+// FloatVariable.cpp
+//===================
 
-#include "FloatClass.h"
+#include "FloatVariable.h"
 
 
 //========
 // Access
 //========
 
-FLOAT Float::Get()
+FLOAT FloatVariable::Get()
 {
 FLOAT value=m_Value;
 Reading(this, value);
 return value;
 }
 
-SIZE_T Float::WriteToStream(OutputStream* Stream)
+SIZE_T FloatVariable::WriteToStream(OutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(FLOAT);
@@ -29,7 +29,7 @@ return Stream->Write(&value, sizeof(FLOAT));
 // Modification
 //==============
 
-BOOL Float::FromString(Handle<String> value, BOOL notify)
+BOOL FloatVariable::FromString(Handle<String> value, BOOL notify)
 {
 if(!value)
 	return false;
@@ -39,7 +39,7 @@ if(value->Scan("%f", &f)!=1)
 return Set(f, notify);
 }
 
-SIZE_T Float::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T FloatVariable::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(FLOAT);
@@ -50,7 +50,7 @@ if(size==sizeof(FLOAT))
 return size;
 }
 
-BOOL Float::Set(FLOAT value, BOOL notify)
+BOOL FloatVariable::Set(FLOAT value, BOOL notify)
 {
 if(m_Value==value)
 	return false;

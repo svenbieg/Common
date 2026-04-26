@@ -1,8 +1,8 @@
 //===========
-// Flags.cpp
+// FlagsVariable.cpp
 //===========
 
-#include "Flags.h"
+#include "FlagsVariable.h"
 
 
 //=======
@@ -21,7 +21,7 @@ using namespace Storage::Streams;
 // Access
 //========
 
-Handle<String> Flags::ToString(LanguageCode lng)
+Handle<String> FlagsVariable::ToString(LanguageCode lng)
 {
 Handle<String> flags;
 UINT count=0;
@@ -36,7 +36,7 @@ for(auto it=m_Flags.cbegin(); it.has_current(); it.move_next())
 return flags;
 }
 
-SIZE_T Flags::WriteToStream(OutputStream* stream)
+SIZE_T FlagsVariable::WriteToStream(OutputStream* stream)
 {
 auto flags=ToString();
 SIZE_T size=0;
@@ -51,7 +51,7 @@ return size;
 // Modification
 //==============
 
-VOID Flags::Clear(BOOL notify)
+VOID FlagsVariable::Clear(BOOL notify)
 {
 if(m_Flags.get_count()==0)
 	return;
@@ -60,7 +60,7 @@ if(notify)
 	Changed(this);
 }
 
-VOID Flags::Clear(Handle<String> flag, BOOL notify)
+VOID FlagsVariable::Clear(Handle<String> flag, BOOL notify)
 {
 if(!m_Flags.contains(flag))
 	return;
@@ -69,7 +69,7 @@ if(notify)
 	Changed(this);
 }
 
-BOOL Flags::FromString(Handle<String> str, BOOL notify)
+BOOL FlagsVariable::FromString(Handle<String> str, BOOL notify)
 {
 if(!str)
 	return false;
@@ -107,7 +107,7 @@ if(changed&&notify)
 return true;
 }
 
-SIZE_T Flags::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T FlagsVariable::ReadFromStream(InputStream* stream, BOOL notify)
 {
 SIZE_T size=0;
 StreamReader reader(stream);
@@ -116,7 +116,7 @@ FromString(str, notify);
 return size;
 }
 
-VOID Flags::Set(Handle<String> flag, BOOL notify)
+VOID FlagsVariable::Set(Handle<String> flag, BOOL notify)
 {
 if(m_Flags.contains(flag))
 	return;

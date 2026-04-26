@@ -1,6 +1,6 @@
-//========
-// Enum.h
-//========
+//================
+// EnumVariable.h
+//================
 
 #pragma once
 
@@ -22,10 +22,10 @@ class EnumIterator;
 
 
 //======
-// Enum
+// EnumVariable
 //======
 
-class Enum: public Variable
+class EnumVariable: public Variable
 {
 public:
 	// Friends
@@ -35,7 +35,7 @@ public:
 	using Sentence=Culture::Sentence;
 
 	// Con-/Destructors
-	static Handle<Enum> Create(Handle<String> Name);
+	static Handle<EnumVariable> Create(Handle<String> Name);
 
 	// Access
 	Handle<EnumIterator> Begin();
@@ -52,7 +52,7 @@ public:
 
 private:
 	// Con-/Destructors
-	Enum(Handle<String> Name): m_Name(Name) {}
+	EnumVariable(Handle<String> Name): m_Name(Name) {}
 
 	// Common
 	Handle<String> m_Name;
@@ -61,12 +61,12 @@ private:
 };
 
 
-//=============
-// Enum-Handle
-//=============
+//========
+// Handle
+//========
 
 template <>
-class Handle<Enum>
+class Handle<EnumVariable>
 {
 public:
 	// Friends
@@ -79,20 +79,20 @@ public:
 	// Con-/Destructors
 	inline Handle(): m_Object(nullptr) {}
 	inline Handle(nullptr_t): m_Object(nullptr) {}
-	inline Handle(Enum* Copy) { Handle<Object>::Create(&m_Object, Copy); }
+	inline Handle(EnumVariable* Copy) { Handle<Object>::Create(&m_Object, Copy); }
 	inline Handle(Handle const& Copy): Handle(Copy.m_Object) {}
 	inline Handle(Handle&& Move)noexcept: m_Object(Move.m_Object) { Move.m_Object=nullptr; }
 	inline ~Handle() { Handle<Object>::Clear(&m_Object); }
 
 	// Access
 	inline operator BOOL()const { return m_Object!=nullptr; }
-	inline operator Enum*()const { return m_Object; }
-	inline Enum* operator->()const { return m_Object; }
+	inline operator EnumVariable*()const { return m_Object; }
+	inline EnumVariable* operator->()const { return m_Object; }
 	inline operator Handle<Sentence>()const { return m_Object? m_Object->Get(): nullptr; }
 
 	// Comparison
 	inline BOOL operator==(nullptr_t)const { return m_Object==nullptr; }
-	inline BOOL operator==(Enum* Object)const { return m_Object==Object; }
+	inline BOOL operator==(EnumVariable* Object)const { return m_Object==Object; }
 	inline BOOL operator==(Handle const& Compare)const { return m_Object==Compare.m_Object; }
 	inline BOOL operator==(STRING const* Value)const
 		{
@@ -106,13 +106,13 @@ public:
 		return value->Compare(Value)==0;
 		}
 	inline BOOL operator!=(nullptr_t)const { return !operator==(nullptr); }
-	inline BOOL operator!=(Enum* Object)const { return !operator==(Object); }
+	inline BOOL operator!=(EnumVariable* Object)const { return !operator==(Object); }
 	inline BOOL operator!=(Handle const& Compare)const { return !operator==(Compare.m_Object); }
 	inline BOOL operator!=(STRING const* Value)const { return !operator==(Value); }
 
 	// Assignment
 	inline Handle& operator=(nullptr_t) { Handle<Object>::Clear(&m_Object); return *this; }
-	inline Handle& operator=(Enum* Copy) { Handle<Object>::Set(&m_Object, Copy); return *this; }
+	inline Handle& operator=(EnumVariable* Copy) { Handle<Object>::Set(&m_Object, Copy); return *this; }
 	inline Handle& operator=(Handle const& Copy) { return operator=(Copy.m_Object); }
 	inline Handle& operator=(STRING const* Value)
 		{
@@ -123,7 +123,7 @@ public:
 
 private:
 	// Common
-	Enum* m_Object;
+	EnumVariable* m_Object;
 };
 
 
@@ -131,9 +131,9 @@ private:
 // Con-/Destructors
 //==================
 
-inline Handle<Enum> Enum::Create(Handle<String> Name)
+inline Handle<EnumVariable> EnumVariable::Create(Handle<String> Name)
 {
-return new Enum(Name);
+return new EnumVariable(Name);
 }
 
 
@@ -148,7 +148,7 @@ public:
 	using Sentence=Culture::Sentence;
 
 	// Friend
-	friend Enum;
+	friend EnumVariable;
 
 	// Access
 	Handle<Sentence> GetCurrent()const { return m_It.get_current(); }
@@ -164,9 +164,9 @@ public:
 
 private:
 	// Con-/Destructors
-	EnumIterator(Handle<Enum> Enum): m_Enum(Enum), m_It(&Enum->m_Values) {}
+	EnumIterator(Handle<EnumVariable> EnumVariable): m_Enum(EnumVariable), m_It(&EnumVariable->m_Values) {}
 
 	// Common
-	Handle<Enum> m_Enum;
+	Handle<EnumVariable> m_Enum;
 	typename Collections::index<Handle<Sentence>>::iterator m_It;
 };

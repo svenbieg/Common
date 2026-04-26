@@ -1,8 +1,8 @@
-//==========
-// Enum.cpp
-//==========
+//==================
+// EnumVariable.cpp
+//==================
 
-#include "Enum.h"
+#include "EnumVariable.h"
 
 
 //=======
@@ -20,20 +20,20 @@ using namespace Storage::Streams;
 // Access
 //========
 
-Handle<EnumIterator> Enum::Begin()
+Handle<EnumIterator> EnumVariable::Begin()
 {
 auto it=new EnumIterator(this);
 it->Begin();
 return it;
 }
 
-Handle<String> Enum::ToString(LanguageCode lng)
+Handle<String> EnumVariable::ToString(LanguageCode lng)
 {
 assert(m_Value);
 return m_Value->Begin(lng);
 }
 
-SIZE_T Enum::WriteToStream(OutputStream* stream)
+SIZE_T EnumVariable::WriteToStream(OutputStream* stream)
 {
 SIZE_T size=0;
 StreamWriter writer(stream);
@@ -47,14 +47,14 @@ return size;
 // Modification
 //==============
 
-VOID Enum::Add(Handle<Sentence> value)
+VOID EnumVariable::Add(Handle<Sentence> value)
 {
 m_Values.set(value);
 if(!m_Value)
 	m_Value=value;
 }
 
-BOOL Enum::FromString(Handle<String> str, BOOL notify)
+BOOL EnumVariable::FromString(Handle<String> str, BOOL notify)
 {
 if(!str)
 	return false;
@@ -67,7 +67,7 @@ for(auto it=m_Values.cbegin(); it.has_current(); it.move_next())
 return false;
 }
 
-SIZE_T Enum::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T EnumVariable::ReadFromStream(InputStream* stream, BOOL notify)
 {
 SIZE_T size=0;
 StreamReader reader(stream);
@@ -76,7 +76,7 @@ FromString(str, notify);
 return size;
 }
 
-BOOL Enum::Set(Handle<Sentence> value, BOOL notify)
+BOOL EnumVariable::Set(Handle<Sentence> value, BOOL notify)
 {
 if(m_Value==value)
 	return true;

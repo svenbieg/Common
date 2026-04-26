@@ -9,7 +9,7 @@
 // Using
 //=======
 
-#include "Concurrency/DispatchedQueue.h"
+#include "Concurrency/Scheduler.h"
 #include "Devices/Timers/SystemTimer.h"
 
 using namespace Concurrency;

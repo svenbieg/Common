@@ -1,6 +1,6 @@
-//=============
-// CharClass.h
-//=============
+//================
+// CharVariable.h
+//================
 
 #pragma once
 
@@ -13,16 +13,16 @@
 #include "Variable.h"
 
 
-//======
-// Char
-//======
+//===============
+// Char-Variable
+//===============
 
-class Char: public Variable
+class CharVariable: public Variable
 {
 public:
 	// Con-/Destructors
-	static inline Handle<Char> Create(Handle<String> Name, CHAR Value) { return new Char(Name, Value); }
-	static inline Handle<Char> Create(Handle<String> Name, WCHAR Value) { return new Char(Name, Value); }
+	static inline Handle<CharVariable> Create(Handle<String> Name, CHAR Value) { return new CharVariable(Name, Value); }
+	static inline Handle<CharVariable> Create(Handle<String> Name, WCHAR Value) { return new CharVariable(Name, Value); }
 
 	// Access
 	WCHAR Get();
@@ -43,8 +43,8 @@ public:
 
 private:
 	// Con-/Destructors
-	Char(Handle<String> Name, CHAR Value);
-	Char(Handle<String> Name, WCHAR Value);
+	CharVariable(Handle<String> Name, CHAR Value);
+	CharVariable(Handle<String> Name, WCHAR Value);
 
 	// Common
 	Handle<String> m_Name;

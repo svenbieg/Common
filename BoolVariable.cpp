@@ -1,8 +1,8 @@
-//===============
-// BoolClass.cpp
-//===============
+//==================
+// BoolVariable.cpp
+//==================
 
-#include "BoolClass.h"
+#include "BoolVariable.h"
 
 
 //=======
@@ -18,14 +18,14 @@ using namespace Resources::Strings;
 // Access
 //========
 
-BOOL Bool::Get()
+BOOL BoolVariable::Get()
 {
 BOOL value=m_Value;
 Reading(this, value);
 return value;
 }
 
-SIZE_T Bool::WriteToStream(OutputStream* Stream)
+SIZE_T BoolVariable::WriteToStream(OutputStream* Stream)
 {
 if(!Stream)
 	return sizeof(BOOL);
@@ -38,7 +38,7 @@ return Stream->Write(&value, sizeof(BOOL));
 // Modification
 //==============
 
-BOOL Bool::FromString(Handle<String> str, BOOL notify)
+BOOL BoolVariable::FromString(Handle<String> str, BOOL notify)
 {
 BOOL value;
 if(FromString(str, &value))
@@ -49,7 +49,7 @@ if(FromString(str, &value))
 return false;
 }
 
-BOOL Bool::FromString(Handle<String> str, BOOL* value_ptr)
+BOOL BoolVariable::FromString(Handle<String> str, BOOL* value_ptr)
 {
 if(!str)
 	return false;
@@ -74,7 +74,7 @@ for(UINT u=0; u<TypeHelper::ArraySize(STR_FALSE); u++)
 return false;
 }
 
-SIZE_T Bool::ReadFromStream(InputStream* stream, BOOL notify)
+SIZE_T BoolVariable::ReadFromStream(InputStream* stream, BOOL notify)
 {
 if(!stream)
 	return sizeof(BOOL);
@@ -85,7 +85,7 @@ if(size==sizeof(BOOL))
 return size;
 }
 
-BOOL Bool::Set(BOOL value, BOOL notify)
+BOOL BoolVariable::Set(BOOL value, BOOL notify)
 {
 if(m_Value==value)
 	return false;
