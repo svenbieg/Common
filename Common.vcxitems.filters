@@ -22,9 +22,6 @@
     <Filter Include="Timing">
       <UniqueIdentifier>{e2f3aad0-adf0-45ef-88e2-794eda0c8caa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Storage\Xml">
-      <UniqueIdentifier>{5ef60b0e-9a45-42e7-a7ee-5b7b424ec5e6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{5cc82cdf-214b-4244-8b26-0a3a8dfb403a}</UniqueIdentifier>
     </Filter>
@@ -90,9 +87,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Strings\Bool.h">
       <Filter>Resources\Strings</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.h">
-      <Filter>Storage\Xml</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources\Icons\Icon.h">
       <Filter>Resources\Icons</Filter>
     </ClInclude>
@@ -144,9 +138,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FloatVariable.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IntegerVariable.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Storage\Xml\XmlNode.cpp">
-      <Filter>Storage\Xml</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CharVariable.cpp" />
   </ItemGroup>
 </Project>
