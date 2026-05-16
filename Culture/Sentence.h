@@ -12,7 +12,6 @@
 #include "Collections/map.hpp"
 #include "Culture/Language.h"
 #include "Resources/Strings/String.h"
-#include "Storage/Streams/Stream.h"
 #include "StringClass.h"
 
 
