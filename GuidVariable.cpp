@@ -37,7 +37,7 @@ BOOL GLOBAL_UNIQUE_ID::FromString(Handle<String> value, GLOBAL_UNIQUE_ID* id_ptr
 if(!value)
 	return false;
 auto str=value->Begin();
-if(CharHelper::Compare(str[0], '{'))
+if(CharHelper::Equal(str[0], '{'))
 	str++;
 UINT data1;
 UINT data2;

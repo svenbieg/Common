@@ -84,7 +84,7 @@ for(auto it=list->Begin(); it->HasCurrent(); it->MoveNext())
 	{
 	auto flag=it->GetCurrent();
 	auto p=flag->Begin();
-	if(CharHelper::Compare(p[0], '!')==0)
+	if(CharHelper::Equal(p[0], '!'))
 		{
 		auto clear=String::Create(&p[1]);
 		if(m_Flags.contains(clear))

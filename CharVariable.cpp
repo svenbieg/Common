@@ -64,7 +64,7 @@ if(notify)
 
 CharVariable::CharVariable(Handle<String> name, CHAR value):
 m_Name(name),
-m_Value(CharHelper::ToUnicode(value))
+m_Value(CharHelper::ToCharW(value))
 {}
 
 CharVariable::CharVariable(Handle<String> name, WCHAR value):

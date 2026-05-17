@@ -61,7 +61,7 @@ auto days=STRS_DAYS;
 for(UINT u=0; u<7; u++)
 	{
 	auto day=Sentence::Translate(days[u], LNG::EN);
-	if(StringHelper::Compare(str, day, 3, false)==0)
+	if(StringHelper::Compare(str, day, 3, CompareMode::IgnoreCase)==0)
 		return u+1;
 	}
 return 0;
@@ -82,7 +82,7 @@ auto months=STRS_MONTHS;
 for(UINT u=0; u<12; u++)
 	{
 	auto month=Sentence::Translate(months[u], LNG::EN);
-	if(StringHelper::Compare(str, month, 3, false)==0)
+	if(StringHelper::Compare(str, month, 3, CompareMode::IgnoreCase)==0)
 		return u+1;
 	}
 return 0;

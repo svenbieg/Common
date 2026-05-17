@@ -38,7 +38,7 @@ INT Sentence::Compare(LPCSTR value)const
 for(auto it: m_Strings)
 	{
 	auto str=it.get_value();
-	if(StringHelper::Compare(str->Begin(), value, 0, false)==0)
+	if(StringHelper::Compare(str, value, 0, CompareMode::IgnoreCase)==0)
 		return 0;
 	}
 return -1;
@@ -49,7 +49,7 @@ INT Sentence::Compare(LPCWSTR value)const
 for(auto it: m_Strings)
 	{
 	auto str=it.get_value();
-	if(StringHelper::Compare(str->Begin(), value, 0, false)==0)
+	if(StringHelper::Compare(str, value, 0, CompareMode::IgnoreCase)==0)
 		return 0;
 	}
 return -1;
@@ -66,7 +66,7 @@ while(str->Language!=LanguageCode::None)
 	auto str1=m_Strings.get(str->Language);
 	if(!str1)
 		continue;
-	if(StringHelper::Compare(str1->Begin(), str->Value, 0, false)==0)
+	if(StringHelper::Compare(str1, str->Value, 0, CompareMode::IgnoreCase)==0)
 		return 0;
 	}
 return -1;
@@ -84,7 +84,7 @@ if(!value)
 	return -1;
 while(str->Language!=LanguageCode::None)
 	{
-	if(StringHelper::Compare(str->Value, value, 0, false)==0)
+	if(StringHelper::Compare(str->Value, value, 0, CompareMode::IgnoreCase)==0)
 		return 0;
 	str++;
 	}
@@ -104,7 +104,7 @@ for(auto it: sentence1->m_Strings)
 	if(!str2)
 		continue;
 	auto str1=it.get_value();
-	return StringHelper::Compare(str1->Begin(), str2->Begin(), 0, false);
+	return StringHelper::Compare(str1, str2, 0, CompareMode::IgnoreCase);
 	}
 return -1;
 }

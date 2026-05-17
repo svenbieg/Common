@@ -31,7 +31,7 @@ template <class _char_t> LanguageCode LanguageFromString(_char_t const* lng)
 auto str=STR_LANGUAGE_CODE;
 while(str->Language!=LanguageCode::None)
 	{
-	if(StringHelper::Compare(str->Value, lng, 2, false)==0)
+	if(StringHelper::Compare(str->Value, lng, 2, CompareMode::IgnoreCase)==0)
 		return str->Language;
 	str++;
 	}
