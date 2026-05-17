@@ -49,7 +49,7 @@ public:
 	INT Compare(LPCSTR Value)const;
 	INT Compare(LPCWSTR Value)const;
 	INT Compare(STRING const* Value)const;
-	static INT Compare(STRING const* String, LPCTSTR Value);
+	static INT Compare(STRING const* String, LPCSTR Value);
 	static INT Compare(Sentence const* Sentence1, Sentence const* Sentence2);
 	SIZE_T ReadFromStream(InputStream* Stream);
 	Handle<String> ToString(LanguageCode Language=LanguageCode::None)override;

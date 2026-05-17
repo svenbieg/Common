@@ -72,7 +72,7 @@ while(str->Language!=LanguageCode::None)
 return -1;
 }
 
-INT Sentence::Compare(STRING const* str, LPCTSTR value)
+INT Sentence::Compare(STRING const* str, LPCSTR value)
 {
 if(!str)
 	{
