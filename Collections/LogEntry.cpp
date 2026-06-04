@@ -62,7 +62,10 @@ Message(msg),
 Time(time)
 {
 if(!Time)
-	Time=Clock::Now();
+	{
+	auto clock=Clock::Create();
+	Time=clock->Now();
+	}
 }
 
 }

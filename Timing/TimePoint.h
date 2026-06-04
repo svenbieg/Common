@@ -88,6 +88,7 @@ class TimePoint: public Variable
 {
 public:
 	// Con-/Destructors
+	~TimePoint();
 	static Handle<TimePoint> Create();
 	static Handle<TimePoint> Create(TIME_POINT const& TimePoint);
 	static Handle<TimePoint> Create(Handle<String> Name);
@@ -122,8 +123,7 @@ private:
 	TimePoint(Handle<String> Name, TIME_POINT const& Value);
 
 	// Common
-	UINT64 GetTickCount(TIME_POINT const& TimePoint);
-	VOID OnClockSecond(Clock* Clock);
+	VOID OnClockSecond();
 	static UINT ToStringDateTime(TIME_POINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
 	static UINT ToStringFull(TIME_POINT const& TimePoint, LPSTR Buffer, UINT Size, LanguageCode Language);
 	static UINT ToStringRelative(UINT64 TickCount, LPSTR Buffer, UINT Size, TimeFormat Format, LanguageCode Language);

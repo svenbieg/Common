@@ -26,9 +26,12 @@ namespace Timing {
 class Timer: public Object
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	~Timer();
-	static inline Handle<Timer> Create() { return new Timer(); }
+	static inline Handle<Timer> Create() { return Object::Create<Timer>(); }
 
 	// Common
 	BOOL IsStarted()const { return m_Interval!=0; }
@@ -43,7 +46,6 @@ private:
 	Timer();
 
 	// Common
-	VOID DoTrigger();
 	VOID OnClockTick();
 	INT m_Interval;
 	SIZE_T m_NextTime;

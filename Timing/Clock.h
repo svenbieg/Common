@@ -9,8 +9,9 @@
 // Using
 //=======
 
-#include "Devices/Timers/SystemTimer.h"
+#include "Concurrency/Task.h"
 #include "Timing/TimePoint.h"
+#include "Global.h"
 
 
 //===========
@@ -24,37 +25,37 @@ namespace Timing {
 // Clock
 //=======
 
-class Clock: public Object
+class Clock: public Global<Clock>
 {
 public:
 	// Using
-	using SystemTimer=Devices::Timers::SystemTimer;
+	using Task=Concurrency::Task;
+
+	// Friends
+	friend Object;
 
 	// Con-/Destructors
-	~Clock();
-	static Handle<Clock> Get();
+	static inline Handle<Clock> Create() { return Global::Create(); }
 
 	// Common
 	Event<Clock> Day;
-	static inline UINT GetDayOfMonth() { return s_Now.DayOfMonth; }
-	static inline UINT GetDayOfWeek() { return s_Now.DayOfWeek; }
-	static inline UINT GetDayOfYear() { return TimePoint::GetDayOfYear(s_Now); }
-	static inline UINT GetHour() { return s_Now.Hour; }
-	static inline UINT GetMinute() { return s_Now.Minute; }
-	static inline UINT GetMonth() { return s_Now.Month; }
-	static inline UINT GetSecond() { return s_Now.Second; }
-	static inline BOOL GetTime(TIME_POINT* Time);
-	static inline UINT GetYear() { return s_Now.Year; }
+	inline UINT GetDayOfMonth() { return m_Now.DayOfMonth; }
+	inline UINT GetDayOfWeek() { return m_Now.DayOfWeek; }
+	inline UINT GetDayOfYear() { return TimePoint::GetDayOfYear(m_Now); }
+	inline UINT GetHour() { return m_Now.Hour; }
+	inline UINT GetMinute() { return m_Now.Minute; }
+	inline UINT GetMonth() { return m_Now.Month; }
+	inline UINT GetSecond() { return m_Now.Second; }
+	inline UINT GetYear() { return m_Now.Year; }
 	Event<Clock> Hour;
-	static inline BOOL IsSet() { return s_Now.Year!=0; }
+	inline BOOL IsSet() { return m_Now.Year!=0; }
 	Event<Clock> Minute;
 	Event<Clock> Month;
-	static TIME_POINT const& Now();
+	TIME_POINT const& Now();
 	Event<Clock> Second;
-	VOID SetTime(TIME_POINT const& Time);
 	Event<Clock> Tick;
 	Event<Clock> TimeSet;
-	static BOOL Update(TIME_POINT* TimePoint);
+	BOOL Update(TIME_POINT* TimePoint);
 	Event<Clock> Year;
 
 private:
@@ -62,20 +63,17 @@ private:
 	Clock();
 
 	// Common
-	VOID DoTick();
+	VOID ClockTask();
 	VOID OnDay();
 	VOID OnHour();
 	VOID OnMinute();
 	VOID OnMonth();
 	VOID OnSecond();
-	VOID OnSystemTimerTick();
 	VOID OnTick();
-	UINT m_Ticks;
-	Handle<SystemTimer> m_Timer;
-	static TIME_POINT s_Before;
-	static Clock* s_Current;
-	static TIME_POINT s_Now;
-	static UINT64 s_Offset;
+	TIME_POINT m_Before;
+	Handle<Task> m_ClockTask;
+	TIME_POINT m_Now;
+	Handle<Clock> m_This;
 };
 
 }

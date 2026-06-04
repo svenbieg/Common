@@ -44,6 +44,17 @@ const UINT SecondsPerHour=3'600;
 const UINT SecondsPerMinute=60;
 
 
+//==================
+// Con-/Destructors
+//==================
+
+TimePoint::~TimePoint()
+{
+if(m_Clock)
+	m_Clock->Second.Remove(this);
+}
+
+
 //========
 // Access
 //========
@@ -170,7 +181,7 @@ return stream->Write(&tp, sizeof(TIME_POINT));
 
 VOID TimePoint::Clear(BOOL notify)
 {
-TIME_POINT tp={ 0 };
+TIME_POINT tp(0);
 Set(tp, notify);
 }
 
@@ -252,8 +263,7 @@ return true;
 
 SIZE_T TimePoint::ReadFromStream(InputStream* stream, BOOL notify)
 {
-if(!stream)
-	return sizeof(TIME_POINT);
+assert(stream);
 TIME_POINT value;
 SIZE_T size=stream->Read(&value, sizeof(TIME_POINT));
 if(size==sizeof(TIME_POINT))
@@ -266,6 +276,7 @@ BOOL TimePoint::Set(TIME_POINT const& value, BOOL notify)
 if(m_Value==value)
 	return false;
 m_Value=value;
+UpdateClock();
 if(notify)
 	Changed(this);
 return true;
@@ -280,7 +291,11 @@ TimePoint::TimePoint(Handle<String> name, TIME_POINT const& value):
 m_Name(name),
 m_Value(value)
 {
-UpdateClock();
+if(m_Value.Year==0)
+	{
+	m_Clock=Clock::Create();
+	m_Clock->Second.Add(this, &TimePoint::OnClockSecond);
+	}
 }
 
 
@@ -288,20 +303,12 @@ UpdateClock();
 // Common Private
 //================
 
-UINT64 TimePoint::GetTickCount(TIME_POINT const& tp)
+VOID TimePoint::OnClockSecond()
 {
-if(tp.Year!=0)
-	return 0;
-UINT64 ticks=0;
-MemoryHelper::Copy(&ticks, &tp, sizeof(UINT64));
-return ticks;
-}
-
-VOID TimePoint::OnClockSecond(Clock* clock)
-{
-if(!Clock::Update(&m_Value))
+if(!m_Clock->Update(&m_Value))
 	return;
-clock->Second.Remove(this);
+m_Clock->Second.Remove(this);
+m_Clock=nullptr;
 Changed(this);
 }
 
@@ -384,20 +391,21 @@ return StringHelper::Print(str, size, "%02u:%02u", hour, min);
 
 VOID TimePoint::UpdateClock()
 {
-UINT64 ticks=GetTickCount(m_Value);
-if(ticks==0)
+if(m_Value.Year)
 	{
 	if(m_Clock)
 		{
 		m_Clock->Second.Remove(this);
 		m_Clock=nullptr;
 		}
-	return;
 	}
-if(!m_Clock)
+else
 	{
-	m_Clock=Clock::Get();
-	m_Clock->Second.Add(this, &TimePoint::OnClockSecond);
+	if(!m_Clock)
+		{
+		m_Clock=Clock::Create();
+		m_Clock->Second.Add(this, &TimePoint::OnClockSecond);
+		}
 	}
 }
 
