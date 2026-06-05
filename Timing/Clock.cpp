@@ -54,12 +54,6 @@ return true;
 Clock::Clock():
 m_This(this)
 {
-Day.Add(this, &Clock::OnDay);
-Hour.Add(this, &Clock::OnHour);
-Minute.Add(this, &Clock::OnMinute);
-Month.Add(this, &Clock::OnMonth);
-Second.Add(this, &Clock::OnSecond);
-Tick.Add(this, &Clock::OnTick);
 m_ClockTask=Task::Create(this, &Clock::ClockTask);
 }
 
@@ -78,42 +72,28 @@ while(!task->Cancelled)
 	}
 }
 
-VOID Clock::OnDay()
-{
-if(m_Before.Month!=m_Now.Month)
-	Month(this);
-}
-
-VOID Clock::OnHour()
-{
-if(m_Before.DayOfMonth!=m_Now.DayOfMonth)
-	Day(this);
-}
-
-VOID Clock::OnMinute()
-{
-if(m_Before.Hour!=m_Now.Hour)
-	Hour(this);
-}
-
-VOID Clock::OnMonth()
-{
-if(m_Before.Year!=m_Now.Year)
-	Year(this);
-}
-
-VOID Clock::OnSecond()
-{
-if(m_Before.Minute!=m_Now.Minute)
-	Minute(this);
-}
-
-VOID Clock::OnTick()
+VOID Clock::DoTick()
 {
 m_Before=m_Now;
 ClockHelper::GetTime(&m_Now);
-if(m_Before.Second!=m_Now.Second)
-	Second(this);
+if(m_Before.Second==m_Now.Second)
+	return;
+Second(this);
+if(m_Before.Minute==m_Now.Minute)
+	return;
+Minute(this);
+if(m_Before.Hour==m_Now.Hour)
+	return;
+Hour(this);
+if(m_Before.DayOfMonth==m_Now.DayOfMonth)
+	return;
+Day(this);
+if(m_Before.Month==m_Now.Month)
+	return;
+Month(this);
+if(m_Before.Year==m_Now.Year)
+	return;
+Year(this);
 }
 
 }

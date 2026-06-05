@@ -64,12 +64,7 @@ private:
 
 	// Common
 	VOID ClockTask();
-	VOID OnDay();
-	VOID OnHour();
-	VOID OnMinute();
-	VOID OnMonth();
-	VOID OnSecond();
-	VOID OnTick();
+	VOID DoTick();
 	TIME_POINT m_Before;
 	Handle<Task> m_ClockTask;
 	TIME_POINT m_Now;
