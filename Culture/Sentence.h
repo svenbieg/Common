@@ -132,6 +132,11 @@ public:
 		auto value=Sentence::Create(Value);
 		return operator=(value);
 		}
+	inline Handle& operator=(Handle<String> const& Value)
+		{
+		auto value=Sentence::Create(Value);
+		return operator=(value);
+		}
 
 private:
 	// Common

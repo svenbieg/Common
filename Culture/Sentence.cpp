@@ -95,8 +95,6 @@ INT Sentence::Compare(Sentence const* sentence1, Sentence const* sentence2)
 {
 if(!sentence1||!sentence2)
 	return -1;
-if(sentence1->m_String==sentence2->m_String)
-	return 0;
 for(auto it: sentence1->m_Strings)
 	{
 	auto lng=it.get_key();
