@@ -27,8 +27,7 @@ namespace Timing {
 
 Timer::~Timer()
 {
-if(m_Clock)
-	m_Clock->Tick.Remove(this);
+Stop();
 }
 
 
@@ -46,33 +45,35 @@ m_NextTime=SystemTimer::GetTickCount()+interval;
 
 VOID Timer::StartOnce(UINT ms)
 {
-if(m_Clock)
-	Stop();
 m_Interval=ms;
 m_NextTime=SystemTimer::GetTickCount()+ms;
-m_Clock=Clock::Create();
-m_Clock->Tick.Add(this, &Timer::OnClockTick);
+if(!m_Clock)
+	{
+	m_Clock=Clock::Create();
+	m_Clock->Tick.Add(this, &Timer::OnClockTick);
+	}
 }
 
 VOID Timer::StartPeriodic(UINT ms)
 {
-if(m_Clock)
-	Stop();
 m_Interval=-(INT)ms;
 m_NextTime=SystemTimer::GetTickCount()+ms;
-m_Clock=Clock::Create();
-m_Clock->Tick.Add(this, &Timer::OnClockTick);
+if(!m_Clock)
+	{
+	m_Clock=Clock::Create();
+	m_Clock->Tick.Add(this, &Timer::OnClockTick);
+	}
 }
 
 VOID Timer::Stop()
 {
+m_Interval=0;
+m_NextTime=0;
 if(m_Clock)
 	{
 	m_Clock->Tick.Remove(this);
 	m_Clock=nullptr;
 	}
-m_Interval=0;
-m_NextTime=0;
 }
 
 
