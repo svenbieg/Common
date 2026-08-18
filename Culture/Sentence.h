@@ -52,7 +52,7 @@ public:
 	static INT Compare(STRING const* String, LPCSTR Value);
 	static INT Compare(Sentence const* Sentence1, Sentence const* Sentence2);
 	SIZE_T ReadFromStream(InputStream* Stream);
-	Handle<String> ToString(LanguageCode Language=LanguageCode::None)override;
+	Handle<String> ToString(LanguageCode Language=LanguageCode::None);
 	static LPCWSTR Translate(STRING const* Value, LanguageCode Language=Language::Current);
 	SIZE_T WriteToStream(OutputStream* Stream)const;
 
