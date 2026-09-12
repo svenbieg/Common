@@ -19,6 +19,9 @@
 class BoolVariable: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	static Handle<BoolVariable> Create(BOOL Value=false);
 	static Handle<BoolVariable> Create(Handle<String> Name, BOOL Value=false);
@@ -106,10 +109,10 @@ private:
 
 inline Handle<BoolVariable> BoolVariable::Create(BOOL Value)
 {
-return new BoolVariable(nullptr, Value);
+return Object::Create<BoolVariable>(nullptr, Value);
 }
 
 inline Handle<BoolVariable> BoolVariable::Create(Handle<String> Name, BOOL Value)
 {
-return new BoolVariable(Name, Value);
+return Object::Create<BoolVariable>(Name, Value);
 }

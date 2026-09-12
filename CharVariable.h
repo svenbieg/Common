@@ -20,9 +20,12 @@
 class CharVariable: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
-	static inline Handle<CharVariable> Create(Handle<String> Name, CHAR Value) { return new CharVariable(Name, Value); }
-	static inline Handle<CharVariable> Create(Handle<String> Name, WCHAR Value) { return new CharVariable(Name, Value); }
+	static inline Handle<CharVariable> Create(Handle<String> Name, CHAR Value) { return Object::Create<CharVariable>(Name, Value); }
+	static inline Handle<CharVariable> Create(Handle<String> Name, WCHAR Value) { return Object::Create<CharVariable>(Name, Value); }
 
 	// Access
 	WCHAR Get();

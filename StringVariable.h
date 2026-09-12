@@ -22,6 +22,7 @@ class StringVariable: public Variable
 public:
 	// Friends
 	friend class Handle<StringVariable>;
+	friend Object;
 
 	// Con-/Destructors
 	static Handle<StringVariable> Create(Handle<String> Name, Handle<String> Value=nullptr);
@@ -131,5 +132,5 @@ private:
 
 inline Handle<StringVariable> StringVariable::Create(Handle<String> Name, Handle<String> Value)
 {
-return new StringVariable(Name, Value);
+return StringVariable::Create(Name, Value);
 }

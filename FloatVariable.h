@@ -19,6 +19,9 @@
 class FloatVariable: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	static Handle<FloatVariable> Create(FLOAT Value=0.f);
 	static Handle<FloatVariable> Create(Handle<String> Name, FLOAT Value=0.f);
@@ -117,10 +120,10 @@ private:
 
 inline Handle<FloatVariable> FloatVariable::Create(FLOAT Value)
 {
-return new FloatVariable(nullptr, Value);
+return Object::Create<FloatVariable>(nullptr, Value);
 }
 
 inline Handle<FloatVariable> FloatVariable::Create(Handle<String> Name, FLOAT Value)
 {
-return new FloatVariable(Name, Value);
+return Object::Create<FloatVariable>(Name, Value);
 }

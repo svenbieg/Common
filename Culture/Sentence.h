@@ -31,6 +31,7 @@ class Sentence: public Object
 public:
 	// Friends
 	friend class Handle<Sentence>;
+	friend Object;
 
 	// Using
 	using InputStream=Storage::Streams::InputStream;
@@ -152,27 +153,27 @@ namespace Culture {
 
 inline Handle<Sentence> Sentence::Create()
 {
-return new Sentence();
+return Object::Create<Sentence>();
 }
 
 inline Handle<Sentence> Sentence::Create(LPCSTR Value)
 {
-return new Sentence(Value);
+return Object::Create<Sentence>(Value);
 }
 
 inline Handle<Sentence> Sentence::Create(LPCWSTR Value)
 {
-return new Sentence(Value);
+return Object::Create<Sentence>(Value);
 }
 
 inline Handle<Sentence> Sentence::Create(STRING const* Value)
 {
-return new Sentence(Value);
+return Object::Create<Sentence>(Value);
 }
 
 inline Handle<Sentence> Sentence::Create(Handle<String> const& Value)
 {
-return new Sentence(Value);
+return Object::Create<Sentence>(Value);
 }
 
 }

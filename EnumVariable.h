@@ -30,6 +30,7 @@ class EnumVariable: public Variable
 public:
 	// Friends
 	friend EnumIterator;
+	friend Object;
 
 	// Using
 	using Sentence=Culture::Sentence;
@@ -133,7 +134,7 @@ private:
 
 inline Handle<EnumVariable> EnumVariable::Create(Handle<String> Name)
 {
-return new EnumVariable(Name);
+return Object::Create<EnumVariable>(Name);
 }
 
 
@@ -147,8 +148,9 @@ public:
 	// Using
 	using Sentence=Culture::Sentence;
 
-	// Friend
+	// Friends
 	friend EnumVariable;
+	friend Object;
 
 	// Access
 	Handle<Sentence> GetCurrent()const { return m_It.get_current(); }
@@ -164,7 +166,8 @@ public:
 
 private:
 	// Con-/Destructors
-	EnumIterator(Handle<EnumVariable> EnumVariable): m_Enum(EnumVariable), m_It(&EnumVariable->m_Values) {}
+	EnumIterator(EnumVariable* Enum): m_Enum(Enum), m_It(&Enum->m_Values) {}
+	static inline Handle<EnumIterator> Create(EnumVariable* Enum) { return Object::Create<EnumIterator>(Enum); }
 
 	// Common
 	Handle<EnumVariable> m_Enum;

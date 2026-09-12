@@ -27,13 +27,15 @@ namespace Storage {
 
 class Workspace: public Directory
 {
-private:
+public:
 	// Using
 	using DirectoryList=Collections::List<Handle<Directory>>;
 
-public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
-	static inline Handle<Workspace> Create(Handle<String> Name) { return new Workspace(Name); }
+	static inline Handle<Workspace> Create(Handle<String> Name) { return Workspace::Create(Name); }
 
 	// Common
 	BOOL Add(Handle<String> Name, Handle<Object> Object);

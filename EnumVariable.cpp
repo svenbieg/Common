@@ -22,7 +22,7 @@ using namespace Storage::Streams;
 
 Handle<EnumIterator> EnumVariable::Begin()
 {
-auto it=new EnumIterator(this);
+auto it=EnumIterator::Create(this);
 it->Begin();
 return it;
 }

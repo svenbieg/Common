@@ -87,6 +87,9 @@ Time
 class TimePoint: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	~TimePoint();
 	static Handle<TimePoint> Create();
@@ -215,23 +218,23 @@ namespace Timing {
 inline Handle<TimePoint> TimePoint::Create()
 {
 TIME_POINT tp={ 0 };
-return new TimePoint(nullptr, tp);
+return Object::Create<TimePoint>(nullptr, tp);
 }
 
 inline Handle<TimePoint> TimePoint::Create(TIME_POINT const& Value)
 {
-return new TimePoint(nullptr, Value);
+return Object::Create<TimePoint>(nullptr, Value);
 }
 
 inline Handle<TimePoint> TimePoint::Create(Handle<String> Name)
 {
 TIME_POINT tp={ 0 };
-return new TimePoint(Name, tp);
+return Object::Create<TimePoint>(Name, tp);
 }
 
 inline Handle<TimePoint> TimePoint::Create(Handle<String> Name, TIME_POINT const& Value)
 {
-return new TimePoint(Name, Value);
+return Object::Create<TimePoint>(Name, Value);
 }
 
 }

@@ -40,7 +40,7 @@ SIZE_T size=0;
 StreamReader reader(stream);
 while(1)
 	{
-	Handle<LogEntry> entry=new LogEntry();
+	auto entry=LogEntry::Create();
 	SIZE_T entry_size=entry->ReadFromStream(stream);
 	if(!entry_size)
 		break;
@@ -52,7 +52,7 @@ return size;
 
 VOID Log::Write(Handle<TimePoint> time, Handle<Sentence> msg)
 {
-Handle<LogEntry> entry=new LogEntry(time, msg);
+auto entry=LogEntry::Create(time, msg);
 if(!entry->Time->IsAbsolute())
 	entry->Time->Changed.Add(this, &Log::OnTimePointChanged);
 Entries->Append(entry);

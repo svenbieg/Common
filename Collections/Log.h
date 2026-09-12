@@ -34,8 +34,11 @@ public:
 	using Sentence=Culture::Sentence;
 	using TimePoint=Timing::TimePoint;
 
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
-	static inline Handle<Log> Create() { return new Log(); }
+	static inline Handle<Log> Create() { return Object::Create<Log>(); }
 
 	// Common
 	VOID Clear();

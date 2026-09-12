@@ -26,9 +26,12 @@ namespace Timing {
 class TimeSpan: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
-	static inline Handle<TimeSpan> Create(UINT Seconds=0) { return new TimeSpan(nullptr, Seconds); }
-	static inline Handle<TimeSpan> Create(Handle<String> Name, UINT Seconds=0) { return new TimeSpan(Name, Seconds); }
+	static inline Handle<TimeSpan> Create(UINT Seconds=0) { return Object::Create<TimeSpan>(nullptr, Seconds); }
+	static inline Handle<TimeSpan> Create(Handle<String> Name, UINT Seconds=0) { return Object::Create<TimeSpan>(Name, Seconds); }
 
 	// Access
 	UINT Get();

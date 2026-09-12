@@ -27,10 +27,13 @@ namespace Culture {
 class Language: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	static inline Handle<Language> Create(Handle<String> Name=nullptr, LanguageCode Value=LanguageCode::None)
 		{
-		return new Language(Name, Value);
+		return Object::Create<Language>(Name, Value);
 		}
 
 	// Common

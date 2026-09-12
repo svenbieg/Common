@@ -19,6 +19,9 @@
 class IntegerVariable: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	static Handle<IntegerVariable> Create(INT Value=0);
 	static Handle<IntegerVariable> Create(Handle<String> Name, INT Value=0);
@@ -118,10 +121,10 @@ private:
 
 inline Handle<IntegerVariable> IntegerVariable::Create(INT Value)
 {
-return new IntegerVariable(nullptr, Value);
+return Object::Create<IntegerVariable>(nullptr, Value);
 }
 
 inline Handle<IntegerVariable> IntegerVariable::Create(Handle<String> Name, INT Value)
 {
-return new IntegerVariable(Name, Value);
+return Object::Create<IntegerVariable>(Name, Value);
 }

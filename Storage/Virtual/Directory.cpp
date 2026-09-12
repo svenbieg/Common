@@ -69,7 +69,7 @@ if(m_Map.clear())
 
 Handle<Storage::DirectoryIterator> Directory::Begin()
 {
-return new DirectoryIterator(this);
+return DirectoryIterator::Create(this);
 }
 
 Handle<Storage::File> Directory::CreateFile(Handle<String> path, FileCreateMode create, FileAccessMode access, FileShareMode share)
@@ -115,7 +115,7 @@ m_Parent(parent)
 // Iterator
 //==========
 
-DirectoryIterator::DirectoryIterator(Handle<Directory> dir):
+DirectoryIterator::DirectoryIterator(Directory* dir):
 m_Directory(dir),
 m_It(&dir->m_Map)
 {

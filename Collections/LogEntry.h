@@ -36,6 +36,7 @@ class LogEntry: public Object
 public:
 	// Friends
 	friend Log;
+	friend Object;
 
 	// Using
 	using InputStream=Storage::Streams::InputStream;
@@ -53,6 +54,14 @@ private:
 	// Con-/Destructors
 	LogEntry();
 	LogEntry(Handle<TimePoint> Time, Handle<Sentence> Message);
+	static inline Handle<LogEntry> Create()
+		{
+		return Object::Create<LogEntry>();
+		}
+	static inline Handle<LogEntry> Create(Handle<TimePoint> Time, Handle<Sentence> Message)
+		{
+		return Object::Create<LogEntry>(Time, Message);
+		}
 };
 
 }

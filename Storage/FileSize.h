@@ -26,14 +26,17 @@ namespace Storage {
 class FileSize: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	static inline Handle<FileSize> Create(UINT64 Value=0)
 		{
-		return new FileSize(nullptr, Value);
+		return Object::Create<FileSize>(nullptr, Value);
 		}
 	static inline Handle<FileSize> Create(Handle<String> Name, UINT64 Value=0)
 		{
-		return new FileSize(Name, Value);
+		return Object::Create<FileSize>(Name, Value);
 		}
 
 	// Access

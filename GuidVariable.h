@@ -63,6 +63,9 @@ private:
 class GuidVariable: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	static Handle<GuidVariable> Create();
 	static Handle<GuidVariable> Create(GLOBAL_UNIQUE_ID const& Value);
@@ -167,39 +170,39 @@ private:
 inline Handle<GuidVariable> GuidVariable::Create()
 {
 GLOBAL_UNIQUE_ID guid;
-return new GuidVariable(nullptr, guid);
+return GuidVariable::Create(nullptr, guid);
 }
 
 inline Handle<GuidVariable> GuidVariable::Create(GLOBAL_UNIQUE_ID const& Value)
 {
-return new GuidVariable(nullptr, Value);
+return GuidVariable::Create(nullptr, Value);
 }
 
 inline Handle<GuidVariable> GuidVariable::Create(DWORD Data1, WORD Data2, WORD Data3, QWORD Data4)
 {
 GLOBAL_UNIQUE_ID guid(Data1, Data2, Data3, Data4);
-return new GuidVariable(nullptr, guid);
+return GuidVariable::Create(nullptr, guid);
 }
 
 inline Handle<GuidVariable> GuidVariable::Create(DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11)
 {
 GLOBAL_UNIQUE_ID guid(Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11);
-return new GuidVariable(nullptr, guid);
+return GuidVariable::Create(nullptr, guid);
 }
 
 inline Handle<GuidVariable> GuidVariable::Create(Handle<String> Name)
 {
 GLOBAL_UNIQUE_ID guid;
-return new GuidVariable(Name, guid);
+return GuidVariable::Create(Name, guid);
 }
 
 inline Handle<GuidVariable> GuidVariable::Create(Handle<String> Name, GLOBAL_UNIQUE_ID const& Value)
 {
-return new GuidVariable(Name, Value);
+return GuidVariable::Create(Name, Value);
 }
 
 inline Handle<GuidVariable> GuidVariable::Create(Handle<String> Name, DWORD Data1, WORD Data2, WORD Data3, BYTE Data4, BYTE Data5, BYTE Data6, BYTE Data7, BYTE Data8, BYTE Data9, BYTE Data10, BYTE Data11)
 {
 GLOBAL_UNIQUE_ID guid(Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9, Data10, Data11);
-return new GuidVariable(Name, guid);
+return GuidVariable::Create(Name, guid);
 }

@@ -33,9 +33,12 @@ public:
 	using OutputStream=Storage::Streams::OutputStream;
 	using SettingsMap=Collections::map<Handle<String>, Handle<Variable>>;
 
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
 	~Settings();
-	static inline Handle<Settings> Create() { return new Settings(); }
+	static inline Handle<Settings> Create() { return Object::Create<Settings>(); }
 
 	// Common
 	BOOL Add(Handle<Variable> Variable);

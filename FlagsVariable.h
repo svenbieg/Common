@@ -20,8 +20,11 @@
 class FlagsVariable: public Variable
 {
 public:
+	// Friends
+	friend Object;
+
 	// Con-/Destructors
-	static inline Handle<FlagsVariable> Create(Handle<String> Name) { return new FlagsVariable(Name); }
+	static inline Handle<FlagsVariable> Create(Handle<String> Name) { return Object::Create<FlagsVariable>(Name); }
 
 	// Access
 	inline BOOL Get(Handle<String> Flag) { return m_Flags.contains(Flag); }
